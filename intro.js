@@ -1,15 +1,15 @@
 /* Abertura: as carinhas da Laís montam o topo do site, como cursores num arquivo do Figma.
-   Só na primeira visita, no máximo ~2,6 s, pulável, e nunca com "reduzir movimento". */
+   Toda vez que alguém abre o site (não repete ao navegar entre páginas na mesma aba), no máximo ~2,6 s, pulável, e nunca com "reduzir movimento". */
 (function(){
   const q=new URLSearchParams(location.search);
   let replay=false;try{replay=sessionStorage.getItem('lm-replay')==='1';sessionStorage.removeItem('lm-replay')}catch(e){}
   const force=q.has('intro')||window.LM_INTRO_FORCE===true||replay;
-  let seen=false;try{seen=localStorage.getItem('lm-intro')==='1'}catch(e){}
+  let seen=false;try{seen=sessionStorage.getItem('lm-intro')==='1'}catch(e){}
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hero=document.querySelector('.hero');
   window.LM_BUILD=force||(!seen&&!reduce);
   if(!hero||(!force&&(seen||reduce))||location.hash&&location.hash!=='#topo'&&!force)return;
-  try{localStorage.setItem('lm-intro','1')}catch(e){}
+  try{sessionStorage.setItem('lm-intro','1')}catch(e){}
 
   const L=(document.documentElement.lang||'pt').slice(0,2);
   const T={pt:['Entender','Desenhar','Validar','Entregar','Pular'],en:['Understand','Design','Validate','Ship','Skip'],es:['Entender','Diseñar','Validar','Entregar','Saltar']}[L]||[];

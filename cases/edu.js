@@ -1,0 +1,193 @@
+/* EduMentor AI · full case study page (EN / PT / ES) */
+const EDU_IMG = 'img/edu/';
+const EDU = {
+en: {
+ title: 'EduMentor AI',
+ sub: 'Designing an AI tutor students can trust: an adaptive study app for Brazil’s national university exam.',
+ proto: 'Try the live prototype', protoNote: 'Works on your phone like a real app.',
+ meta: [['Role','Product owner · UX/UI · UX writing · research'],['Team','6 people: UX/UI (me), 2 QA, 2 developers, 1 DevOps'],['Context','QA Coders Academy bootcamp, 2026'],['Platform','Mobile-first, plus web']],
+ stats: [['4.8M','ENEM candidates in 2025, a record'],['5','core flows, from first access to essay feedback'],['v1.3','prototype version going into user testing']],
+ h: {context:'The problem', role:'My role', bench:'Benchmarking', users:'Users and scope', flows:'Core flows', ai:'Designing the AI tutor', ds:'Design system “Educates”', a11y:'Accessibility', writing:'UX writing', valid:'Validation and iteration', metrics:'How I’d measure success', learn:'What I learned'},
+ context: ['The ENEM is Brazil’s national high-school exam and the main way into university. Its 2025 edition had 4,811,338 confirmed candidates.', 'Most of them prepare alone, on a phone, in short gaps of time. Prep courses are expensive, essay feedback is scarce, and when they get stuck on a question there is nobody to ask.'],
+ challenge: 'How might we give every ENEM student a personal study path and a tutor available 24/7, in a way that builds real learning and trust, not dependence on AI?',
+ source: 'Source: Inep, via CNN Brasil',
+ role: ['Product owner: scoped the MVP to the ENEM only, prioritized the backlog and wrote acceptance criteria with QA.','Research: benchmarked six products and mapped three student profiles.','UX/UI: journeys and screens for mobile and web, plus a navigable prototype.','Design system: built “Educates”, with components, states, usage and accessibility rules.','UX writing: defined the voice and wrote the microcopy.'],
+ benchIntro: 'Tools either explain well or plan well, and AI essay grading rarely tells students how far to trust the grade.',
+ bench: [['Khanmigo','AI tutor that guides with questions','Explain another way, don’t solve for the student'],['Duolingo Max','Explains why an answer is right or wrong; users can flag the AI','Every answer has a why; students can question the AI'],['Redação Descomplica','AI essay grading by ENEM competency','Feedback on the 5 competencies, one clear priority'],['MEC Enem app','Free mock exams and AI essay grading from the government','“Free” is the baseline: win on experience and trust'],['Duolingo','Short sessions and visible progress','Weekly goal and sessions that fit a phone']],
+ benchCols: ['Product','What it does well','What we took'],
+ profiles: [['The focused student','Knows the course they want; studies to a weekly goal.'],['The returning student','Away from studying for a while; needs to restart without feeling judged.'],['The self-taught student','No prep course; needs someone to ask and real past questions.']],
+ scope: 'The idea started broad: ENEM, other entrance exams and civil-service exams. As product owner I cut the MVP to the ENEM only: one content base, one essay rubric, and a team of six able to finish and test it.',
+ flows: ['First access: target course, placement quiz or subjects, weekly goal, home with the path','Study of the day: path, topic, questions with feedback','Mock exam: area and year, timed questions, result and answer key','Essay: theme of the week, timed writing, feedback on 5 competencies','Profile: change course, goal or subjects'],
+ capOnboarding: 'First access: target course, how to start, placement quiz, home.',
+ aiIntro: 'Mentorina is the heart of the product, and its riskiest part: a tutor that is wrong with confidence teaches the wrong thing. So the question wasn’t “what can the AI do?” but “when should a student trust it?”',
+ ai: [['One home','A floating button on study screens: help is always in the same place.'],['Teaches, doesn’t solve','Explains another way, quizzes and gives memory tips.'],['Honest about limits','Says it can be wrong and points back to the material.'],['Grades are estimates','“AI estimate, not the official ENEM score”, with how it’s calculated and a way to contest.'],['Always labelled','The sparkle icon appears only on AI features.']],
+ capAi: 'Mentorina’s chat, a wrong answer explained, and the essay feedback with how the grade is calculated.',
+ dsIntro: 'A small system so two developers could build consistently, with a guide to onboard the whole team.',
+ dsType: ['Bricolage Grotesque · titles','Nunito Sans · body and chat','JetBrains Mono · timers and data'],
+ dsRules: ['Everything rounded, echoing the speech-bubble logo','Base-4 spacing, from 4 to 64 px','One primary button per screen','Motion of 150–300 ms, off with reduced motion'],
+ a11y: ['Text contrast of at least 4.5:1, in light and dark','Touch targets of at least 44 × 44 px','Colour is never the only cue: right and wrong carry an icon and a word','Visible 3 px focus ring on every interactive element'],
+ writingIntro: 'Voice: encouraging and direct, like an older student cheering for you.',
+ writingCols: ['Moment','Generic','EduMentor'],
+ writing: [['Wrong answer','“Incorrect.”','“Not this time. The 1st-degree function has x to the power of 1: f(x) = ax + b.”'],['Placement quiz','“Skip question”','“I don’t know yet”'],['Empty field','“Required field.”','“Pick a course to continue.”'],['AI grade','“Score: 760”','“Estimated score: 760 / 1000. AI estimate, not the official ENEM score.”']],
+ validIntro: 'QA engineers reviewed every flow against the acceptance criteria, and a profile-based simulation of the test tasks generated hypotheses. Five changes went into v1.1:',
+ pairs: [['04-comecar','Explain what happens on each path, and reassure returning students'],['12-simulados','Questions now follow the chosen area, in three clear steps'],['17-feedback','A tip per competency, how the grade is calculated, and a way to contest']],
+ iterH: 'v1.3: a quality pass before testing with students',
+ iterIntro: 'Before putting the prototype in front of students, I went through it screen by screen. A test should measure the product, not prototype glitches, so every button needed to lead somewhere and every screen needed to feel like a real app.',
+ iter: [['Mentorina where help happens','The real mascot replaced the placeholders: on onboarding, in the chat next to every message, and on the floating button, now also on mock-exam questions.'],['Less on each screen','The home shows only the next task, the week and one tip. The tab bar was resized to platform proportions.'],['Feedback while practising','Mock-exam questions now show right and wrong straight away, with the explanation, and students move on only after answering.'],['Time under the student’s control','The essay timer starts only when the student presses play, and can be paused.'],['Writing in parts','Introduction, two body paragraphs and conclusion each get their own box and a tip from Mentorina.'],['Dark mode','Follows the phone’s setting or a manual switch, available from the login screen on. Body text keeps at least 4.5:1 contrast in both themes.'],['No dead ends','Password recovery, support, module screens, profile editing and account deletion were built, so no task stops halfway.'],['Ready to hand off','The prototype runs in iPhone and Android frames, and the same screens were rebuilt as editable Figma frames with light and dark colour variables.']],
+ capIter: 'v1.3: instant feedback on a mock-exam question, the essay written in parts with the timer under the student’s control, and the home in dark mode.',
+ before: 'v1.0', after: 'v1.3',
+ inProgress: 'A moderated usability study with ENEM students is in progress (5 tasks, task success, SEQ and SUS). Results and the next iteration will be published here.',
+ metricsCols: ['Metric','Why it matters'],
+ metrics: [['Students who meet their weekly goal (north star)','Whether the app builds a real study habit'],['Onboarding completion','Whether first access is clear'],['Week-4 retention','Whether the habit sticks'],['Mentorina chats followed by a correct answer','Whether the AI helps, not just chats'],['Contested essay grades','Where the AI grading needs work']],
+ learn: [['Designing AI is designing trust','The hardest decisions were about how Mentorina says what she can’t do.'],['Scope is a design decision','Cutting to the ENEM gave us a product we could finish and test.'],['Writing is interface','“I don’t know yet” did more for returning students than any visual change.']]
+},
+pt: {
+ title: 'EduMentor AI',
+ sub: 'Desenhando uma tutora de IA em que o aluno pode confiar: um app de estudos adaptativo para o ENEM.',
+ proto: 'Testar o protótipo', protoNote: 'No celular, funciona como um app de verdade.',
+ meta: [['Papel','Product owner · UX/UI · UX writing · pesquisa'],['Time','6 pessoas: UX/UI (eu), 2 QA, 2 devs, 1 DevOps'],['Contexto','Bootcamp QA Coders Academy, 2026'],['Plataforma','Mobile-first, com versão web']],
+ stats: [['4,8 mi','inscritos no ENEM 2025, um recorde'],['5','fluxos principais, do primeiro acesso ao feedback da redação'],['v1.3','versão do protótipo que vai para o teste com usuários']],
+ h: {context:'O problema', role:'Meu papel', bench:'Benchmarking', users:'Usuários e escopo', flows:'Fluxos principais', ai:'Desenhando a tutora de IA', ds:'Design system “Educates”', a11y:'Acessibilidade', writing:'UX writing', valid:'Validação e iteração', metrics:'Como eu mediria o sucesso', learn:'O que aprendi'},
+ context: ['O ENEM é a principal porta de entrada para a universidade no Brasil. A edição de 2025 teve 4.811.338 inscritos confirmados.', 'A maioria estuda sozinha, pelo celular, em intervalos curtos. Cursinho é caro, correção de redação é rara e, quando trava numa questão, não tem a quem perguntar.'],
+ challenge: 'Como dar a cada vestibulando uma trilha de estudos pessoal e uma tutora disponível 24h, construindo aprendizado e confiança de verdade, e não dependência da IA?',
+ source: 'Fonte: Inep, via CNN Brasil',
+ role: ['Product owner: defini o MVP só para o ENEM, priorizei o backlog e escrevi os critérios de aceite com as QAs.','Pesquisa: benchmarking de seis produtos e três perfis de aluno.','UX/UI: jornadas e telas para mobile e web, e um protótipo navegável.','Design system: criei o “Educates”, com componentes, estados, regras de uso e acessibilidade.','UX writing: defini o tom de voz e escrevi a microcopy.'],
+ benchIntro: 'As ferramentas ou explicam bem, ou planejam bem. E a correção de redação por IA raramente diz ao aluno o quanto confiar na nota.',
+ bench: [['Khanmigo','Tutor de IA que guia com perguntas','Explicar de outro jeito, sem resolver pelo aluno'],['Duolingo Max','Explica por que a resposta está certa ou errada; o aluno pode sinalizar a IA','Toda resposta com o porquê; o aluno pode questionar a IA'],['Redação Descomplica','Correção de redação por IA nas competências do ENEM','Feedback nas 5 competências, com uma prioridade clara'],['App MEC Enem','Simulados e correção por IA gratuitos, do governo','“Grátis” é o mínimo: ganhar em experiência e confiança'],['Duolingo','Sessões curtas e progresso visível','Meta semanal e sessões que cabem no celular']],
+ benchCols: ['Produto','O que faz bem','O que levamos'],
+ profiles: [['O vestibulando focado','Sabe o curso que quer e estuda com meta semanal.'],['Quem está retomando','Ficou um tempo sem estudar; precisa recomeçar sem se sentir julgado.'],['Quem estuda sozinho','Sem cursinho; precisa de alguém para perguntar e de questões reais.']],
+ scope: 'A ideia começou ampla: ENEM, vestibulares e concursos. Como product owner, cortei o MVP para só o ENEM: uma base de conteúdo, um critério de redação e um time de seis capaz de terminar e testar.',
+ flows: ['Primeiro acesso: curso-alvo, nivelamento ou matérias, meta semanal, home com a trilha','Estudo do dia: trilha, tópico, questões com feedback','Simulado: área e ano, questões com cronômetro, resultado e gabarito','Redação: tema da semana, texto com cronômetro, feedback nas 5 competências','Perfil: trocar curso, meta ou matérias'],
+ capOnboarding: 'Primeiro acesso: curso-alvo, como começar, nivelamento e home.',
+ aiIntro: 'A Mentorina é o coração do produto e a parte mais arriscada: uma tutora que erra com confiança ensina errado. Então a pergunta não era “o que a IA consegue fazer?”, mas “quando o aluno deve confiar nela?”',
+ ai: [['Um lugar só','Um botão flutuante nas telas de estudo: a ajuda está sempre no mesmo lugar.'],['Ensina, não resolve','Explica de outro jeito, cria exercícios e dá dicas de memorização.'],['Honesta sobre os limites','Avisa que pode errar e indica o material da trilha.'],['Nota é estimativa','“Estimativa da IA, não é a nota oficial do ENEM”, com o cálculo explicado e opção de contestar.'],['Sempre identificada','O ícone de faísca aparece só em funções de IA.']],
+ capAi: 'O chat da Mentorina, um erro explicado e o feedback da redação com o cálculo da nota.',
+ dsIntro: 'Um sistema enxuto para dois devs construírem com consistência, com um guia para o time todo.',
+ dsType: ['Bricolage Grotesque · títulos','Nunito Sans · corpo e chat','JetBrains Mono · cronômetros e dados'],
+ dsRules: ['Tudo arredondado, como o balão do logo','Espaçamento base 4, de 4 a 64 px','Um botão principal por tela','Motion de 150 a 300 ms, desligado no movimento reduzido'],
+ a11y: ['Contraste de texto de no mínimo 4,5:1, nos temas claro e escuro','Área de toque de no mínimo 44 × 44 px','Cor nunca sozinha: acerto e erro com ícone e palavra','Anel de foco de 3 px em todo elemento interativo'],
+ writingIntro: 'Tom de voz: encorajador e direto, como um veterano torcendo por você.',
+ writingCols: ['Momento','Genérico','EduMentor'],
+ writing: [['Resposta errada','“Incorreto.”','“Não foi dessa vez. A função do 1º grau tem x elevado a 1: f(x) = ax + b.”'],['Nivelamento','“Pular questão”','“Ainda não sei”'],['Campo vazio','“Campo obrigatório.”','“Escolha um curso para continuar.”'],['Nota da IA','“Nota: 760”','“Nota estimada: 760 / 1000. Estimativa da IA, não é a nota oficial do ENEM.”']],
+ validIntro: 'As QAs revisaram cada fluxo contra os critérios de aceite, e uma simulação com perfis gerou hipóteses para o teste. Cinco mudanças entraram na v1.1:',
+ pairs: [['04-comecar','Explicar o que acontece em cada caminho e acolher quem está retomando'],['12-simulados','As questões agora seguem a área escolhida, em três passos claros'],['17-feedback','Dica por competência, cálculo da nota e forma de contestar']],
+ iterH: 'v1.3: uma revisão de qualidade antes do teste com alunos',
+ iterIntro: 'Antes de colocar o protótipo na frente dos alunos, revisei tela por tela. Um teste deve medir o produto, não falhas do protótipo; por isso todo botão precisava levar a algum lugar e toda tela precisava parecer um app de verdade.',
+ iter: [['Mentorina onde a ajuda acontece','A mascote de verdade substituiu os rascunhos: no primeiro acesso, no chat ao lado de cada mensagem e no botão flutuante, que agora também aparece nas questões do simulado.'],['Menos coisa por tela','A home mostra só a próxima tarefa, a semana e uma dica. O menu inferior ganhou proporções de app nativo.'],['Feedback enquanto treina','No simulado, a resposta certa e a errada aparecem na hora, com a explicação, e o aluno só avança depois de responder.'],['O tempo nas mãos do aluno','O cronômetro da redação só começa quando o aluno aperta o play, e pode ser pausado.'],['Escrever por partes','Introdução, dois desenvolvimentos e conclusão têm cada um sua caixa e uma dica da Mentorina.'],['Modo noturno','Segue o modo do celular ou um botão manual, disponível desde o login. O texto mantém contraste de pelo menos 4,5:1 nos dois temas.'],['Sem becos sem saída','Recuperação de senha, suporte, telas de módulo, edição do perfil e encerramento de conta foram construídos, para nenhuma tarefa parar no meio.'],['Pronto para o handoff','O protótipo roda em moldura de iPhone e de Android, e as mesmas telas foram refeitas como frames editáveis no Figma, com variáveis de cor para claro e escuro.']],
+ capIter: 'v1.3: feedback na hora numa questão do simulado, a redação escrita por partes com o cronômetro nas mãos do aluno e a home no modo noturno.',
+ before: 'v1.0', after: 'v1.3',
+ inProgress: 'Um teste de usabilidade moderado com vestibulandos está em andamento (5 tarefas, sucesso por tarefa, SEQ e SUS). Os resultados e a próxima iteração serão publicados aqui.',
+ metricsCols: ['Métrica','Por que importa'],
+ metrics: [['Alunos que cumprem a meta semanal (north star)','Se o app cria um hábito real de estudo'],['Conclusão do primeiro acesso','Se o começo é claro'],['Retenção na semana 4','Se o hábito se mantém'],['Conversas com a Mentorina seguidas de acerto','Se a IA ajuda, e não só conversa'],['Notas de redação contestadas','Onde a correção por IA precisa melhorar']],
+ learn: [['Desenhar IA é desenhar confiança','As decisões mais difíceis foram sobre como a Mentorina diz o que não sabe.'],['Escopo é decisão de design','Focar no ENEM deu um produto que conseguimos terminar e testar.'],['Texto é interface','“Ainda não sei” fez mais por quem está retomando do que qualquer mudança visual.']]
+},
+es: {
+ title: 'EduMentor AI',
+ sub: 'Diseñando una tutora de IA en la que el estudiante pueda confiar: una app de estudio adaptativa para el examen nacional de Brasil.',
+ proto: 'Probar el prototipo', protoNote: 'En el móvil funciona como una app real.',
+ meta: [['Rol','Product owner · UX/UI · UX writing · investigación'],['Equipo','6 personas: UX/UI (yo), 2 QA, 2 desarrolladores, 1 DevOps'],['Contexto','Bootcamp QA Coders Academy, 2026'],['Plataforma','Mobile-first, con versión web']],
+ stats: [['4,8 M','inscritos en el ENEM 2025, un récord'],['5','flujos principales, del primer acceso al feedback de la redacción'],['v1.3','versión del prototipo que va a la prueba con usuarios']],
+ h: {context:'El problema', role:'Mi rol', bench:'Benchmarking', users:'Usuarios y alcance', flows:'Flujos principales', ai:'Diseñando la tutora de IA', ds:'Design system “Educates”', a11y:'Accesibilidad', writing:'UX writing', valid:'Validación e iteración', metrics:'Cómo mediría el éxito', learn:'Lo que aprendí'},
+ context: ['El ENEM es la principal puerta de entrada a la universidad en Brasil. La edición de 2025 tuvo 4.811.338 inscritos confirmados.', 'La mayoría estudia sola, desde el móvil, en ratos cortos. Las academias son caras, la corrección de redacciones escasea y, cuando se atascan en una pregunta, no tienen a quién preguntar.'],
+ challenge: '¿Cómo dar a cada estudiante un recorrido de estudio personal y una tutora disponible 24 h, construyendo aprendizaje y confianza reales, y no dependencia de la IA?',
+ source: 'Fuente: Inep, vía CNN Brasil',
+ role: ['Product owner: limité el MVP al ENEM, prioricé el backlog y escribí los criterios de aceptación con QA.','Investigación: benchmarking de seis productos y tres perfiles de estudiante.','UX/UI: recorridos y pantallas para móvil y web, y un prototipo navegable.','Design system: creé “Educates”, con componentes, estados, reglas de uso y accesibilidad.','UX writing: definí el tono de voz y escribí el microcopy.'],
+ benchIntro: 'Las herramientas o explican bien, o planifican bien. Y la corrección de redacciones con IA casi nunca dice cuánto confiar en la nota.',
+ bench: [['Khanmigo','Tutor de IA que guía con preguntas','Explicar de otra forma, sin resolver por el estudiante'],['Duolingo Max','Explica por qué una respuesta está bien o mal; se puede reportar a la IA','Cada respuesta con su porqué; se puede cuestionar a la IA'],['Redação Descomplica','Corrección de redacciones con IA por competencias del ENEM','Feedback en las 5 competencias, con una prioridad clara'],['App MEC Enem','Simulacros y corrección con IA gratuitos, del gobierno','“Gratis” es el mínimo: ganar en experiencia y confianza'],['Duolingo','Sesiones cortas y progreso visible','Meta semanal y sesiones que caben en el móvil']],
+ benchCols: ['Producto','Lo que hace bien','Lo que tomamos'],
+ profiles: [['El estudiante enfocado','Sabe qué carrera quiere y estudia con una meta semanal.'],['Quien retoma','Estuvo un tiempo sin estudiar; necesita volver sin sentirse juzgado.'],['Quien estudia solo','Sin academia; necesita a quién preguntar y preguntas reales.']],
+ scope: 'La idea empezó amplia: ENEM, otros exámenes de acceso y oposiciones. Como product owner, limité el MVP al ENEM: una base de contenido, un criterio de redacción y un equipo de seis capaz de terminar y probar.',
+ flows: ['Primer acceso: carrera objetivo, prueba de nivel o materias, meta semanal, inicio con el recorrido','Estudio del día: recorrido, tema, preguntas con feedback','Simulacro: área y año, preguntas con cronómetro, resultado y solucionario','Redacción: tema de la semana, texto con cronómetro, feedback en 5 competencias','Perfil: cambiar carrera, meta o materias'],
+ capOnboarding: 'Primer acceso: carrera objetivo, cómo empezar, prueba de nivel e inicio.',
+ aiIntro: 'Mentorina es el corazón del producto y su parte más arriesgada: una tutora que se equivoca con seguridad enseña mal. La pregunta no era “¿qué puede hacer la IA?”, sino “¿cuándo debe confiar el estudiante en ella?”',
+ ai: [['Un solo lugar','Un botón flotante en las pantallas de estudio: la ayuda siempre está en el mismo sitio.'],['Enseña, no resuelve','Explica de otra forma, crea ejercicios y da trucos para memorizar.'],['Honesta con sus límites','Avisa que puede equivocarse y remite al material.'],['La nota es una estimación','“Estimación de la IA, no es la nota oficial del ENEM”, con el cálculo explicado y opción de impugnar.'],['Siempre identificada','El icono de chispa solo aparece en funciones de IA.']],
+ capAi: 'El chat de Mentorina, un error explicado y el feedback de la redacción con el cálculo de la nota.',
+ dsIntro: 'Un sistema pequeño para que dos desarrolladores construyeran con coherencia, con una guía para todo el equipo.',
+ dsType: ['Bricolage Grotesque · títulos','Nunito Sans · texto y chat','JetBrains Mono · cronómetros y datos'],
+ dsRules: ['Todo redondeado, como el globo del logo','Espaciado base 4, de 4 a 64 px','Un botón principal por pantalla','Movimiento de 150 a 300 ms, desactivado con movimiento reducido'],
+ a11y: ['Contraste de texto de al menos 4,5:1, en claro y oscuro','Áreas táctiles de al menos 44 × 44 px','El color nunca va solo: acierto y error con icono y palabra','Anillo de foco de 3 px en cada elemento interactivo'],
+ writingIntro: 'Tono de voz: alentador y directo, como un estudiante mayor animándote.',
+ writingCols: ['Momento','Genérico','EduMentor'],
+ writing: [['Respuesta incorrecta','“Incorrecto.”','“Esta vez no. La función de 1.er grado tiene x elevado a 1: f(x) = ax + b.”'],['Prueba de nivel','“Saltar pregunta”','“Todavía no lo sé”'],['Campo vacío','“Campo obligatorio.”','“Elige una carrera para continuar.”'],['Nota de la IA','“Nota: 760”','“Nota estimada: 760 / 1000. Estimación de la IA, no es la nota oficial del ENEM.”']],
+ validIntro: 'QA revisó cada flujo con los criterios de aceptación, y una simulación con perfiles generó hipótesis para la prueba. Cinco cambios entraron en la v1.1:',
+ pairs: [['04-comecar','Explicar qué pasa en cada camino y acoger a quien retoma'],['12-simulados','Las preguntas siguen el área elegida, en tres pasos claros'],['17-feedback','Consejo por competencia, cálculo de la nota y forma de impugnar']],
+ iterH: 'v1.3: una revisión de calidad antes de probar con estudiantes',
+ iterIntro: 'Antes de poner el prototipo frente a los estudiantes, lo revisé pantalla por pantalla. Una prueba debe medir el producto, no fallos del prototipo; por eso cada botón tenía que llevar a algún lugar y cada pantalla tenía que sentirse como una app real.',
+ iter: [['Mentorina donde ocurre la ayuda','La mascota real reemplazó los bocetos: en el primer acceso, en el chat junto a cada mensaje y en el botón flotante, que ahora también aparece en las preguntas del simulacro.'],['Menos en cada pantalla','El inicio muestra solo la próxima tarea, la semana y un consejo. La barra inferior tomó proporciones de app nativa.'],['Feedback mientras practica','En el simulacro, la respuesta correcta y la incorrecta aparecen al instante, con la explicación, y solo se avanza después de responder.'],['El tiempo en manos del estudiante','El cronómetro de la redacción empieza solo cuando el estudiante pulsa play, y se puede pausar.'],['Escribir por partes','Introducción, dos desarrollos y conclusión tienen cada uno su caja y un consejo de Mentorina.'],['Modo oscuro','Sigue el modo del teléfono o un botón manual, disponible desde el login. El texto mantiene un contraste de al menos 4,5:1 en ambos temas.'],['Sin callejones sin salida','Se construyeron recuperación de contraseña, soporte, pantallas de módulo, edición del perfil y cierre de cuenta, para que ninguna tarea se quede a medias.'],['Listo para el handoff','El prototipo funciona en marco de iPhone y de Android, y las mismas pantallas se rehicieron como frames editables en Figma, con variables de color para claro y oscuro.']],
+ capIter: 'v1.3: feedback al instante en una pregunta del simulacro, la redacción por partes con el cronómetro en manos del estudiante y el inicio en modo oscuro.',
+ before: 'v1.0', after: 'v1.3',
+ inProgress: 'Una prueba de usabilidad moderada con estudiantes está en curso (5 tareas, éxito por tarea, SEQ y SUS). Los resultados y la próxima iteración se publicarán aquí.',
+ metricsCols: ['Métrica','Por qué importa'],
+ metrics: [['Estudiantes que cumplen su meta semanal (north star)','Si la app crea un hábito real de estudio'],['Finalización del primer acceso','Si el inicio es claro'],['Retención en la semana 4','Si el hábito se mantiene'],['Chats con Mentorina seguidos de un acierto','Si la IA ayuda, y no solo conversa'],['Notas de redacción impugnadas','Dónde debe mejorar la corrección con IA']],
+ learn: [['Diseñar IA es diseñar confianza','Las decisiones más difíciles fueron sobre cómo Mentorina dice lo que no sabe.'],['El alcance es una decisión de diseño','Centrarnos en el ENEM nos dio un producto que pudimos terminar y probar.'],['El texto es interfaz','“Todavía no lo sé” hizo más por quien retoma que cualquier cambio visual.']]
+}};
+function eduView(lang, esc, backLabel, nextLabel, LINKS){
+ const E = EDU[lang];
+ const X = ({
+  pt:{live:'No ar',liveNote:'O site real, desenvolvido pelo time a partir do design.',landLive:'Ver a landing no ar',pick:'Escolha a versão do protótipo',deskNote:'O produto principal: 14 telas navegáveis, com a landing page.',homeAlt:'Home do EduMentor AI no desktop, com nível por área, semana de estudos e próxima tarefa',hDesk:'Desktop: o produto principal',deskP:'O aluno do ENEM estuda muito no computador, então a versão web foi a principal. Ela usa o espaço lateral para o que no celular fica escondido: menu fixo, contagem para o ENEM sempre à vista, mapa de questões no simulado e o tema ao lado da redação.',d:['Como começar: nivelamento recomendado ou escolha livre','Trilha: uma matéria por vez, com módulos e revisões','Mentorina com histórico de conversas','Simulado com cronômetro e mapa de questões','Resultado com desempenho por assunto','Correção da redação pelas 5 competências'],openDesk:'Abrir o protótipo desktop',hLand:'Landing page',landP:'A landing explica o produto em poucos blocos: o problema de estudar sozinho, os 4 passos, os recursos, a Mentorina e a promessa de funcionar no celular e no computador.',landAlt:'Landing page do EduMentor AI, página inteira',landCap:'Role dentro da moldura para ver a página inteira.'},
+  en:{live:'Live',liveNote:'The real website, built by the team from the design.',landLive:'See the live landing page',pick:'Pick a prototype version',deskNote:'The main product: 14 clickable screens, plus the landing page.',homeAlt:'EduMentor AI home on desktop, with level by area, study week and next task',hDesk:'Desktop: the main product',deskP:'ENEM students study a lot on computers, so the web version was the main one. It uses the extra room for what stays hidden on mobile: a fixed menu, the ENEM countdown always visible, a question map in mock exams and the prompt next to the essay.',d:['How to start: recommended placement quiz or free choice','Study path: one subject at a time, with modules and reviews','Mentorina with chat history','Mock exam with timer and question map','Result with performance by topic','Essay feedback across the 5 competencies'],openDesk:'Open the desktop prototype',hLand:'Landing page',landP:'The landing page explains the product in a few blocks: the problem of studying alone, the 4 steps, the features, Mentorina and the promise of working on phone and computer.',landAlt:'EduMentor AI landing page, full page',landCap:'Scroll inside the frame to see the whole page.'},
+  es:{live:'En línea',liveNote:'El sitio real, desarrollado por el equipo a partir del diseño.',landLive:'Ver la landing en línea',pick:'Elige la versión del prototipo',deskNote:'El producto principal: 14 pantallas navegables, con la landing page.',homeAlt:'Inicio de EduMentor AI en desktop, con nivel por área, semana de estudio y próxima tarea',hDesk:'Desktop: el producto principal',deskP:'El estudiante del ENEM estudia mucho en la computadora, así que la versión web fue la principal. Usa el espacio extra para lo que en el móvil queda oculto: menú fijo, cuenta regresiva al ENEM siempre visible, mapa de preguntas en el simulacro y el tema junto a la redacción.',d:['Cómo empezar: nivelación recomendada o elección libre','Ruta: una materia a la vez, con módulos y repasos','Mentorina con historial de conversaciones','Simulacro con cronómetro y mapa de preguntas','Resultado con desempeño por tema','Corrección de la redacción por las 5 competencias'],openDesk:'Abrir el prototipo desktop',hLand:'Landing page',landP:'La landing explica el producto en pocos bloques: el problema de estudiar solo, los 4 pasos, los recursos, la Mentorina y la promesa de funcionar en el móvil y la computadora.',landAlt:'Landing page de EduMentor AI, página completa',landCap:'Desplázate dentro del marco para ver la página completa.'}
+ })[lang]||{};
+ const ph = (f, alt) => `<figure class="ph"><img src="${EDU_IMG}${f}.webp" alt="${esc(alt||'')}" loading="lazy" width="393" height="852"></figure>`;
+ const tbl = (cols, rows) => `<div class="tblwrap"><table class="tbl"><thead><tr>${cols.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map((c,i)=>`<td${i===0?' class="k"':''}>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+ return `<article class="case"><div class="wrap">
+ <button class="back" data-home>${esc(backLabel)}</button>
+ <p class="hud" style="margin-top:12px">Research · Product design · AI &amp; games</p>
+ <h1>${esc(E.title)}</h1><p class="sub">${esc(E.sub)}</p>
+ <div class="pick"><p class="hud">${esc(X.pick)}</p><div class="pick-row"><a class="pick-b main" href="edu/desktop.html" target="_blank" rel="noopener"><span aria-hidden="true">🖥️</span><b>Desktop</b><small>${esc(X.deskNote)}</small></a><a class="pick-b" href="${LINKS.proto}" target="_blank" rel="noopener"><span aria-hidden="true">📱</span><b>Mobile</b><small>${esc(E.protoNote)}</small></a><a class="pick-b live" href="https://edumentor.rayribeirost.dev/" target="_blank" rel="noopener"><span aria-hidden="true">🌐</span><b>${esc(X.live)} <i class="dot"></i></b><small>${esc(X.liveNote)}</small></a></div></div>
+ <figure class="browser-f"><div class="bf-bar" aria-hidden="true"><i></i><i></i><i></i><span>edumentor.ai/inicio</span></div><img src="img/edu/desk/d04-home.webp" alt="${esc(X.homeAlt)}" loading="lazy" width="1440" height="900"></figure>
+ <div class="phones hero-phones">${ph('v13-09-home','Home')}${ph('v13-10-topico-erro','Topic')}${ph('v13-11-mentorina','Mentorina')}</div>
+ <div class="meta">${E.meta.map(([a,b])=>`<div><b>${esc(a)}</b><span>${esc(b)}</span></div>`).join('')}</div>
+ <div class="stats">${E.stats.map(([n,l])=>`<div class="stat"><b>${esc(n)}</b>${esc(l)}</div>`).join('')}</div>
+ <h2>${esc(E.h.context)}</h2>${E.context.map(p=>`<p>${esc(p)}</p>`).join('')}
+ <p class="small-src"><a href="https://www.cnnbrasil.com.br/educacao/enem-2025-inep-confirma-mais-de-48-milhoes-de-inscritos/" target="_blank" rel="noopener">${esc(E.source)}</a></p>
+ <blockquote class="hmw">${esc(E.challenge)}</blockquote>
+ <h2>${esc(E.h.role)}</h2><ul>${E.role.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+ <h2>${esc(E.h.bench)}</h2><p>${esc(E.benchIntro)}</p>${tbl(E.benchCols,E.bench)}
+ <h2>${esc(E.h.users)}</h2><div class="cards3">${E.profiles.map(([t,d],i)=>`<div class="pcard" style="background:${['var(--pink-soft)','var(--mint)','var(--butter)'][i]};color:${['var(--berry)','var(--on-mint)','var(--on-butter)'][i]}"><b>${esc(t)}</b><span>${esc(d)}</span></div>`).join('')}</div>
+ <p>${esc(E.scope)}</p>
+ <h2>${esc(E.h.flows)}</h2><ol>${E.flows.map(f=>`<li>${esc(f)}</li>`).join('')}</ol>
+ <div class="phones four">${ph('v13-03-curso','Course')}${ph('v13-04-comecar','How to start')}${ph('v13-05-nivel','Placement quiz')}${ph('v13-09-home','Home')}</div><p class="cap">${esc(E.capOnboarding)}</p>
+ <h2>${esc(X.hDesk)}</h2><p>${esc(X.deskP)}</p>
+ <div class="dgrid">${[['d02-comecar',X.d[0]],['d05-trilha',X.d[1]],['d07-mentorina',X.d[2]],['d09-questao',X.d[3]],['d10-resultado',X.d[4]],['d12-feedback',X.d[5]]].map(([f,c])=>`<figure class="browser-f sm"><div class="bf-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="img/edu/desk/${f}.webp" alt="${esc(c)}" loading="lazy" width="1440" height="900"><figcaption>${esc(c)}</figcaption></figure>`).join('')}</div>
+ <p><a class="btn primary" href="edu/desktop.html" target="_blank" rel="noopener">${esc(X.openDesk)} ↗</a></p>
+ <h3>${esc(X.hLand)}</h3><p>${esc(X.landP)}</p>
+ <figure class="browser-f land"><div class="bf-bar" aria-hidden="true"><i></i><i></i><i></i><span>edumentor.ai</span></div><div class="land-scroll" tabindex="0" role="region" aria-label="${esc(X.landAlt)}"><img src="img/edu/landing.webp" alt="${esc(X.landAlt)}" loading="lazy" width="1200" height="6236"></div></figure><p class="cap">${esc(X.landCap)} <a href="https://edumentor.rayribeirost.dev/" target="_blank" rel="noopener">${esc(X.landLive)} ↗</a></p>
+ <h2>${esc(E.h.ai)}</h2><p>${esc(E.aiIntro)}</p>
+ <div class="decisions">${E.ai.map(([t,d])=>`<div class="dec"><b>✦ ${esc(t)}</b><span>${esc(d)}</span></div>`).join('')}</div>
+ <div class="phones">${ph('v13-11-mentorina','Mentorina')}${ph('v13-17-feedback','Essay feedback')}${ph('v13-18-como-nota','How the grade is calculated')}</div><p class="cap">${esc(E.capAi)}</p>
+ <h2>${esc(E.h.ds)}</h2><p>${esc(E.dsIntro)}</p>
+ <div class="swatches">${[['#4F3CF0','Indigo'],['#17152E','Ink'],['#C6F432','Lima'],['#FF6B57','Coral'],['#3CC8F0','Ciano'],['#E9E6FF','Lavanda']].map(([c,n])=>`<div><span style="background:${c}"></span><b>${n}</b><code>${c}</code></div>`).join('')}</div>
+ <div class="cards3">${E.dsType.map(t=>`<div class="pcard plain"><span>${esc(t)}</span></div>`).join('')}</div>
+ <ul>${E.dsRules.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+ <h3>${esc(E.h.a11y)}</h3><ul>${E.a11y.map(r=>`<li>${esc(r)}</li>`).join('')}</ul>
+ <h2>${esc(E.h.writing)}</h2><p>${esc(E.writingIntro)}</p>${tbl(E.writingCols,E.writing)}
+ <h2>${esc(E.h.valid)}</h2><p>${esc(E.validIntro)}</p>
+ ${E.pairs.map(([f,c])=>`<div class="pair"><div><span class="vtag old">${esc(E.before)}</span>${ph('v10-'+f,'Before')}</div><div><span class="vtag">${esc(E.after)}</span>${ph('v13-'+f,'After')}</div><p class="cap">${esc(c)}</p></div>`).join('')}
+ <h3>${esc(E.iterH)}</h3><p>${esc(E.iterIntro)}</p>
+ <div class="decisions">${E.iter.map(([t,d])=>`<div class="dec"><b>✦ ${esc(t)}</b><span>${esc(d)}</span></div>`).join('')}</div>
+ <div class="phones">${ph('v13-13-questao','Mock-exam question with instant feedback')}${ph('v13-16-redacao','Essay written in parts')}${ph('v13d-09-home','Home in dark mode')}</div><p class="cap">${esc(E.capIter)}</p>
+ <div class="callout"><p class="hud">▶ in progress</p><p style="margin:0">${esc(E.inProgress)}</p></div>
+ <h2>${esc(E.h.metrics)}</h2>${tbl(E.metricsCols,E.metrics)}
+ <h2>${esc(E.h.learn)}</h2><div class="decisions">${E.learn.map(([t,d])=>`<div class="dec"><b>${esc(t)}</b><span>${esc(d)}</span></div>`).join('')}</div>
+ <div class="next"><button class="btn" data-home>${esc(backLabel)}</button><a class="btn primary" href="#case-fixer">${esc(nextLabel)}</a></div>
+ </div></article>`;
+}
+(()=>{const st=document.createElement('style');st.textContent=`.pick{margin:8px 0 24px}.pick .hud{margin-bottom:10px}
+.pick-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:900px}
+.pick-b.live .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#3CC88A;vertical-align:3px;margin-left:4px;box-shadow:0 0 0 3px rgba(60,200,138,.25)}
+.pick-b{display:flex;flex-direction:column;gap:2px;padding:16px 18px;border-radius:18px;border:2px solid var(--line);background:var(--card2);color:var(--ink);text-decoration:none;transition:transform .2s,border-color .2s}
+.pick-b:hover{transform:translateY(-3px);border-color:var(--blush)}
+.pick-b span{font-size:26px;line-height:1}.pick-b b{font:700 19px Outfit,Inter,sans-serif;margin-top:6px}.pick-b small{font-size:14px;color:var(--mut);line-height:1.45}
+.pick-b.main{border-color:var(--cocoa)}
+@media(max-width:760px){.pick-row{grid-template-columns:1fr}}
+.browser-f{margin:18px 0;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 18px 40px rgba(90,10,30,.12);background:#fff;max-width:900px}
+.bf-bar{display:flex;align-items:center;gap:6px;background:#EEECF8;padding:8px 12px}.bf-bar i{width:10px;height:10px;border-radius:50%;background:#FF6B57}.bf-bar i:nth-child(2){background:#F5C542}.bf-bar i:nth-child(3){background:#3CC88A}
+.bf-bar span{margin-left:8px;flex:1;max-width:340px;background:#fff;border-radius:6px;padding:2px 10px;font:500 12px Inter;color:#5B5880}
+.browser-f img{display:block;width:100%;height:auto}
+.browser-f figcaption{font-size:14px;color:var(--mut);padding:10px 14px;background:var(--card2);border-top:1px solid var(--line)}
+.dgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:900px}.dgrid .browser-f{margin:0}
+@media(max-width:640px){.dgrid{grid-template-columns:1fr}}
+.land-scroll{max-height:560px;overflow:auto;overscroll-behavior:contain}
+@media (prefers-reduced-motion:reduce){.pick-b{transition:none}}
+`;document.head.appendChild(st);})();

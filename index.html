@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Laís Moraes · UX/UI & Product Designer</title>
+<meta name="description" content="Portfólio da Laís Moraes, UX/UI & Product Designer no Rio de Janeiro. Pesquisa, fluxos, protótipos e design systems.">
+<link rel="canonical" href="https://moraeslais.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Laís Moraes">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://moraeslais.github.io/">
+<meta property="og:title" content="Laís Moraes · UX/UI &amp; Product Designer">
+<meta property="og:description" content="Portfólio da Laís Moraes, UX/UI &amp; Product Designer no Rio de Janeiro. Pesquisa, fluxos, protótipos e design systems.">
+<meta property="og:image" content="https://moraeslais.github.io/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Laís Moraes · UX/UI &amp; Product Designer">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<meta name="theme-color" content="#8E0926">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: pessoal e caloroso, mas de quem entrega produto
+   IDEA: o estúdio da Laís: a versão desenhada dela recebe quem chega e apresenta os projetos, separados por de onde vieram
+   PICTURE: a mascote de corpo inteiro no topo, sobre um sol pêssego, com balão de fala; a carinha vira o cursor
+   COLOUR and TYPE: cacau do cabelo (dominante), pêssego da pele (apoio), rosa da bochecha (acento); Outfit + Inter
+   LAYOUT: faixa cacau de borda a borda, grupos de projetos com rótulo próprio, sobre, contato em cacau */
+:root{color-scheme:light dark;
+ --bg:light-dark(#fbf7f3,#1c0f12);--card2:light-dark(#fff,#261519);
+ --ink:light-dark(#3a1a1f,#f6e9ea);--mut:light-dark(#6e5450,#c9aeb0);--line:light-dark(#efdfe0,#3c2328);
+ --cocoa:#8E0926;--cocoa2:#6d0620;--peach:#EDC4C8;--peach2:light-dark(#f8e6e8,#3a1d24);--blush:#CB7288;--blushT:light-dark(#8E0926,#EDC4C8);--beige:light-dark(#edf0e1,#26161b);
+ --matcha:#B5C46F;--brown:#6A4228;
+ --r:18px}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3{font-family:Outfit,Inter,sans-serif;margin:0;line-height:1.08;text-wrap:balance}
+.wrap{max-width:1180px;margin:0 auto;padding:0 max(4vw,18px)}
+/* cabeçalho */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;white-space:nowrap;text-decoration:none;font:600 19px/1 Outfit,sans-serif}
+.brand img{width:40px;height:40px;flex:none;object-fit:contain;transition:transform .3s}
+.brand:hover img{transform:rotate(-8deg) scale(1.08)}
+nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+nav a{padding:10px 12px;border-radius:999px;text-decoration:none;font-weight:500;font-size:15px}
+nav a:hover{background:var(--peach2)}
+.lang{display:flex;border:1px solid var(--line);border-radius:999px;padding:3px;font:600 12px/1 Inter;gap:2px}
+.lang button{border:0;background:none;cursor:pointer;font:inherit;padding:7px 9px;border-radius:999px;color:var(--mut)}.lang button:hover{color:var(--ink)}.lang button[aria-pressed=true]{background:var(--ink);color:var(--bg)}
+/* hero */
+.hero{background:light-dark(#f6dde1,var(--cocoa));color:light-dark(#3a1a1f,#fff3f4);overflow:hidden;position:relative}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);align-items:end;gap:32px;min-height:0}
+.hero-t{padding:72px 0 80px;align-self:center}
+.hello{display:inline-flex;align-items:center;gap:10px;background:light-dark(rgba(255,255,255,.6),#760620);border:1px solid light-dark(#e3a3b1,#b33a52);border-radius:999px;padding:8px 14px 8px 8px;font-size:14px;color:light-dark(#6d0620,#EDC4C8)}
+.hello i{width:10px;height:10px;border-radius:50%;background:#B5C46F;box-shadow:0 0 0 4px rgba(181,196,111,.2)}
+.hero h1{font-size:clamp(36px,4.4vw,58px);font-weight:700;letter-spacing:-.02em;margin:22px 0 10px;color:light-dark(#3a1a1f,#fff)}
+.hero .sub{font:500 clamp(20px,2vw,27px)/1.3 Outfit,Inter,sans-serif;color:light-dark(#3a1a1f,#f8e4e8);margin:0 0 18px;max-width:520px}
+.hero h1 em{font-style:normal;color:light-dark(#8E0926,var(--peach))}
+.hero p.lead{font-size:clamp(17px,1.6vw,20px);line-height:1.55;max-width:560px;color:light-dark(#5c3a40,#f3dbe0);margin:0 0 28px}
+.roles{display:flex;gap:8px;flex-wrap:wrap;margin-top:32px}
+.roles span{font-size:13px;padding:6px 12px;border-radius:999px;background:light-dark(rgba(255,255,255,.55),#760620);color:light-dark(#6d0620,#f3dbe0)}
+.stagewrap{--h:clamp(420px,41vw,580px);position:relative;height:100%;min-height:calc(var(--h) + 40px);display:flex;justify-content:center;align-items:flex-end}
+.sun{position:absolute;bottom:calc(var(--h) * -.2);left:50%;transform:translateX(-50%);width:min(calc(var(--h) * 1.02),95%);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 40%,light-dark(#c4566e,#f6dde0),light-dark(#ac3450,#e3a3b1) 70%,light-dark(#9a1f3c,#CB7288));opacity:light-dark(.92,.75)}
+.me{position:relative;height:var(--h);width:auto;display:block;margin-bottom:-6px;filter:drop-shadow(0 18px 30px rgba(0,0,0,.25));cursor:pointer;transition:transform .35s}
+.me:hover{transform:translateY(-6px) rotate(-1deg)}
+.bubble{position:absolute;z-index:2;bottom:calc(var(--h) * .86);left:min(calc(50% + var(--h) * .17),calc(100% - 196px));width:max-content;max-width:196px;box-sizing:border-box;background:#fff;color:var(--cocoa);border-radius:16px 16px 16px 4px;padding:10px 13px;font:500 13.5px/1.35 Inter;box-shadow:0 12px 30px rgba(0,0,0,.25);transition:opacity .25s,transform .25s}
+.bubble.swap{opacity:0;transform:translateY(6px)}
+.bubble{display:flex;gap:8px;align-items:center}.bubble img{width:32px;flex:none}
+.bubble small{display:block;color:#75585a;font-size:12px;margin-top:4px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;font:600 16px/1 Inter;text-decoration:none;border:2px solid transparent;transition:transform .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.main{background:var(--peach);color:var(--cocoa)}
+.btn.ghost{border-color:#c25a70;color:#fff3f4}.btn.ghost:hover{background:#760620}
+.hero .btn.main{background:light-dark(#8E0926,var(--peach));color:light-dark(#fff,var(--cocoa))}
+.hero .btn.ghost{border-color:light-dark(#8E0926,#c25a70);color:light-dark(#8E0926,#fff3f4)}.hero .btn.ghost:hover{background:light-dark(rgba(255,255,255,.55),#760620)}
+
+html,body{overflow-x:clip}
+
+/* capas */
+.vis{isolation:isolate}
+.vis::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(rgba(90,10,30,.12) 1px,transparent 1.2px);background-size:16px 16px;-webkit-mask-image:linear-gradient(160deg,#000 10%,transparent 75%);mask-image:linear-gradient(160deg,#000 10%,transparent 75%)}
+.cv-name{position:absolute;left:20px;top:18px;font:700 15px/1 Outfit,Inter,sans-serif;letter-spacing:.02em;color:var(--cocoa);display:flex;align-items:center;gap:8px;z-index:3}
+.cv-name i{width:22px;height:22px;border-radius:7px;display:grid;place-items:center;color:#fff;font:700 12px/1 Outfit,Inter;font-style:normal}
+.chip{position:absolute;z-index:3;background:#fff;color:var(--cocoa);font:600 12px/1 Inter;padding:8px 11px;border-radius:999px;box-shadow:0 8px 20px rgba(90,10,30,.14);display:flex;align-items:center;gap:6px;white-space:nowrap;transition:transform .35s cubic-bezier(.3,1.5,.5,1)}
+.chip.sq{border-radius:12px}
+.chip .dot{width:8px;height:8px;border-radius:50%}
+.card:hover .chip{transform:translateY(-4px) rotate(var(--r,0deg))}
+.chip{transform:rotate(var(--r,0deg))}
+.card:hover .vis .phone,.card:hover .vis .desk{transform:translateY(14px)}
+.vis .phone,.vis .desk{transition:transform .35s}
+.vis .desk{transform:translateY(0)}
+.steps{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:14px;padding:56px 24px 24px}
+.step{background:#fff;border-radius:16px;padding:14px 16px;width:150px;box-shadow:0 10px 26px rgba(90,10,30,.12)}
+.step small{display:block;font:600 11px Inter;color:var(--blushT);margin-bottom:8px}
+.step i{display:block;height:8px;border-radius:4px;background:#f5ebec;margin-top:6px}
+.step i:first-of-type{width:80%}.step i:last-of-type{width:55%}
+.step.on{outline:2px solid var(--blush)}
+.step.done small::after{content:" ✓"}
+.bars{display:flex;flex-direction:column;gap:7px;width:150px}
+.bars div{font:600 11px Inter;color:#6e5450;display:flex;justify-content:space-between}
+.bars span{display:block;height:7px;border-radius:4px;background:rgba(90,10,30,.1);overflow:hidden}
+.bars span b{display:block;height:100%;background:var(--blush);border-radius:4px}
+.faces{position:absolute;right:16px;bottom:10px;display:flex}
+.faces img{width:62px;margin-left:-14px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.15))}
+@media (prefers-reduced-motion:reduce){.chip,.vis .phone,.vis .desk{transition:none}}
+@media(max-width:600px){.steps{gap:8px;padding:58px 14px 56px}.step{padding:10px;width:auto;flex:1}.step small{font-size:10px}.chip{font-size:11px;padding:7px 9px}.hide-sm{display:none}}
+.cards .vis{height:auto!important;aspect-ratio:2/1}
+.vis.cover{display:block;background:#f5ebec}.vis.cover::before{display:none}
+.vis.cover img{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform .5s}
+.card:hover .vis.cover img{transform:scale(1.03)}
+@media (prefers-reduced-motion:reduce){.vis.cover img{transition:none}}
+/* efeitos do topo */
+.orbit{position:absolute;left:50%;bottom:calc(var(--h) * -.32);width:min(calc(var(--h) * 1.26),100%);aspect-ratio:1;transform:translateX(-50%);border-radius:50%;border:1.5px dashed light-dark(rgba(142,9,38,.25),rgba(237,196,200,.45));animation:spin 60s linear infinite;pointer-events:none}
+.orbit::before{content:"";position:absolute;top:8%;left:12%;width:12px;height:12px;border-radius:50%;background:var(--blush);box-shadow:0 0 0 5px rgba(203,114,136,.22)}
+.orbit::after{content:"";position:absolute;bottom:22%;right:2%;width:8px;height:8px;border-radius:50%;background:var(--peach)}
+@keyframes spin{to{transform:translateX(-50%) rotate(360deg)}}
+.glow{position:absolute;left:50%;bottom:calc(var(--h) * .35);width:calc(var(--h) * .9);aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle,light-dark(rgba(255,255,255,.5),rgba(237,196,200,.16)),transparent 65%);pointer-events:none}
+.spark{position:absolute;color:light-dark(#CB7288,var(--peach));pointer-events:none;animation:tw 3.2s ease-in-out infinite}
+.spark svg{display:block;width:100%;height:100%}
+@keyframes tw{0%,100%{opacity:.25;transform:scale(.7) rotate(0)}50%{opacity:1;transform:scale(1) rotate(20deg)}}
+.float{position:absolute;z-index:1;pointer-events:none;animation:bob 5s ease-in-out infinite;filter:drop-shadow(0 10px 18px rgba(0,0,0,.3))}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(var(--r,0deg))}50%{transform:translateY(-10px) rotate(var(--r,0deg))}}
+.f-pal{display:flex;gap:6px;background:#fff;padding:8px 10px;border-radius:12px}
+.f-pal i{width:16px;height:16px;border-radius:50%;display:block}
+.f-pen{width:46px;height:46px;border-radius:50%;background:var(--blush);display:grid;place-items:center}
+.f-note{background:#e9efc4;color:var(--cocoa);font:600 12px/1.3 Inter;padding:10px 12px 12px;width:max-content;border-radius:2px 2px 10px 2px}
+.f-note b{display:block;font-weight:700}.f-note small{display:block;font-size:12px;font-weight:500;opacity:.8;margin-top:4px;line-height:1.45}
+@media (prefers-reduced-motion:reduce){.orbit,.spark,.float{animation:none}}
+@media(max-width:600px){.f-note{display:none}.orbit{width:100%}}
+/* seções */
+.band{padding:clamp(56px,7vw,96px) 0}
+.sec-h{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:36px}
+.sec-h h2{font-size:clamp(34px,4.4vw,52px);font-weight:700;letter-spacing:-.015em}
+.sec-h p{margin:8px 0 0;color:var(--mut);max-width:520px}
+.jump{display:flex;gap:8px;flex-wrap:wrap}
+.jump a{font-size:14px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);text-decoration:none;background:var(--card2)}
+.jump a:hover{border-color:var(--blush)}
+.group{display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;padding:36px 0;border-top:1px solid var(--line)}
+.g-label h3{font-size:24px;font-weight:600}
+.g-label .n{display:inline-block;font:600 12px/1 Inter;color:var(--blushT);background:var(--peach2);padding:6px 10px;border-radius:999px;margin-bottom:12px}
+.g-label p{color:var(--mut);font-size:15px;margin:10px 0 0}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{display:flex;flex-direction:column;background:var(--card2);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;text-decoration:none;transition:transform .2s,box-shadow .2s,border-color .2s}
+.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(90,10,30,.12);border-color:color-mix(in srgb,var(--blush) 50%,var(--line))}
+.card.wide{grid-column:1/-1}
+.vis{position:relative;height:230px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+.card.wide .vis{height:280px}
+.vis .phone{width:160px;flex:none;border-radius:22px;border:5px solid var(--cocoa);border-bottom:0;border-radius:24px 24px 0 0;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.18);transform:translateY(24px)}
+.vis .phone img{display:block;width:100%}
+.vis.top{align-items:flex-start;padding-top:28px}
+.vis .desk{width:82%;border:5px solid var(--cocoa);border-bottom:0;border-radius:14px 14px 0 0;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.18)}
+.vis .desk img{display:block;width:100%}
+.c-t{padding:20px 22px 22px;display:flex;flex-direction:column;gap:8px;flex:1}
+.tag{font:600 12px/1 Inter;letter-spacing:.02em;color:var(--blushT)}
+.c-t h4{font:600 22px/1.2 Outfit,sans-serif;margin:0}
+.c-t p{margin:0;color:var(--mut);font-size:15px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 22px;margin:6px 0 0;padding-top:12px;border-top:1px dashed var(--line)}
+.meta div{display:flex;flex-direction:column;gap:2px}
+.meta dt{font:600 11px/1.2 Inter;letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.meta dd{margin:0;font:600 14px/1.35 Inter;color:var(--ink)}
+.c-t .go{margin-top:auto;padding-top:10px;font-weight:600;font-size:15px;display:flex;align-items:center;gap:6px}
+.wip{position:absolute;z-index:3;top:14px;right:14px;font:600 12px/1 Inter;background:var(--cocoa);color:#fff3f4;padding:7px 10px;border-radius:999px}
+.metric{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:28px;padding:20px}
+.metric b{display:block;font:700 54px/1 Outfit;color:var(--cocoa)}.metric span{font-size:13px;color:#6e5450}
+.dial{width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--blush) 0 82%,#fff 82% 100%);display:flex;align-items:center;justify-content:center}
+.dial i{width:112px;height:112px;border-radius:50%;background:#f8e6e8;display:flex;flex-direction:column;align-items:center;justify-content:center;font:700 34px/1 Outfit;color:var(--cocoa);font-style:normal}
+.dial i small{font:500 12px/1.4 Inter;color:#6e5450}
+/* sobre */
+.about{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:56px;align-items:start}
+.pstack{position:sticky;top:96px;display:flex;flex-direction:column;align-items:center;padding:10px 0 30px}
+.polaroid{margin:0;background:#fff;padding:12px 12px 46px;border-radius:6px;box-shadow:0 18px 40px rgba(90,10,30,.18);width:min(320px,88%);position:relative;transition:transform .45s cubic-bezier(.3,1.4,.5,1),box-shadow .3s;z-index:1}
+.polaroid.p1{transform:rotate(-4deg);margin-right:60px}
+.polaroid.p2{transform:rotate(3.5deg);margin-left:80px;margin-top:14px}
+.polaroid:hover{transform:rotate(0) scale(1.04) translateY(-6px);box-shadow:0 26px 50px rgba(90,10,30,.25);z-index:3}
+.polaroid img{width:100%;display:block;aspect-ratio:4/5;object-fit:cover;border-radius:2px}
+.polaroid figcaption{position:absolute;bottom:14px;left:0;right:0;text-align:center;font:500 15px Outfit,Inter,sans-serif;color:#6e5450}
+.polaroid .sticker{aspect-ratio:auto;object-fit:contain;position:absolute;width:96px;filter:drop-shadow(0 6px 10px rgba(0,0,0,.2));transition:transform .45s cubic-bezier(.3,1.6,.5,1)}
+.p1 .sticker{right:-36px;top:-30px;transform:rotate(12deg)}
+.p2 .sticker{left:-38px;top:38%;transform:rotate(-12deg)}
+.polaroid:hover .sticker{transform:rotate(0) scale(1.15)}
+.tape{position:absolute;top:-12px;left:50%;width:96px;height:26px;transform:translateX(-50%) rotate(-3deg);background:rgba(237,196,200,.75);box-shadow:0 1px 2px rgba(0,0,0,.08);-webkit-mask:linear-gradient(90deg,transparent 0 3px,#000 3px calc(100% - 3px),transparent 0);z-index:2}
+.p2 .tape{background:rgba(203,114,136,.6);transform:translateX(-50%) rotate(4deg)}
+.tw-spark{position:absolute;color:var(--blush);font-size:22px;animation:tw 3s ease-in-out infinite;pointer-events:none;z-index:2}
+.tw-spark.s2{color:var(--peach);font-size:16px}
+/* hover dos chips */
+.skills span{transition:transform .25s cubic-bezier(.3,1.6,.5,1),background .2s,color .2s,border-color .2s;cursor:default}
+.skills span:hover{background:var(--blush);border-color:var(--blush);color:#fff;transform:translateY(-3px) rotate(-2deg)}
+.skills span:nth-child(even):hover{transform:translateY(-3px) rotate(2deg)}
+.code span{transition:transform .25s cubic-bezier(.3,1.6,.5,1),background .2s,color .2s,box-shadow .2s;cursor:default;position:relative}
+.code span:hover{background:var(--peach);color:var(--cocoa);transform:translateY(-3px);box-shadow:0 6px 0 var(--blush)}
+.code span:hover::before,.code span:hover::after{color:var(--blushT);opacity:1}
+.code span:hover::after{content:">_";animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:.2}}
+.tg span{transition:transform .25s cubic-bezier(.3,1.6,.5,1),border-color .2s,background .2s}
+.tg span:hover{transform:translateY(-2px) scale(1.05);border-color:var(--blush)}
+.skills span.in,.code span.in,.tg span.in{animation:pop .45s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.9)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.tw-spark,.code span:hover::after{animation:none}.skills span.in,.code span.in,.tg span.in{animation:none}}
+@media(max-width:900px){.pstack{position:relative;top:0}}
+.about h2{font-size:clamp(30px,3.6vw,44px);margin-bottom:18px}
+.about p{max-width:640px}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:24px}
+.facts div{background:var(--peach2);border-radius:14px;padding:14px 16px}
+.facts b{display:block;font:600 13px Inter;color:var(--blushT);margin-bottom:4px}.facts span{font-size:14px}
+.skills{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.skills span{font-size:14px;padding:7px 12px;border-radius:999px;border:1px solid var(--line)}
+.code{margin-top:22px}.code b{display:block;font:600 13px Inter;color:var(--blushT);margin-bottom:8px}
+.code div{display:flex;flex-wrap:wrap;gap:8px}.code span{font:500 13px/1 Inter,system-ui,sans-serif;padding:8px 12px;border-radius:8px;background:var(--cocoa);color:#fff3f4}.code span::before{content:"</";color:var(--peach);opacity:.7}.code span::after{content:">";color:var(--peach);opacity:.7}
+/* contato */
+.contact{background:var(--cocoa);color:#fff3f4;position:relative;overflow:hidden}
+.marquee{background:var(--peach);color:var(--cocoa);overflow:hidden;white-space:nowrap;padding:14px 0;transform:rotate(-1.2deg);margin:18px -20px 0;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.mq-track{display:inline-flex;gap:22px;align-items:center;animation:mq 38s linear infinite;font:700 clamp(18px,2.2vw,26px)/1 Outfit,Inter,sans-serif}
+.mq-track i{font-style:normal;color:var(--blush);font-size:.8em}
+@keyframes mq{to{transform:translateX(-50%)}}
+.contact .ct{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:48px;align-items:center}
+.ct-orbit{position:absolute;right:-6%;top:50%;width:520px;aspect-ratio:1;border-radius:50%;border:1.5px dashed rgba(237,196,200,.25);transform:translateY(-50%);animation:spin2 70s linear infinite;pointer-events:none}
+@keyframes spin2{to{transform:translateY(-50%) rotate(360deg)}}
+.ct-face{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.ct-face img{width:96px;height:96px;object-fit:contain;padding:10px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#f6dde0,#e3a3b1);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.ct-face:hover img{transform:rotate(-8deg) scale(1.06)}
+.ct-say{background:#fff;color:var(--cocoa);font:500 15px/1.3 Inter;padding:10px 14px;border-radius:16px 16px 16px 4px;box-shadow:0 10px 24px rgba(0,0,0,.25);transition:opacity .2s,transform .2s}
+.ct-say.swap{opacity:0;transform:translateY(4px)}
+.contact h2{font-size:clamp(36px,5vw,62px);color:#fff;letter-spacing:-.02em}
+.contact h2 em{font-style:normal;color:var(--peach)}
+.contact p{color:#f3dbe0;max-width:520px;margin:16px 0 22px}
+.ct-status{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:#e6edc2;background:rgba(181,196,111,.1);border:1px solid rgba(181,196,111,.35);padding:8px 14px;border-radius:999px}
+.ct-status i{width:9px;height:9px;border-radius:50%;background:#B5C46F;box-shadow:0 0 0 0 rgba(181,196,111,.6);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(181,196,111,0)}100%{box-shadow:0 0 0 0 rgba(181,196,111,0)}}
+.ct-card{position:relative;z-index:1;background:#760620;border:1px solid #b33a52;border-radius:24px;padding:26px;box-shadow:0 24px 50px rgba(0,0,0,.3);transform:rotate(1.2deg);transition:transform .4s cubic-bezier(.3,1.4,.5,1)}
+.ct-card:hover{transform:rotate(0)}
+.ct-k{display:block;font:600 12px Inter;letter-spacing:.06em;text-transform:uppercase;color:#EDC4C8;margin-bottom:8px}
+.ct-mail{display:flex;gap:8px;align-items:center;background:#8E0926;border-radius:14px;padding:8px 8px 8px 16px}
+.ct-mail a{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;color:#fff;text-decoration:none;font:600 clamp(15px,1.5vw,18px) Inter}
+.ct-copy{border:0;background:var(--peach);color:var(--cocoa);font:600 14px Inter;padding:9px 14px;border-radius:10px;cursor:pointer;transition:transform .2s,background .2s}
+.ct-copy:hover{transform:translateY(-2px)}.ct-copy.ok{background:#B5C46F}
+.ct-btns{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 20px}
+.ct-btns .btn{flex:1;justify-content:center;text-align:center}
+.ct-info{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0;padding-top:18px;border-top:1px solid #b33a52}
+.ct-info dt{font:600 12px Inter;color:#e7c4cc;margin-bottom:2px}.ct-info dd{margin:0;font-size:14px;color:#fff3f4}
+@media(max-width:900px){.contact .ct{grid-template-columns:1fr}.ct-orbit{display:none}.ct-card{transform:none}}
+@media(max-width:600px){.ct-mail{flex-wrap:wrap;padding:12px}.ct-mail a{flex-basis:100%;font-size:16px}.ct-copy{width:100%}.ct-btns .btn{flex:1 1 100%}.ct-info{grid-template-columns:1fr 1fr}.ct-face img{width:76px;height:76px}}
+@media (prefers-reduced-motion:reduce){.mq-track,.ct-orbit,.ct-status i{animation:none}}
+.mail{display:block;margin-top:16px;color:#EDC4C8;font-size:15px}
+.note{background:var(--peach2);color:var(--ink);font-size:14px;text-align:center;padding:10px 16px}
+
+/* agora (hero) */
+.hero .now{color:light-dark(#4f5a1c,#e6edc2);background:light-dark(rgba(181,196,111,.3),rgba(181,196,111,.14));border-color:light-dark(rgba(125,140,56,.55),rgba(181,196,111,.35))}
+.hero p.lead b{color:light-dark(#8E0926,#fff3f4);font-weight:600}
+.now{display:inline-flex;align-items:center;gap:7px;font:600 12px/1 Inter;letter-spacing:.06em;text-transform:uppercase;color:#e6edc2;background:rgba(181,196,111,.14);border:1px solid rgba(181,196,111,.35);padding:6px 10px;border-radius:999px;margin-right:6px;vertical-align:3px}
+.now i{width:7px;height:7px;border-radius:50%;background:#B5C46F;box-shadow:0 0 0 0 rgba(181,196,111,.6);animation:pulse 2s infinite}
+/* recomendações */
+.qgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:stretch}
+.q.q2{background:light-dark(#eef2d9,#262a1b)}.q2 .q-mark{color:#9aab4f}.q.q2 mark{background:linear-gradient(transparent 58%,rgba(181,196,111,.55) 58%)}
+@media(max-width:900px){.qgrid{grid-template-columns:1fr}}
+.q{position:relative;margin:0;background:var(--peach2);border-radius:24px;padding:clamp(28px,4vw,52px) clamp(24px,5vw,64px) clamp(26px,3.5vw,40px);overflow:visible}
+.q-mark{position:absolute;left:clamp(14px,2.4vw,30px);top:-18px;font:700 120px/1 Outfit,serif;color:var(--blush)}
+.q-face{position:absolute;right:-12px;top:-30px;width:78px;transform:rotate(8deg);filter:drop-shadow(0 6px 10px rgba(0,0,0,.18));transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.q:hover .q-face{transform:rotate(-6deg) scale(1.08)}
+.q blockquote{margin:0;font:500 clamp(16px,1.35vw,18px)/1.6 Outfit,Inter,sans-serif;color:var(--ink);max-width:900px}
+.q mark{background:linear-gradient(transparent 58%,color-mix(in srgb,var(--blush) 38%,transparent) 58%);color:inherit;padding:0 2px}
+.q figcaption{display:flex;align-items:center;gap:12px;margin-top:26px;font-size:14px;color:var(--mut)}
+.q figcaption b{display:block;color:var(--ink);font-size:16px}
+.q-av{width:44px;height:44px;border-radius:50%;object-fit:cover;display:grid;place-items:center;background:var(--cocoa);color:var(--peach);font:700 15px Outfit,Inter;flex:none}
+@media(max-width:600px){.q-face{width:58px;right:-4px;top:-26px}.q-mark{font-size:90px;top:-12px}}
+/* sobre: caixa única */
+.kit{margin-top:26px;background:var(--card2);border:1px solid var(--line);border-radius:18px;padding:8px 20px}
+.kr{display:grid;grid-template-columns:140px 1fr;gap:14px;align-items:start;padding:14px 0;border-top:1px dashed var(--line)}
+.kr:first-child{border-top:0}
+.kr>i{font:600 13px/1.4 Inter;font-style:normal;color:var(--blushT);padding-top:5px}
+.kr>i small{display:block;font-weight:500;color:var(--mut);font-size:12px}
+.kr>div{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.kit .tg span{font-size:13px;padding:5px 11px;border-radius:999px;background:var(--bg);color:var(--ink);border:1px solid var(--line);transition:transform .25s cubic-bezier(.3,1.6,.5,1),border-color .2s}
+.kit .tg span:hover{transform:translateY(-2px);border-color:var(--blush)}
+.kit .skills span{font-size:13px;padding:5px 11px}
+.kit .code span{padding:7px 10px;border:1px solid color-mix(in srgb,var(--peach) 22%,transparent)}
+@media(max-width:600px){.kr{grid-template-columns:1fr;gap:8px}.kr>i{padding-top:0}}
+
+/* como eu trabalho */
+.proc{background:var(--cocoa);color:#fff3f4}
+.proc .sec-h h2{color:#fff}.proc .sec-h h2 em{font-style:normal;color:var(--peach)}.proc .sec-h p{color:#e7c4cc}
+.psteps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;counter-reset:s}
+.psteps li{position:relative;background:#7a0820;border:1px solid #a8213d;border-radius:20px;padding:22px 20px 24px;transition:transform .3s cubic-bezier(.3,1.6,.5,1),border-color .2s}
+.psteps li:hover{transform:translateY(-4px);border-color:var(--peach)}
+.psteps li:not(:last-child)::after{content:"";position:absolute;right:-13px;top:44px;width:10px;height:2px;background:var(--peach);opacity:.6}
+.psteps .sn{position:absolute;right:18px;top:16px;font:700 30px/1 Outfit,sans-serif;color:#b8405a}
+.psteps svg{width:40px;height:40px;padding:9px;border-radius:12px;background:var(--peach);fill:none;stroke:var(--cocoa);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.psteps h3{font:600 20px/1.2 Outfit,sans-serif;margin:16px 0 8px;color:#fff}
+.psteps p{margin:0;font-size:15px;color:#f3dbe0;line-height:1.55}
+@media(max-width:900px){.psteps{grid-template-columns:1fr 1fr}.psteps li::after{display:none}}
+@media(max-width:600px){.psteps{grid-template-columns:1fr}}
+/* trajetória */
+.btn.line{border-color:var(--line);color:var(--ink);min-height:44px;font-size:15px}.btn.line:hover{border-color:var(--blush)}
+.tl-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.9fr);gap:48px;align-items:start}
+.tl{list-style:none;margin:0;padding:0 0 0 26px;position:relative}
+.tl::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--line),var(--blush) 40%,var(--blush))}
+.tl li{position:relative;padding:0 0 22px}
+.tl li::before{content:"";position:absolute;left:-26px;top:5px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--blush)}
+.tl li.turn::before{background:var(--peach);border-color:var(--blushT)}
+.tl li.now-i::before{background:#B5C46F;border-color:#7d8c38;box-shadow:0 0 0 0 rgba(181,196,111,.6);animation:pulse 2s infinite}
+.when{font:600 12px/1 Inter;letter-spacing:.06em;text-transform:uppercase;color:var(--blushT)}
+.tl h3{font:600 18px/1.3 Outfit,sans-serif;margin:5px 0 2px}
+.tl p{margin:0;font-size:15px;color:var(--mut)}
+.courses{background:var(--peach2);border-radius:20px;padding:22px 22px 10px;position:sticky;top:90px}
+.courses h3{font:600 20px Outfit,sans-serif;margin:0 0 8px}
+.crs{display:grid;gap:2px;padding:12px 0;border-top:1px dashed color-mix(in srgb,var(--blush) 40%,transparent)}
+.crs b{font-size:15px}.crs span{font-size:14px;color:var(--mut)}.crs i{font:500 12px Inter;font-style:normal;color:var(--blushT)}
+@media(max-width:900px){.tl-grid{grid-template-columns:1fr;gap:28px}.courses{position:static}}
+@media (prefers-reduced-motion:reduce){.tl li.now-i::before{animation:none}}
+/* botão currículo no contato */
+.ct-btns .btn.cvb{flex-basis:100%;gap:10px}.ct-btns .btn.cvb small{font:500 12px Inter;opacity:.7}
+
+/* menu celular */
+.menu-btn{display:none;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card2);color:var(--ink);border-radius:999px;padding:5px 12px 5px 5px;font:600 14px Inter;cursor:pointer;margin-left:auto}
+.menu-btn img{width:28px;height:28px;transition:transform .3s}
+.menu-btn[aria-expanded=true] img{transform:rotate(-12deg) scale(1.1)}
+@media(max-width:600px){.top .wrap{gap:8px}.top .lang{margin-left:0}.brand{font-size:17px}.brand img{width:34px;height:34px}}
+/* rodapé */
+.site-foot{background:#5e0618;color:#f3dbe0;padding:52px 0 26px;font-size:15px}
+.site-foot a{color:#fff3f4;text-decoration:none}.site-foot a:hover{color:var(--peach)}
+.sf-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px}.sf-grid>*{min-width:0}.sf-grid a{overflow-wrap:anywhere}@media(max-width:480px){.sf-grid{grid-template-columns:1fr!important;gap:28px}}
+.sf-brand{display:flex;gap:14px;align-items:center}.sf-brand img{width:54px;height:54px;border-radius:50%;background:var(--peach);padding:4px}
+.sf-brand b{display:block;font:600 20px Outfit,Inter,sans-serif;color:#fff}.sf-brand span{font-size:14px}
+.sf-grid h3{font:700 12px/1 Inter;letter-spacing:.12em;text-transform:uppercase;color:var(--peach);margin:6px 0 14px}
+.sf-grid ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.sf-note{margin:18px 0 0;max-width:340px;font-size:14px;color:#e7c4cc}
+.sf-bottom{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:40px;padding-top:20px;border-top:1px solid #a8213d;font-size:13px;color:#e7c4cc}
+.sf-top{display:inline-flex;align-items:center;gap:6px}
+@media(max-width:760px){.sf-grid{grid-template-columns:1fr 1fr}.sf-grid>div:first-child{grid-column:1/-1}}
+
+/* pastas */
+.files{background:light-dark(#fbf0ef,#221418)}
+.files .sec-h h2 em{font-style:normal;color:light-dark(#a94a63,#CB7288)}
+.fstage{position:relative;min-height:520px;display:grid;place-items:center}
+.fwin{position:relative;z-index:2;width:min(440px,100%);background:var(--card2);border:1px solid var(--line);border-radius:20px;box-shadow:0 24px 50px rgba(90,10,30,.14);overflow:hidden}
+.fw-bar{display:flex;align-items:center;gap:6px;padding:12px 16px;background:#8E0926;color:#ffe9e0;font:500 13px Inter,system-ui,sans-serif}
+.fw-bar i{width:10px;height:10px;border-radius:50%;background:#EDC4C8}.fw-bar i:nth-child(2){background:#CB7288}.fw-bar i:nth-child(3){background:#B5C46F}
+.fw-bar span{margin-left:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fw-body{padding:28px 28px 30px;text-align:center;transition:opacity .18s,transform .18s}
+.fw-body.swap{opacity:0;transform:translateY(6px)}
+.fw-ico{width:92px;height:92px;margin:0 auto 14px;border-radius:50%;background:#EDC4C8;display:grid;place-items:center;font-size:44px;line-height:1}
+.fw-ico img{width:78px}
+.fw-body h3{font:700 24px/1.2 Outfit,Inter,sans-serif;margin:0 0 8px;color:var(--ink)}
+.fw-body p{margin:0 auto;max-width:320px;color:var(--mut);font-size:16px}
+.fold{position:absolute;z-index:3;border:0;background:none;padding:6px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--ink);font:500 13px Inter,system-ui,sans-serif;border-radius:14px;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.fold svg{width:92px;height:auto;overflow:visible;filter:drop-shadow(0 8px 12px rgba(90,10,30,.15))}
+.fold .ft{fill:var(--t)}.fold .fb{fill:var(--c);transform-origin:50% 100%;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
+.fold .fp{fill:#fff;opacity:0;transition:opacity .2s,transform .3s;transform:translateY(6px)}
+.fold:hover{transform:translateY(-5px) rotate(-3deg)}
+.fold[aria-pressed=true] .fb{transform:skewX(-8deg) scaleY(.86)}
+.fold[aria-pressed=true] .fp{opacity:1;transform:translateY(0)}
+.fold[aria-pressed=true] span{background:#8E0926;color:#fff}
+.fold span{padding:2px 8px;border-radius:6px}
+.f1{left:4%;top:4%}.f2{left:22%;top:0}.f3{left:1%;top:40%}.f4{left:10%;bottom:4%}
+.f5{right:22%;top:0}.f6{right:3%;top:6%}.f7{right:0;top:42%}.f8{right:12%;bottom:4%}
+@media (prefers-reduced-motion:reduce){.fold,.fold .fb,.fold .fp,.fw-body{transition:none}}
+@media(max-width:980px){.fstage{display:flex;flex-direction:column;gap:22px;min-height:0}.fwin{order:-1}.fstage{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 8px}.fwin{grid-column:1/-1;justify-self:center}.fold{position:static}.fold svg{width:72px}}
+@media(max-width:560px){.fstage{grid-template-columns:repeat(2,minmax(0,1fr))}.fold span{font-size:12px}}
+
+/* botão de tema */
+.theme-btn{width:40px;height:40px;flex:none;border-radius:50%;border:1px solid var(--line);background:var(--card2);color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:transform .3s cubic-bezier(.3,1.6,.5,1),border-color .2s}
+.theme-btn:hover{transform:rotate(-18deg);border-color:var(--blush)}
+.theme-btn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;grid-area:1/1}
+.theme-btn .i-sun{display:none}
+html.is-dark .theme-btn .i-sun{display:block}html.is-dark .theme-btn .i-moon{display:none}
+@media(max-width:600px){.theme-btn{width:36px;height:36px}}
+@media(max-width:430px){.menu-btn img{display:none}.menu-btn{padding:8px 13px}.lang button{padding:7px 7px}}
+/* cursor */
+#cur{position:fixed;left:0;top:0;z-index:999;pointer-events:none;display:none}
+#cur svg{position:absolute;left:0;top:0;filter:drop-shadow(0 2px 3px rgba(0,0,0,.3))}
+#cur img{position:absolute;left:16px;top:20px;width:34px;filter:drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff) drop-shadow(0 2px 3px rgba(0,0,0,.3));transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+#cur em{position:absolute;left:54px;top:28px;font:600 12px/1 Inter;font-style:normal;background:var(--cocoa);color:#fff3f4;padding:6px 9px;border-radius:999px;white-space:nowrap;opacity:0;transform:translateX(-4px);transition:opacity .15s,transform .15s}
+#cur.hov img{transform:scale(1.3) rotate(-10deg)}
+#cur.hov em{opacity:1;transform:none}
+@media (pointer:fine){html.cur #cur{display:block}}
+:focus-visible{outline:3px solid var(--blushT);outline-offset:3px;border-radius:8px}
+.contact :focus-visible,.band.proc :focus-visible{outline-color:#fff3f4}
+.hero :focus-visible{outline-color:light-dark(#8E0926,#fff3f4)}
+.skip{position:absolute;left:12px;top:-60px;z-index:1000;background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-weight:600;text-decoration:none;transition:top .2s}
+.skip:focus{top:12px}
+.go.soon{color:var(--mut);display:flex;align-items:flex-start;gap:9px;font-size:14px;line-height:1.45}
+.go.soon .dot{margin-top:6px;width:8px;height:8px;border-radius:50%;background:#e0a43a;flex:none;box-shadow:0 0 0 3px color-mix(in srgb,#e0a43a 25%,transparent)}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;min-height:0}.hero-t{padding:48px 0 8px}.stagewrap{--h:380px;min-height:400px}.bubble{left:calc(50% + 46px);max-width:180px;font-size:14px}.group{grid-template-columns:1fr;gap:16px}.about{grid-template-columns:1fr}.facts{grid-template-columns:1fr}}
+@media(max-width:600px){.stagewrap{flex-direction:column;align-items:center;justify-content:flex-end}.bubble{position:relative;left:auto;bottom:auto;max-width:280px;margin-bottom:14px}nav{display:none}nav.open{display:flex;flex-direction:column;position:absolute;left:12px;right:12px;top:72px;background:var(--card2);border:1px solid var(--line);border-radius:20px;padding:10px;gap:2px;box-shadow:0 20px 40px rgba(90,10,30,.18);margin:0}nav.open a{padding:14px 16px;font-size:17px}.menu-btn{display:inline-flex}.lang{margin-left:auto}.cards{grid-template-columns:1fr}.card.wide{grid-column:auto}.vis,.card.wide .vis{height:210px}.metric b{font-size:40px}.polaroid .sticker{width:74px}.p1 .sticker{right:-8px;top:-24px}.p2 .sticker{left:-14px}.polaroid{width:76%}.polaroid.p1{margin-right:30px}.polaroid.p2{margin-left:30px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<script>try{var t=localStorage.getItem('lm-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+<a class="skip" href="#projetos">Pular para os projetos</a>
+<header class="top"><div class="wrap">
+ <a class="brand" href="#inicio" data-cursor="topo"><img src="img/lais-cara.webp" alt="">Laís Moraes</a>
+ <nav aria-label="Principal" id="mainNav"><a href="#projetos" data-cursor="ver">Projetos</a><a href="#sobre" data-cursor="ver">Sobre</a><a href="#trajetoria" data-cursor="ver">Trajetória</a><a href="cv.html" data-cursor="currículo">Currículo</a><a href="#contato" data-cursor="ver">Contato</a></nav>
+ <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav"><img src="img/lais-cara.webp" alt=""><span>Menu</span></button>
+ <button class="theme-btn" id="themeBtn" type="button" aria-label="Mudar para o tema escuro" data-cursor="tema"><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+ <div class="lang" role="group" aria-label="Idioma"><button type="button" data-lang="pt" aria-pressed="true">PT</button><button type="button" data-lang="en" aria-pressed="false">EN</button><button type="button" data-lang="es" aria-pressed="false">ES</button></div>
+</div></header>
+
+<main id="inicio">
+<section class="hero"><div class="wrap">
+ <div class="hero-t">
+  <span class="hello"><i></i>Aberta a vagas de Product Designer, remotas ou internacionais</span>
+  <h1>Oi, eu sou a <em>Laís Moraes</em>.</h1>
+  <p class="sub">Desenho produtos que as pessoas entendem.</p>
+  <p class="lead"><span class="now"><i></i>Agora</span> UX/UI e QA no <b>meuunify</b>, desenhando um superapp de crédito da primeira entrevista ao produto lançado.</p>
+  <div class="btns"><a class="btn main" href="#projetos" data-cursor="bora">Ver meus projetos ↓</a><a class="btn ghost" href="#contato" data-cursor="oi!" data-face="pisca">Falar comigo</a></div>
+  <div class="roles"><span>Product design</span><span>UX research</span><span>Gestão de projetos</span><span>IA como prancheta</span></div>
+ </div>
+ <div class="stagewrap">
+  <div class="sun"></div>
+  <div class="glow"></div>
+  <div class="orbit"></div>
+  <span class="spark" style="left:12%;top:24%;width:22px;height:22px"><svg viewBox="0 0 24 24"><path d="M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z" fill="currentColor"/></svg></span>
+  <span class="spark" style="left:22%;top:8%;width:12px;height:12px;animation-delay:-1.2s;color:var(--blush)"><svg viewBox="0 0 24 24"><path d="M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z" fill="currentColor"/></svg></span>
+  <span class="spark" style="right:6%;top:46%;width:16px;height:16px;animation-delay:-2s"><svg viewBox="0 0 24 24"><path d="M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z" fill="currentColor"/></svg></span>
+  <span class="spark" style="right:20%;bottom:12%;width:12px;height:12px;animation-delay:-.6s;color:#fff"><svg viewBox="0 0 24 24"><path d="M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z" fill="currentColor"/></svg></span>
+  <span class="spark" style="left:6%;bottom:30%;width:14px;height:14px;animation-delay:-2.6s;color:var(--blush)"><svg viewBox="0 0 24 24"><path d="M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z" fill="currentColor"/></svg></span>
+  <div class="float f-pal" style="left:4%;top:44%;--r:-8deg" aria-hidden="true"><i style="background:#8E0926"></i><i style="background:#CB7288"></i><i style="background:#EDC4C8"></i><i style="background:#edf0e1;box-shadow:inset 0 0 0 1px #d9c6b6"></i></div>
+  <div class="float f-pen" style="left:14%;bottom:14%;animation-delay:-1.8s" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+  <div class="float f-note" style="right:2%;bottom:22%;--r:6deg;animation-delay:-3s" aria-hidden="true"><b>to-do do projeto</b><small>✓ pesquisa<br>✓ protótipo<br>✓ teste</small></div>
+  <div class="bubble" id="bubble" aria-live="polite"><img src="img/lais-cara.webp" alt=""><span>oi! eu sou a Laís em versão desenho ✦<small>clica em mim</small></span></div>
+  <img class="me" id="me" src="img/lais-corpo.webp" alt="Ilustração da Laís: cabelo longo escuro, regata preta, calça bege e bolsa" data-cursor="clica" tabindex="0" role="button" aria-label="Ilustração da Laís. Clique para ver o que ela diz.">
+ </div>
+</div></section>
+
+<section class="band" id="projetos"><div class="wrap">
+ <div class="sec-h"><div><h2>Projetos</h2><p>Separados por de onde vieram: produto lançado no mercado, projetos em time no bootcamp e projetos autorais.</p></div>
+  <div class="jump"><a href="#g-mercado" data-cursor="ir">No mercado</a><a href="#g-bootcamp" data-cursor="ir">Bootcamp</a><a href="#g-autorais" data-cursor="ir">Autorais</a></div></div>
+
+ <div class="group" id="g-mercado"><div class="g-label"><span class="n">01 · No mercado</span><h3>Produto lançado</h3><p>Trabalho real, com time, prazos e usuários de verdade.</p></div>
+  <div class="cards">
+   <a class="card wide" href="case.html#case-unify" data-cursor="ver case">
+    <div class="vis cover"><img src="img/capa-unify.webp" alt="Capa do UNI FY: crédito que cabe na sua rotina, com a ilustração do cadastro em etapas e os números do projeto" loading="lazy"></div>
+    <div class="c-t"><span class="tag">Fintech · emprego atual</span><h4>UNI FY: um superapp de crédito para servidores públicos</h4><p>Do primeiro rascunho à V1 lançada: um cadastro em etapas adotado pelo time e uma auditoria que pegou 34 problemas antes do lançamento.</p><dl class="meta"><div><dt>Papel</dt><dd>UX/UI e QA</dd></div><div><dt>Tempo</dt><dd>Desde abr/2026</dd></div><div><dt>Time</dt><dd>6 pessoas</dd></div></dl><span class="go">Ver estudo de caso →</span></div></a>
+  </div></div>
+
+ <div class="group" id="g-bootcamp"><div class="g-label"><span class="n">02 · Bootcamp QA Coders Academy</span><h3>Projetos em time</h3><p>Times multidisciplinares com QA e devs, prazos curtos e MVPs de verdade.</p></div>
+  <div class="cards">
+   <a class="card" href="case.html#case-edu" data-cursor="ver case">
+    <div class="vis cover"><img src="img/capa-edu.webp" alt="Capa do EduMentor AI: plataforma adaptativa de estudos e tutoria" loading="lazy"></div>
+    <div class="c-t"><span class="tag">Edtech · IA</span><h4>EduMentor AI</h4><p>Um app de estudos para o ENEM com uma tutora de IA que explica, cria exercícios e corrige redações.</p><dl class="meta"><div><dt>Papel</dt><dd>UX/UI e PO</dd></div><div><dt>Tempo</dt><dd>2 meses</dd></div><div><dt>Time</dt><dd>6 pessoas</dd></div></dl><span class="go">Ver estudo de caso →</span></div></a>
+   <a class="card" href="case.html#case-fixer" data-cursor="ver case">
+    <div class="vis cover"><img src="img/capa-fixer.webp" alt="Capa do Fixer AI: diagnóstico de um prompt com nota e sugestões" loading="lazy"></div>
+    <div class="c-t"><span class="tag">IA · MVP</span><h4>Fixer AI</h4><p>Você cola um prompt e recebe uma nota em clareza, contexto, especificidade e formato, e uma versão melhor para copiar.</p><dl class="meta"><div><dt>Papel</dt><dd>UX/UI</dd></div><div><dt>Tempo</dt><dd>18 dias</dd></div><div><dt>Time</dt><dd>8 pessoas</dd></div></dl><span class="go">Ver estudo de caso →</span></div></a>
+  </div></div>
+
+ <div class="group" id="g-autorais"><div class="g-label"><span class="n">03 · Autorais</span><h3>Do zero, por conta própria</h3><p>Ideias minhas, da pesquisa ao protótipo navegável.</p></div>
+  <div class="cards">
+   <a class="card wide" href="case.html#case-venzi" data-cursor="ver case">
+    <div class="vis cover"><img src="img/capa-venzi.webp" alt="Capa do Venzi com a tela Hoje do painel da recepção" loading="lazy"></div>
+    <div class="c-t"><span class="tag">Saúde · B2B desktop</span><h4>Venzi: a agenda clínica antes da falta</h4><p>Um painel que mostra para a recepção quem pode faltar, por quê e quem pode ocupar o horário. 28 telas e protótipo com 3 fluxos guiados.</p><dl class="meta"><div><dt>Papel</dt><dd>Idealizadora</dd></div><div><dt>Fiz de ponta a ponta</dt><dd>UX/UI, pesquisa, UX writing e dev full stack</dd></div></dl><span class="go">Ver estudo de caso →</span></div></a>
+   <a class="card" href="case.html#case-squad" data-cursor="ver case">
+    <div class="vis cover"><img src="img/capa-squad.webp" alt="Capa do Squad com três telas do app e a mascote gatinha" loading="lazy"></div>
+    <div class="c-t"><span class="tag">Jogos · segurança</span><h4>Squad</h4><p>Achar time para jogar sem flame: escolha pelo clima, aviso de tom e proteção de voz. No celular e no computador.</p><dl class="meta"><div><dt>Papel</dt><dd>Idealizadora</dd></div><div><dt>Fiz de ponta a ponta</dt><dd>UX/UI, pesquisa, UX writing e dev full stack</dd></div></dl><span class="go">Ver estudo de caso →</span></div></a>
+   <a class="card" href="case.html#case-ds" data-cursor="ver case">
+    <div class="vis cover"><img src="img/capa-ds.webp" alt="Capa do laís.ds: paleta vinho, rosa e matcha, as fontes Outfit e Inter e as três carinhas" loading="lazy"></div>
+    <div class="c-t"><span class="tag">Design system</span><h4>Este portfólio</h4><p>Tokens, componentes e a mascote que virou cursor, em tema claro e escuro.</p><dl class="meta"><div><dt>Papel</dt><dd>Idealizadora</dd></div><div><dt>Fiz de ponta a ponta</dt><dd>UX/UI, pesquisa, UX writing e dev full stack</dd></div></dl><span class="go">Ver estudo de caso →</span></div></a>
+  </div></div>
+</div></section>
+
+<section class="band proc" id="processo" data-face="pisca"><div class="wrap">
+ <div class="sec-h"><div><h2>Como eu <em>trabalho</em></h2><p>Do problema à entrega, com o time junto em cada etapa.</p></div></div>
+ <ol class="psteps">
+  <li><span class="sn" aria-hidden="true">01</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><h3>Entender</h3><p>Começo pelo problema e pelas pessoas: jornadas do usuário e backlog lado a lado. No UNI FY, cada tela foi mapeada 1:1 ao backlog.</p></li>
+  <li><span class="sn" aria-hidden="true">02</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.6 7.6"/></svg><h3>Desenhar</h3><p>Fluxos, wireframes e protótipo navegável, para todo mundo enxergar a mesma coisa antes de construir. O do UNI FY foi apresentado a todos os departamentos.</p></li>
+  <li><span class="sn" aria-hidden="true">03</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><h3>Validar</h3><p>Levo a proposta para o time e ajusto com o que aparece. Foi assim que o cadastro em etapas entrou na V1.</p></li>
+  <li><span class="sn" aria-hidden="true">04</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><h3>Garantir a entrega</h3><p>Faço o QA do que foi desenvolvido: comparo com o design, documento com evidência e retesto com os devs. Numa só rodada, 34 pontos encontrados antes do lançamento.</p></li>
+ </ol>
+</div></section>
+<section class="band recs" id="recomendacoes" data-face="sorri"><div class="wrap">
+ <div class="sec-h"><div><h2>Quem já trabalhou comigo</h2><p>Recomendações de quem acompanhou meu trabalho de perto.</p></div></div>
+ <div class="qgrid">
+  <figure class="q q2">
+   <span class="q-mark" aria-hidden="true">“</span><img class="q-face" src="img/cara-pisca.webp" alt="">
+   <blockquote>A Laís é uma profissional de UI/UX de grande competência, com quem tive o prazer de colaborar. <mark>Seu método de trabalho é organizado e rigoroso, o que facilitou a integração entre design e desenvolvimento.</mark> Ao mesmo tempo, demonstra criatividade ao propor soluções visuais claras e funcionais. Sua atuação na criação de design systems elevou a consistência e a eficiência dos projetos. Indico seu trabalho com confiança.</blockquote>
+   <figcaption><img class="q-av" src="img/thiago.webp" alt="" width="44" height="44" loading="lazy"><span><b>Thiago Caetano</b>Software Engineer e Tech Lead no meuunify</span></figcaption>
+  </figure>
+  <figure class="q">
+   <span class="q-mark" aria-hidden="true">“</span><img class="q-face" src="img/lais-cara.webp" alt="">
+   <blockquote>Laís demonstrou ser uma excelente pessoa que com certeza irá se tornar uma grande profissional no mercado de TI. Demonstrou interesse e conhecimento em produto, design e programação, o que identifiquei como sendo as bases para uma carreira promissora como arquiteta de soluções. <mark>Já está capacitada para atuar como PO ou designer, tendo demonstrado na prática suas capacidades na ideação de produto e condução de squads</mark>, além de ter construído excelentes designs fundamentados em boas práticas.</blockquote>
+   <figcaption><img class="q-av" src="img/lucas.webp" alt="" width="44" height="44" loading="lazy"><span><b>Lucas Toledo</b>Product Owner na QA Coders Academy</span></figcaption>
+  </figure>
+ </div>
+</div></section>
+<section class="band" id="sobre" style="background:var(--beige)"><div class="wrap about">
+ <div class="pstack">
+  <span class="tw-spark" style="left:2%;top:4%" aria-hidden="true">✦</span><span class="tw-spark" style="right:6%;top:42%;animation-delay:-1.4s" aria-hidden="true">✦</span><span class="tw-spark s2" style="left:8%;bottom:10%;animation-delay:-.7s" aria-hidden="true">✦</span>
+  <figure class="polaroid p1"><i class="tape"></i><img src="img/about.webp" alt="Foto da Laís de frente, com cabelo longo escuro, franja e casaco felpudo creme" loading="lazy"><figcaption>a versão original, sem vetor ✦</figcaption><img class="sticker" src="img/lais-cara.webp" alt=""></figure>
+  <figure class="polaroid p2"><i class="tape"></i><img src="img/about2.webp" alt="Foto da Laís olhando para o lado, com o mesmo casaco creme" loading="lazy"><figcaption>pensando no próximo fluxo…</figcaption><img class="sticker" src="img/cara-surpresa.webp" alt=""></figure>
+ </div>
+ <div>
+  <h2>De arquiteta a Product Designer</h2>
+  <p>A arquitetura me ensinou a pensar no sistema inteiro antes do detalhe: quem vai usar, por onde entra, onde se perde. Hoje faço essa mesma pergunta em cada tela.</p>
+  <p>De lá também trouxe o gosto por documentar bem, apresentar para quem decide e cuidar dos detalhes que ninguém nota, até alguém tropeçar neles.</p>
+  <p>Uso a IA como nova prancheta: ela acelera o processo, mas a ideia e a forma final continuam sendo minhas. E como também programo e testo, a conversa com os devs flui.</p>
+  <div class="kit">
+   <div class="kr"><i>O que eu faço</i><div class="skills"><span>Jornadas do usuário</span><span>Pesquisa</span><span>Prototipagem</span><span>UI design</span><span>Design systems</span><span>UX writing</span><span>Acessibilidade</span><span>QA de UX</span><span>Gestão de projetos</span></div></div>
+   <div class="kr"><i>Código <small>cursos na Alura</small></i><div class="code"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>TypeScript</span><span>React</span><span>SQL</span><span>Git &amp; GitHub</span></div></div>
+   <div class="kr"><i>Design</i><div class="tg"><span>Figma</span><span>Figma Make</span><span>FigJam</span><span>Miro</span><span>Adobe Illustrator</span><span>Photoshop</span></div></div>
+   <div class="kr"><i>Pesquisa e dados</i><div class="tg"><span>Maze</span><span>Hotjar</span><span>Google Analytics</span></div></div>
+   <div class="kr"><i>Gestão e time</i><div class="tg"><span>Jira</span><span>Asana</span><span>Azure</span><span>Notion</span><span>Slack</span></div></div>
+   <div class="kr"><i>IA</i><div class="tg"><span>Claude</span><span>Gemini</span><span>ChatGPT</span></div></div>
+  </div>
+ </div>
+</div></section>
+
+<section class="band traj" id="trajetoria" data-face="sorri"><div class="wrap">
+ <div class="sec-h"><div><h2>Trajetória e formação</h2><p>Da arquitetura ao produto digital, em ordem.</p></div><a class="btn line" href="cv.html" data-cursor="currículo">Ver currículo completo →</a></div>
+ <div class="tl-grid">
+  <ol class="tl">
+   <li><span class="when">2015 – 2019</span><h3>Bacharelado em Arquitetura e Urbanismo</h3><p>UNIGRANRIO</p></li>
+   <li><span class="when">2020 – 2024</span><h3>Arquiteta e Urbanista (CAU/BR)</h3><p>5 anos em arquitetura e interiores corporativos, incluindo a Athie Wohnrath.</p></li>
+   <li class="turn"><span class="when">fim de 2024</span><h3>A virada para a tecnologia</h3><p>Trilhas de UX/UI e de desenvolvimento na Alura.</p></li>
+   <li><span class="when">jan 2025</span><h3>Estagiária de TI · CIABRA</h3><p>Interfaces em HTML, CSS e TypeScript, APIs REST, SQL e Git em time Scrum.</p></li>
+   <li><span class="when">mar 2026</span><h3>Dev Júnior Full Stack &amp; UI/UX · DUNA ERP</h3><p>Fluxos, protótipos e implementação num ERP web.</p></li>
+   <li class="now-i"><span class="when">abr 2026 · hoje</span><h3>UX/UI Designer · UNI FY</h3><p>Design e QA do superapp de crédito. V1 lançada em set/2026.</p></li>
+   <li><span class="when">2026</span><h3>Bootcamp de Desenvolvimento de Apps · QA Coders Academy</h3><p>PO e UX/UI no EduMentor AI e UX/UI no Fixer AI.</p></li>
+  </ol>
+  <div class="courses">
+   <h3>Cursos</h3>
+   <div class="crs"><b>Alura · trilha UX/UI</b><span>UX Design, UI Design, User Interface para Product Designers, Figma</span><i>2025 – 2026</i></div>
+   <div class="crs"><b>Alura · trilha de Desenvolvimento</b><span>HTML e CSS, JavaScript, TypeScript, React, Git e GitHub, SQL</span><i>2025 – 2026</i></div>
+   <div class="crs"><b>Imersão Dev com Google Gemini</b><span>Alura · 10ª edição · concluída</span><i>2025</i></div>
+   <div class="crs"><b>Boas Práticas e Técnicas de UI &amp; UX</b><span>Intuitive Pixel · 30h</span><i>2026</i></div>
+   <div class="crs"><b>Figma na Prática</b><span>Intuitive Start · 12h</span><i>2026</i></div>
+  </div>
+ </div>
+</div></section>
+<section class="band files" id="arquivos" data-face="sorri"><div class="wrap">
+ <div class="sec-h"><div><h2>Fora do <em>Figma</em></h2><p>Clica numa pasta pra me conhecer um pouco melhor.</p></div></div>
+ <div class="fstage">
+  <button type="button" class="fold f1" data-k="ex_arquiteta" data-e="📐" data-h="Ex-arquiteta" data-t="Cinco anos desenhando espaços, inclusive na Athie Wohnrath, antes de começar a desenhar telas." data-face="surpresa" data-cursor="abrir" aria-pressed="false" aria-controls="fwin" style="--c:#8E0926;--t:#6d0620"><svg viewBox="0 0 80 62" aria-hidden="true"><path class="ft" d="M4 8a6 6 0 0 1 6-6h20l7 7h33a6 6 0 0 1 6 6v6H4z"/><path class="fb" d="M4 18h72v36a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6z"/><path class="fp" d="M10 14h60v10H10z"/></svg><span>ex_arquiteta</span></button>
+  <button type="button" class="fold f2" data-k="leitora" data-e="📚" data-h="Leitora" data-t="Amo ler. É um dos meus hobbies favoritos longe das telas." data-face="sorri" data-cursor="abrir" aria-pressed="false" aria-controls="fwin" style="--c:#CB7288;--t:#b05a70"><svg viewBox="0 0 80 62" aria-hidden="true"><path class="ft" d="M4 8a6 6 0 0 1 6-6h20l7 7h33a6 6 0 0 1 6 6v6H4z"/><path class="fb" d="M4 18h72v36a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6z"/><path class="fp" d="M10 14h60v10H10z"/></svg><span>leitora</span></button>
+  <button type="button" class="fold f3" data-k="gamer_online" data-e="🎮" data-h="Gamer online" data-t="Jogo online nas horas vagas. Não é à toa que um dos meus projetos, o Squad, é sobre jogos." data-face="pisca" data-cursor="abrir" aria-pressed="false" aria-controls="fwin" style="--c:#B5C46F;--t:#98a858"><svg viewBox="0 0 80 62" aria-hidden="true"><path class="ft" d="M4 8a6 6 0 0 1 6-6h20l7 7h33a6 6 0 0 1 6 6v6H4z"/><path class="fb" d="M4 18h72v36a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6z"/><path class="fp" d="M10 14h60v10H10z"/></svg><span>gamer_online</span></button>
+  <button type="button" class="fold f4" data-k="sushi_lover" data-e="🍣" data-h="Sushi lover" data-t="Comida favorita? Sushi, sem pensar duas vezes." data-face="sorri" data-cursor="abrir" aria-pressed="false" aria-controls="fwin" style="--c:#6A4228;--t:#53321e"><svg viewBox="0 0 80 62" aria-hidden="true"><path class="ft" d="M4 8a6 6 0 0 1 6-6h20l7 7h33a6 6 0 0 1 6 6v6H4z"/><path class="fb" d="M4 18h72v36a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6z"/><path class="fp" d="M10 14h60v10H10z"/></svg><span>sushi_lover</span></button>
+  <button type="button" class="fold f5" data-k="time_guaravita" data-e="🥤" data-h="Time Guaravita" data-t="Bebida favorita: Guaravita. Carioca que é carioca entende." data-face="pisca" data-cursor="abrir" aria-pressed="false" aria-controls="fwin" style="--c:#EDC4C8;--t:#d9a7ad"><svg viewBox="0 0 80 62" aria-hidden="true"><path class="ft" d="M4 8a6 6 0 0 1 6-6h20l7 7h33a6 6 0 0 1 6 6v6H4z"/><path class="fb" d="M4 18h72v36a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6z"/><path class="fp" d="M10 14h60v10H10z"/></svg><span>time_guaravita</span></button>
+  <button type="button" class="fold f6" data-k="swiftie" data-e="🎤" data-h="Swiftie" data-t="Muito fã de Taylor Swift. Swiftie com orgulho." data-face="surpresa" data-cursor="abrir" aria-pressed="false" aria-controls="fwin" style="--c:#8E0926;--t:#6d0620"><svg viewBox="0 0 80 62" aria-hidden="true"><path class="ft" d="M4 8a6 6 0 0 1 6-6h20l7 7h33a6 6 0 0 1 6 6v6H4z"/><path class="fb" d="M4 18h72v36a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6z"/><path class="fp" d="M10 14h60v10H10z"/></svg><span>swiftie</span></button>
+  <button type="button" class="fold f7" data-k="ja_fui_pra_europa" data-e="✈️" data-h="Já fui pra Europa" data-t="Já conheci França, Itália e Espanha." data-face="sorri" data-cursor="abrir" aria-pressed="false" aria-controls="fwin" style="--c:#B5C46F;--t:#98a858"><svg viewBox="0 0 80 62" aria-hidden="true"><path class="ft" d="M4 8a6 6 0 0 1 6-6h20l7 7h33a6 6 0 0 1 6 6v6H4z"/><path class="fb" d="M4 18h72v36a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6z"/><path class="fp" d="M10 14h60v10H10z"/></svg><span>ja_fui_pra_europa</span></button>
+  <button type="button" class="fold f8" data-k="aprendendo_japones" data-e="🗾" data-h="Aprendendo japonês" data-t="Além de português, inglês e espanhol, agora estou estudando japonês." data-face="surpresa" data-cursor="abrir" aria-pressed="false" aria-controls="fwin" style="--c:#CB7288;--t:#b05a70"><svg viewBox="0 0 80 62" aria-hidden="true"><path class="ft" d="M4 8a6 6 0 0 1 6-6h20l7 7h33a6 6 0 0 1 6 6v6H4z"/><path class="fb" d="M4 18h72v36a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6z"/><path class="fp" d="M10 14h60v10H10z"/></svg><span>aprendendo_japones</span></button>
+  <div class="fwin" id="fwin">
+   <div class="fw-bar"><i></i><i></i><i></i><span id="fwPath">laís_moraes/</span></div>
+   <div class="fw-body" aria-live="polite">
+    <div class="fw-ico" id="fwIco"><img src="img/lais-cara.webp" alt=""></div>
+    <h3 id="fwH">Escolhe uma pasta ✦</h3>
+    <p id="fwT">8 arquivos sobre quem eu sou quando não estou desenhando telas.</p>
+   </div>
+  </div>
+ </div>
+</div></section>
+<section class="contact" id="contato" data-face="pisca">
+ <div class="marquee" aria-hidden="true"><div class="mq-track"><span>UX/UI</span><i>✦</i><span>Product design</span><i>✦</i><span>Pesquisa</span><i>✦</i><span>Design systems</span><i>✦</i><span>Prototipagem</span><i>✦</i><span>IA como prancheta</span><i>✦</i><span>QA de UX</span><i>✦</i><span>Gestão de projetos</span><i>✦</i><span>UX/UI</span><i>✦</i><span>Product design</span><i>✦</i><span>Pesquisa</span><i>✦</i><span>Design systems</span><i>✦</i><span>Prototipagem</span><i>✦</i><span>IA como prancheta</span><i>✦</i><span>QA de UX</span><i>✦</i><span>Gestão de projetos</span><i>✦</i></div></div>
+ <div class="band"><div class="wrap ct">
+  <div class="ct-orbit" aria-hidden="true"></div>
+  <span class="spark" style="left:4%;top:18%;width:20px;height:20px"><svg viewBox="0 0 24 24"><path d="M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z" fill="currentColor"/></svg></span>
+  <span class="spark" style="right:8%;top:12%;width:14px;height:14px;animation-delay:-1.3s;color:var(--blush)"><svg viewBox="0 0 24 24"><path d="M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z" fill="currentColor"/></svg></span>
+  <span class="spark" style="left:46%;bottom:6%;width:12px;height:12px;animation-delay:-2.1s;color:#fff"><svg viewBox="0 0 24 24"><path d="M12 0c.6 6.4 5.6 11.4 12 12-6.4.6-11.4 5.6-12 12-.6-6.4-5.6-11.4-12-12C6.4 11.4 11.4 6.4 12 0z" fill="currentColor"/></svg></span>
+  <div class="ct-left">
+   <div class="ct-face"><img id="ctFace" src="img/cara-pisca.webp" alt=""><span class="ct-say" id="ctSay" aria-live="polite">me manda um oi!</span></div>
+   <h2>Bora criar <em>algo juntos?</em></h2>
+   <p>Estou aberta a vagas de Product Designer, remotas ou internacionais. Me dá um oi, eu respondo rápido.</p>
+   <span class="ct-status"><i></i>Disponível para novas oportunidades</span>
+  </div>
+  <div class="ct-card">
+   <b class="ct-k">E-mail</b>
+   <div class="ct-mail"><a href="mailto:laismoraesdev@gmail.com" data-cursor="oi!" data-face="pisca" data-say="abre o e-mail ✉️">laismoraesdev@gmail.com</a><button type="button" class="ct-copy" id="ctCopy" data-cursor="copiar" data-face="sorri" data-say="copia rapidinho">Copiar</button></div>
+   <div class="ct-btns"><a class="btn main" href="mailto:laismoraesdev@gmail.com" data-cursor="oi!" data-face="pisca" data-say="eba, e-mail!">Mandar e-mail</a><a class="btn ghost" href="https://www.linkedin.com/in/laismoraesdev/" target="_blank" rel="noopener" data-cursor="ir" data-face="surpresa" data-say="bora conectar!">LinkedIn ↗</a><a class="btn ghost cvb" href="cv.html" data-cursor="currículo" data-face="sorri" data-say="tudo num lugar só 📄">Ver currículo <small>PT · EN · ES</small></a></div>
+   <dl class="ct-info">
+    <div><dt>Onde</dt><dd>Rio de Janeiro, Brasil</dd></div>
+    <div><dt>Fuso</dt><dd>UTC−3 (horário de Brasília)</dd></div>
+    <div><dt>Modelo</dt><dd>Remoto ou internacional</dd></div>
+    <div><dt>Idiomas</dt><dd>Português, inglês, espanhol</dd></div>
+   </dl>
+  </div>
+ </div></div>
+</section>
+</main>
+<footer class="site-foot"><div class="wrap">
+ <div class="sf-grid">
+  <div><div class="sf-brand"><img src="img/lais-cara.webp" alt=""><div><b>Laís Moraes</b><span>UX/UI &amp; Product Designer · Rio de Janeiro, Brasil</span></div></div>
+   <p class="sf-note">Disponível para vagas remotas ou internacionais. Português, inglês e espanhol.</p></div>
+  <div><h3>Navegação</h3><ul><li><a href="#projetos">Projetos</a></li><li><a href="#processo">Como eu trabalho</a></li><li><a href="#sobre">Sobre</a></li><li><a href="#trajetoria">Trajetória</a></li><li><a href="#arquivos">Fora do Figma</a></li></ul></div>
+  <div><h3>Contato</h3><ul><li><a href="mailto:laismoraesdev@gmail.com">laismoraesdev@gmail.com</a></li><li><a href="https://www.linkedin.com/in/laismoraesdev/" target="_blank" rel="noopener">LinkedIn ↗</a></li><li><a href="cv.html">Currículo (PT · EN · ES)</a></li></ul></div>
+ </div>
+ <div class="sf-bottom"><span>© 2026 Laís Moraes. Todos os direitos reservados.</span><a class="sf-top" href="#inicio" data-cursor="topo">Voltar ao topo ↑</a></div>
+</div></footer>
+
+<div id="cur" aria-hidden="true"><img src="img/lais-cara.webp" alt=""><em></em></div>
+
+<script>
+const I18N={"Pular para os projetos": ["Skip to projects", "Saltar a los proyectos"], "topo": ["top", "inicio"], "Principal": ["Main", "Principal"], "ver": ["see", "ver"], "Projetos": ["Projects", "Proyectos"], "Sobre": ["About", "Sobre mí"], "Trajetória": ["Journey", "Trayectoria"], "currículo": ["résumé", "currículum"], "Currículo": ["Résumé", "Currículum"], "Contato": ["Contact", "Contacto"], "Menu": ["Menu", "Menú"], "Mudar para o tema escuro": ["Switch to dark theme", "Cambiar al tema oscuro"], "Mudar para o tema claro": ["Switch to light theme", "Cambiar al tema claro"], "tema": ["theme", "tema"], "tema claro": ["light theme", "tema claro"], "tema escuro": ["dark theme", "tema oscuro"], "Idioma": ["Language", "Idioma"], "Aberta a vagas de Product Designer, remotas ou internacionais": ["Open to Product Designer roles, remote or international", "Abierta a vacantes de Product Designer, remotas o internacionales"], "Oi, eu sou a": ["Hi, I'm", "Hola, soy"], "Desenho produtos que as pessoas entendem.": ["I design products people understand.", "Diseño productos que las personas entienden."], "Agora": ["Now", "Ahora"], "UX/UI e QA no": ["UX/UI & QA at", "UX/UI y QA en"], ", desenhando um superapp de crédito da primeira entrevista ao produto lançado.": [", designing a credit super app from the first interview to the launched product.", ", diseñando una superapp de crédito desde la primera entrevista hasta el producto lanzado."], "bora": ["let's go", "vamos"], "Ver meus projetos ↓": ["See my projects ↓", "Ver mis proyectos ↓"], "oi!": ["hi!", "¡hola!"], "Falar comigo": ["Get in touch", "Hablemos"], "Gestão de projetos": ["Project management", "Gestión de proyectos"], "IA como prancheta": ["AI as a drawing board", "IA como mesa de dibujo"], "to-do do projeto": ["project to-do", "to-do del proyecto"], "✓ pesquisa": ["✓ research", "✓ investigación"], "✓ protótipo": ["✓ prototype", "✓ prototipo"], "✓ teste": ["✓ testing", "✓ prueba"], "oi! eu sou a Laís em versão desenho ✦": ["hi! I'm Laís, the drawn version ✦", "¡hola! soy Laís en versión dibujo ✦"], "clica em mim": ["click me", "haz clic en mí"], "os projetos estão logo aqui embaixo ↓": ["the projects are right below ↓", "los proyectos están justo abajo ↓"], "curiosidade: eu era arquiteta antes do UX": ["fun fact: I was an architect before UX", "dato curioso: fui arquitecta antes del UX"], "passa o mouse nos cards e vê a minha cara": ["hover over the cards and watch my face", "pasa el mouse por las tarjetas y mira mi cara"], "clica de novo!": ["click again!", "¡haz clic otra vez!"], "Ilustração da Laís: cabelo longo escuro, regata preta, calça bege e bolsa": ["Illustration of Laís: long dark hair, black tank top, beige trousers and a bag", "Ilustración de Laís: cabello largo oscuro, camiseta negra, pantalón beige y bolso"], "clica": ["click", "clic"], "Ilustração da Laís. Clique para ver o que ela diz.": ["Illustration of Laís. Click to see what she says.", "Ilustración de Laís. Haz clic para ver lo que dice."], "Separados por de onde vieram: produto lançado no mercado, projetos em time no bootcamp e projetos autorais.": ["Grouped by where they came from: a product launched on the market, team projects at a bootcamp and personal projects.", "Separados por su origen: un producto lanzado al mercado, proyectos en equipo en un bootcamp y proyectos propios."], "ir": ["go", "ir"], "No mercado": ["On the market", "En el mercado"], "Autorais": ["Personal", "Propios"], "01 · No mercado": ["01 · On the market", "01 · En el mercado"], "Produto lançado": ["Launched product", "Producto lanzado"], "Trabalho real, com time, prazos e usuários de verdade.": ["Real work, with a team, deadlines and real users.", "Trabajo real, con equipo, plazos y usuarios de verdad."], "ver case": ["see case", "ver caso"], "Capa do UNI FY: crédito que cabe na sua rotina, com a ilustração do cadastro em etapas e os números do projeto": ["UNI FY cover: credit that fits your routine, with an illustration of the step-by-step sign-up and the project numbers", "Portada de UNI FY: crédito que cabe en tu rutina, con la ilustración del registro por etapas y los números del proyecto"], "Fintech · emprego atual": ["Fintech · current job", "Fintech · empleo actual"], "UNI FY: um superapp de crédito para servidores públicos": ["UNI FY: a credit super app for public servants", "UNI FY: una superapp de crédito para funcionarios públicos"], "Do primeiro rascunho à V1 lançada: um cadastro em etapas adotado pelo time e uma auditoria que pegou 34 problemas antes do lançamento.": ["From first sketch to a launched V1: a step-by-step sign-up the team adopted and an audit that caught 34 issues before launch.", "Del primer boceto a la V1 lanzada: un registro por etapas que el equipo adoptó y una auditoría que detectó 34 problemas antes del lanzamiento."], "Papel": ["Role", "Rol"], "UX/UI e QA": ["UX/UI & QA", "UX/UI y QA"], "Tempo": ["Duration", "Duración"], "Desde abr/2026": ["Since Apr 2026", "Desde abr/2026"], "Time": ["Team", "Equipo"], "6 pessoas": ["6 people", "6 personas"], "8 pessoas": ["8 people", "8 personas"], "Ver estudo de caso →": ["See case study →", "Ver caso de estudio →"], "02 · Bootcamp QA Coders Academy": ["02 · QA Coders Academy bootcamp", "02 · Bootcamp QA Coders Academy"], "Projetos em time": ["Team projects", "Proyectos en equipo"], "Times multidisciplinares com QA e devs, prazos curtos e MVPs de verdade.": ["Cross-functional teams with QA and devs, tight deadlines and real MVPs.", "Equipos multidisciplinarios con QA y devs, plazos cortos y MVPs de verdad."], "Capa do EduMentor AI: plataforma adaptativa de estudos e tutoria": ["EduMentor AI cover: an adaptive study and tutoring platform", "Portada de EduMentor AI: plataforma adaptativa de estudio y tutoría"], "Edtech · IA": ["Edtech · AI", "Edtech · IA"], "Um app de estudos para o ENEM com uma tutora de IA que explica, cria exercícios e corrige redações.": ["A study app for ENEM, Brazil's university entrance exam, with an AI tutor that explains, creates exercises and grades essays.", "Una app de estudio para el ENEM, el examen de ingreso universitario de Brasil, con una tutora de IA que explica, crea ejercicios y corrige redacciones."], "UX/UI e PO": ["UX/UI & PO", "UX/UI y PO"], "2 meses": ["2 months", "2 meses"], "em andamento": ["in progress", "en curso"], "Capa do Fixer AI: diagnóstico de um prompt com nota e sugestões": ["Fixer AI cover: a prompt diagnosis with a score and suggestions", "Portada de Fixer AI: diagnóstico de un prompt con nota y sugerencias"], "IA · MVP": ["AI · MVP", "IA · MVP"], "Você cola um prompt e recebe uma nota em clareza, contexto, especificidade e formato, e uma versão melhor para copiar.": ["Paste a prompt and get a score for clarity, context, specificity and format, plus a better version to copy.", "Pegas un prompt y recibes una nota en claridad, contexto, especificidad y formato, y una versión mejor para copiar."], "18 dias": ["18 days", "18 días"], "Backend em processo · MVP, handoff e styleguide prontos": ["Backend in progress · MVP, handoff and style guide done", "Backend en proceso · MVP, handoff y styleguide listos"], "03 · Autorais": ["03 · Personal", "03 · Propios"], "Do zero, por conta própria": ["From scratch, on my own", "Desde cero, por mi cuenta"], "Ideias minhas, da pesquisa ao protótipo navegável.": ["My own ideas, from research to a clickable prototype.", "Ideas mías, de la investigación al prototipo navegable."], "Capa do Venzi com a tela Hoje do painel da recepção": ["Venzi cover with the front desk's Today screen", "Portada de Venzi con la pantalla Hoy del panel de recepción"], "Saúde · B2B desktop": ["Health · B2B desktop", "Salud · B2B desktop"], "Venzi: a agenda clínica antes da falta": ["Venzi: the clinic schedule, ahead of no-shows", "Venzi: la agenda clínica antes de la ausencia"], "Um painel que mostra para a recepção quem pode faltar, por quê e quem pode ocupar o horário. 28 telas e protótipo com 3 fluxos guiados.": ["A dashboard that shows the front desk who might miss an appointment, why, and who could take the slot. 28 screens and a prototype with 3 guided flows.", "Un panel que muestra a la recepción quién puede faltar, por qué y quién puede ocupar el horario. 28 pantallas y prototipo con 3 flujos guiados."], "Idealizadora": ["Creator", "Creadora"], "Fiz de ponta a ponta": ["I did it end to end", "Lo hice de punta a punta"], "UX/UI, pesquisa, UX writing e dev full stack": ["UX/UI, research, UX writing and full-stack dev", "UX/UI, investigación, UX writing y dev full stack"], "Capa do Squad com três telas do app e a mascote gatinha": ["Squad cover with three app screens and the kitten mascot", "Portada de Squad con tres pantallas de la app y la mascota gatita"], "Jogos · segurança": ["Gaming · safety", "Juegos · seguridad"], "Achar time para jogar sem flame: escolha pelo clima, aviso de tom e proteção de voz. No celular e no computador.": ["Finding a team to play with, without the flame: pick by vibe, tone warnings and voice protection. On phone and desktop.", "Encontrar equipo para jugar sin toxicidad: elección por ambiente, aviso de tono y protección de voz. En el móvil y en la computadora."], "Achar time para jogar sem flame: escolha pelo clima, aviso de tom e proteção de voz.": ["Finding a team to play with, without the flame: pick by vibe, tone warnings and voice protection.", "Encontrar equipo para jugar sin toxicidad: elección por ambiente, aviso de tono y protección de voz."], "em breve": ["coming soon", "próximamente"], "Em breve": ["Coming soon", "Próximamente"], "Este portfólio": ["This portfolio", "Este portafolio"], "Tokens, componentes e a mascote que virou cursor, em tema claro e escuro.": ["Tokens, components and the mascot that became a cursor, in light and dark themes.", "Tokens, componentes y la mascota que se volvió cursor, en tema claro y oscuro."], "Página em breve": ["Page coming soon", "Página próximamente"], "Como eu": ["How I", "Cómo"], "trabalho": ["work", "trabajo"], "Do problema à entrega, com o time junto em cada etapa.": ["From problem to delivery, with the team on board at every step.", "Del problema a la entrega, con el equipo en cada etapa."], "Entender": ["Understand", "Entender"], "Começo pelo problema e pelas pessoas: jornadas do usuário e backlog lado a lado. No UNI FY, cada tela foi mapeada 1:1 ao backlog.": ["I start with the problem and the people: user journeys and backlog side by side. At UNI FY, every screen was mapped 1:1 to the backlog.", "Empiezo por el problema y las personas: journeys del usuario y backlog lado a lado. En UNI FY, cada pantalla se vinculó 1:1 al backlog."], "Desenhar": ["Design", "Diseñar"], "Fluxos, wireframes e protótipo navegável, para todo mundo enxergar a mesma coisa antes de construir. O do UNI FY foi apresentado a todos os departamentos.": ["Flows, wireframes and a clickable prototype, so everyone sees the same thing before building. The UNI FY one was presented to every department.", "Flujos, wireframes y prototipo navegable, para que todos vean lo mismo antes de construir. El de UNI FY se presentó a todas las áreas."], "Validar": ["Validate", "Validar"], "Levo a proposta para o time e ajusto com o que aparece. Foi assim que o cadastro em etapas entrou na V1.": ["I take the proposal to the team and adjust based on what comes up. That's how the step-by-step sign-up made it into V1.", "Llevo la propuesta al equipo y ajusto con lo que surge. Así entró el registro por etapas en la V1."], "Garantir a entrega": ["Make sure it ships right", "Asegurar la entrega"], "Faço o QA do que foi desenvolvido: comparo com o design, documento com evidência e retesto com os devs. Numa só rodada, 34 pontos encontrados antes do lançamento.": ["I QA what was built: compare it with the design, document with evidence and retest with the devs. In a single round, 34 issues found before launch.", "Hago el QA de lo desarrollado: lo comparo con el diseño, documento con evidencia y vuelvo a probar con los devs. En una sola ronda, 34 puntos encontrados antes del lanzamiento."], "Quem já trabalhou comigo": ["People I've worked with", "Quienes ya trabajaron conmigo"], "Recomendações de quem acompanhou meu trabalho de perto.": ["Recommendations from people who followed my work closely. Translated from Portuguese.", "Recomendaciones de quienes siguieron mi trabajo de cerca. Traducidas del portugués."], "Laís demonstrou ser uma excelente pessoa que com certeza irá se tornar uma grande profissional no mercado de TI. Demonstrou interesse e conhecimento em produto, design e programação, o que identifiquei como sendo as bases para uma carreira promissora como arquiteta de soluções.": ["Laís proved to be an excellent person who will certainly become a great professional in the tech market. She showed interest and knowledge in product, design and programming, which I identified as the foundation for a promising career as a solutions architect.", "Laís demostró ser una excelente persona que sin duda se convertirá en una gran profesional en el mercado de TI. Demostró interés y conocimiento en producto, diseño y programación, lo que identifiqué como la base para una carrera prometedora como arquitecta de soluciones."], "Já está capacitada para atuar como PO ou designer, tendo demonstrado na prática suas capacidades na ideação de produto e condução de squads": ["She is already qualified to work as a PO or designer, having shown in practice her skills in product ideation and leading squads", "Ya está capacitada para actuar como PO o diseñadora, tras demostrar en la práctica sus capacidades en ideación de producto y conducción de squads"], ", além de ter construído excelentes designs fundamentados em boas práticas.": [", besides building excellent designs grounded in best practices.", ", además de haber construido excelentes diseños basados en buenas prácticas."], "Product Owner na QA Coders Academy": ["Product Owner at QA Coders Academy", "Product Owner en QA Coders Academy"], "Foto da Laís de frente, com cabelo longo escuro, franja e casaco felpudo creme": ["Photo of Laís facing the camera, with long dark hair, bangs and a fluffy cream coat", "Foto de Laís de frente, con cabello largo oscuro, flequillo y abrigo peludo crema"], "a versão original, sem vetor ✦": ["the original version, no vectors ✦", "la versión original, sin vectores ✦"], "Foto da Laís olhando para o lado, com o mesmo casaco creme": ["Photo of Laís looking to the side, in the same cream coat", "Foto de Laís mirando de lado, con el mismo abrigo crema"], "pensando no próximo fluxo…": ["thinking about the next flow…", "pensando en el próximo flujo…"], "De arquiteta a Product Designer": ["From architect to Product Designer", "De arquitecta a Product Designer"], "A arquitetura me ensinou a pensar no sistema inteiro antes do detalhe: quem vai usar, por onde entra, onde se perde. Hoje faço essa mesma pergunta em cada tela.": ["Architecture taught me to think about the whole system before the details: who will use it, where they come in, where they get lost. Today I ask the same question on every screen.", "La arquitectura me enseñó a pensar en el sistema completo antes del detalle: quién lo va a usar, por dónde entra, dónde se pierde. Hoy me hago esa misma pregunta en cada pantalla."], "De lá também trouxe o gosto por documentar bem, apresentar para quem decide e cuidar dos detalhes que ninguém nota, até alguém tropeçar neles.": ["I also brought from there a love of good documentation, presenting to decision-makers and caring for the details nobody notices, until someone trips over them.", "De allí también traje el gusto por documentar bien, presentar a quien decide y cuidar los detalles que nadie nota, hasta que alguien tropieza con ellos."], "Uso a IA como nova prancheta: ela acelera o processo, mas a ideia e a forma final continuam sendo minhas. E como também programo e testo, a conversa com os devs flui.": ["I use AI as my new drawing board: it speeds up the process, but the idea and the final form are still mine. And since I also code and test, talking with devs flows.", "Uso la IA como nueva mesa de dibujo: acelera el proceso, pero la idea y la forma final siguen siendo mías. Y como también programo y pruebo, la conversación con los devs fluye."], "O que eu faço": ["What I do", "Lo que hago"], "Jornadas do usuário": ["User journeys", "Journeys del usuario"], "Pesquisa": ["Research", "Investigación"], "Prototipagem": ["Prototyping", "Prototipado"], "Acessibilidade": ["Accessibility", "Accesibilidad"], "QA de UX": ["UX QA", "QA de UX"], "Código": ["Code", "Código"], "cursos na Alura": ["Alura courses", "cursos en Alura"], "Pesquisa e dados": ["Research & data", "Investigación y datos"], "Gestão e time": ["Management & team", "Gestión y equipo"], "IA": ["AI", "IA"], "Trajetória e formação": ["Journey & education", "Trayectoria y formación"], "Da arquitetura ao produto digital, em ordem.": ["From architecture to digital product, in order.", "De la arquitectura al producto digital, en orden."], "Ver currículo completo →": ["See full résumé →", "Ver currículum completo →"], "Bacharelado em Arquitetura e Urbanismo": ["Bachelor's in Architecture and Urbanism", "Licenciatura en Arquitectura y Urbanismo"], "Arquiteta e Urbanista (CAU/BR)": ["Licensed Architect (CAU/BR)", "Arquitecta y Urbanista (CAU/BR)"], "5 anos em arquitetura e interiores corporativos, incluindo a Athie Wohnrath.": ["5 years in architecture and corporate interiors, including Athie Wohnrath.", "5 años en arquitectura e interiorismo corporativo, incluido Athie Wohnrath."], "fim de 2024": ["late 2024", "fines de 2024"], "A virada para a tecnologia": ["The switch to tech", "El giro hacia la tecnología"], "Trilhas de UX/UI e de desenvolvimento na Alura.": ["UX/UI and development tracks at Alura.", "Rutas de UX/UI y de desarrollo en Alura."], "jan 2025": ["Jan 2025", "ene 2025"], "Estagiária de TI · CIABRA": ["IT Intern · CIABRA", "Pasante de TI · CIABRA"], "Interfaces em HTML, CSS e TypeScript, APIs REST, SQL e Git em time Scrum.": ["Interfaces in HTML, CSS and TypeScript, REST APIs, SQL and Git in a Scrum team.", "Interfaces en HTML, CSS y TypeScript, APIs REST, SQL y Git en un equipo Scrum."], "mar 2026": ["Mar 2026", "mar 2026"], "Dev Júnior Full Stack & UI/UX · DUNA ERP": ["Junior Full-Stack Dev & UI/UX · DUNA ERP", "Dev Junior Full Stack y UI/UX · DUNA ERP"], "Fluxos, protótipos e implementação num ERP web.": ["Flows, prototypes and implementation in a web ERP.", "Flujos, prototipos e implementación en un ERP web."], "abr 2026 · hoje": ["Apr 2026 · now", "abr 2026 · hoy"], "Design e QA do superapp de crédito. V1 lançada em set/2026.": ["Design and QA of the credit super app. V1 launched in Sep 2026.", "Diseño y QA de la superapp de crédito. V1 lanzada en sep/2026."], "Bootcamp de Desenvolvimento de Apps · QA Coders Academy": ["App Development Bootcamp · QA Coders Academy", "Bootcamp de Desarrollo de Apps · QA Coders Academy"], "PO e UX/UI no EduMentor AI e UX/UI no Fixer AI.": ["PO and UX/UI on EduMentor AI, UX/UI on Fixer AI.", "PO y UX/UI en EduMentor AI, y UX/UI en Fixer AI."], "Cursos": ["Courses", "Cursos"], "Alura · trilha UX/UI": ["Alura · UX/UI track", "Alura · ruta UX/UI"], "UX Design, UI Design, User Interface para Product Designers, Figma": ["UX Design, UI Design, User Interface for Product Designers, Figma", "UX Design, UI Design, User Interface para Product Designers, Figma"], "Alura · trilha de Desenvolvimento": ["Alura · Development track", "Alura · ruta de Desarrollo"], "HTML e CSS, JavaScript, TypeScript, React, Git e GitHub, SQL": ["HTML & CSS, JavaScript, TypeScript, React, Git & GitHub, SQL", "HTML y CSS, JavaScript, TypeScript, React, Git y GitHub, SQL"], "Alura · 10ª edição · concluída": ["Alura · 10th edition · completed", "Alura · 10.ª edición · completada"], "Boas Práticas e Técnicas de UI & UX": ["UI & UX Best Practices and Techniques", "Buenas Prácticas y Técnicas de UI y UX"], "Figma na Prática": ["Figma in Practice", "Figma en la Práctica"], "Fora do": ["Away from", "Fuera de"], "Clica numa pasta pra me conhecer um pouco melhor.": ["Click a folder to get to know me a little better.", "Haz clic en una carpeta para conocerme un poco mejor."], "Ex-arquiteta": ["Former architect", "Ex arquitecta"], "Cinco anos desenhando espaços, inclusive na Athie Wohnrath, antes de começar a desenhar telas.": ["Five years designing spaces, including at Athie Wohnrath, before I started designing screens.", "Cinco años diseñando espacios, incluso en Athie Wohnrath, antes de empezar a diseñar pantallas."], "abrir": ["open", "abrir"], "ex_arquiteta": ["ex_architect", "ex_arquitecta"], "Leitora": ["Bookworm", "Lectora"], "Amo ler. É um dos meus hobbies favoritos longe das telas.": ["I love reading. It's one of my favorite hobbies away from screens.", "Me encanta leer. Es uno de mis hobbies favoritos lejos de las pantallas."], "leitora": ["bookworm", "lectora"], "Gamer online": ["Online gamer", "Gamer online"], "Jogo online nas horas vagas. Não é à toa que um dos meus projetos, o Squad, é sobre jogos.": ["I play online in my free time. No wonder one of my projects, Squad, is about gaming.", "Juego online en mis ratos libres. No es casualidad que uno de mis proyectos, Squad, sea sobre juegos."], "gamer_online": ["online_gamer", "gamer_online"], "Comida favorita? Sushi, sem pensar duas vezes.": ["Favorite food? Sushi, no second thoughts.", "¿Comida favorita? Sushi, sin pensarlo dos veces."], "Time Guaravita": ["Team Guaravita", "Equipo Guaravita"], "Bebida favorita: Guaravita. Carioca que é carioca entende.": ["Favorite drink: Guaravita, a guaraná drink every Rio local knows.", "Bebida favorita: Guaravita, una bebida de guaraná que todo carioca conoce."], "time_guaravita": ["team_guaravita", "equipo_guaravita"], "Muito fã de Taylor Swift. Swiftie com orgulho.": ["Huge Taylor Swift fan. Proud Swiftie.", "Muy fan de Taylor Swift. Swiftie con orgullo."], "Já fui pra Europa": ["Been to Europe", "Ya fui a Europa"], "Já conheci França, Itália e Espanha.": ["I've been to France, Italy and Spain.", "Ya conocí Francia, Italia y España."], "ja_fui_pra_europa": ["been_to_europe", "ya_fui_a_europa"], "Aprendendo japonês": ["Learning Japanese", "Aprendiendo japonés"], "Além de português, inglês e espanhol, agora estou estudando japonês.": ["Besides Portuguese, English and Spanish, I'm now studying Japanese.", "Además de portugués, inglés y español, ahora estoy estudiando japonés."], "aprendendo_japones": ["learning_japanese", "aprendiendo_japones"], "Escolhe uma pasta ✦": ["Pick a folder ✦", "Elige una carpeta ✦"], "8 arquivos sobre quem eu sou quando não estou desenhando telas.": ["8 files about who I am when I'm not designing screens.", "8 archivos sobre quién soy cuando no estoy diseñando pantallas."], "me manda um oi!": ["say hi!", "¡mándame un hola!"], "Bora criar": ["Let's create", "¿Creamos"], "algo juntos?": ["something together?", "algo juntos?"], "Estou aberta a vagas de Product Designer, remotas ou internacionais. Me dá um oi, eu respondo rápido.": ["I'm open to Product Designer roles, remote or international. Say hi, I reply fast.", "Estoy abierta a vacantes de Product Designer, remotas o internacionales. Mándame un hola, respondo rápido."], "Disponível para novas oportunidades": ["Available for new opportunities", "Disponible para nuevas oportunidades"], "E-mail": ["Email", "Correo"], "abre o e-mail ✉️": ["opens your email ✉️", "abre el correo ✉️"], "copiar": ["copy", "copiar"], "copia rapidinho": ["quick copy", "copia rapidito"], "Copiar": ["Copy", "Copiar"], "Copiado ✓": ["Copied ✓", "Copiado ✓"], "Selecione e copie": ["Select and copy", "Selecciona y copia"], "copiado! te espero lá 💌": ["copied! see you in my inbox 💌", "¡copiado! te espero allí 💌"], "eba, e-mail!": ["yay, an email!", "¡bien, un correo!"], "Mandar e-mail": ["Send an email", "Enviar correo"], "bora conectar!": ["let's connect!", "¡conectemos!"], "tudo num lugar só 📄": ["all in one place 📄", "todo en un solo lugar 📄"], "Ver currículo": ["See résumé", "Ver currículum"], "Onde": ["Where", "Dónde"], "Rio de Janeiro, Brasil": ["Rio de Janeiro, Brazil", "Río de Janeiro, Brasil"], "Fuso": ["Time zone", "Huso horario"], "UTC−3 (horário de Brasília)": ["UTC−3 (Brasília time)", "UTC−3 (hora de Brasilia)"], "Modelo": ["Work model", "Modalidad"], "Remoto ou internacional": ["Remote or international", "Remoto o internacional"], "Idiomas": ["Languages", "Idiomas"], "Português, inglês, espanhol": ["Portuguese, English, Spanish", "Portugués, inglés, español"], "UX/UI & Product Designer · Rio de Janeiro, Brasil": ["UX/UI & Product Designer · Rio de Janeiro, Brazil", "UX/UI & Product Designer · Río de Janeiro, Brasil"], "Disponível para vagas remotas ou internacionais. Português, inglês e espanhol.": ["Available for remote or international roles. Portuguese, English and Spanish.", "Disponible para vacantes remotas o internacionales. Portugués, inglés y español."], "Navegação": ["Navigation", "Navegación"], "Como eu trabalho": ["How I work", "Cómo trabajo"], "Fora do Figma": ["Away from Figma", "Fuera de Figma"], "Currículo (PT · EN · ES)": ["Résumé (PT · EN · ES)", "Currículum (PT · EN · ES)"], "© 2026 Laís Moraes. Todos os direitos reservados.": ["© 2026 Laís Moraes. All rights reserved.", "© 2026 Laís Moraes. Todos los derechos reservados."], "Voltar ao topo ↑": ["Back to top ↑", "Volver arriba ↑"], "Laís Moraes · UX/UI & Product Designer": ["Laís Moraes · UX/UI & Product Designer", "Laís Moraes · UX/UI & Product Designer"], "Portfólio da Laís Moraes, UX/UI & Product Designer no Rio de Janeiro. Pesquisa, fluxos, protótipos e design systems.": ["Portfolio of Laís Moraes, UX/UI & Product Designer in Rio de Janeiro. Research, flows, prototypes and design systems.", "Portafolio de Laís Moraes, UX/UI & Product Designer en Río de Janeiro. Investigación, flujos, prototipos y design systems."], "Idioma do site": ["Site language", "Idioma del sitio"], "A Laís é uma profissional de UI/UX de grande competência, com quem tive o prazer de colaborar.": ["Laís is a highly competent UI/UX professional whom I had the pleasure of working with.", "Laís es una profesional de UI/UX de gran competencia, con quien tuve el placer de colaborar."], "Seu método de trabalho é organizado e rigoroso, o que facilitou a integração entre design e desenvolvimento.": ["Her way of working is organized and rigorous, which made the integration between design and development easier.", "Su método de trabajo es organizado y riguroso, lo que facilitó la integración entre diseño y desarrollo."], "Ao mesmo tempo, demonstra criatividade ao propor soluções visuais claras e funcionais. Sua atuação na criação de design systems elevou a consistência e a eficiência dos projetos. Indico seu trabalho com confiança.": ["At the same time, she shows creativity by proposing clear, functional visual solutions. Her work creating design systems raised the consistency and efficiency of our projects. I recommend her work with confidence.", "Al mismo tiempo, demuestra creatividad al proponer soluciones visuales claras y funcionales. Su trabajo en la creación de design systems elevó la consistencia y la eficiencia de los proyectos. Recomiendo su trabajo con confianza."], "Software Engineer e Tech Lead no meuunify": ["Software Engineer and Tech Lead at meuunify", "Software Engineer y Tech Lead en meuunify"], "Capa do laís.ds: paleta vinho, rosa e matcha, as fontes Outfit e Inter e as três carinhas": ["laís.ds cover: wine, pink and matcha palette, the Outfit and Inter typefaces and the three faces", "Portada de laís.ds: paleta vino, rosa y matcha, las tipografías Outfit e Inter y las tres caritas"]};
+let LANG=(()=>{try{const l=localStorage.getItem('lm-lang');return ['pt','en','es'].includes(l)?l:'pt'}catch(e){return 'pt'}})();
+const tr=s=>{if(LANG==='pt'||s==null)return s;const k=String(s).replace(/\s+/g,' ').trim();const v=I18N[k];return v?v[LANG==='en'?0:1]:s};
+const ATTRS=['alt','aria-label','data-say','data-cursor','data-h','data-t','title'];
+const ORIG=new WeakMap();
+function applyLang(l){LANG=l;const root=document.documentElement;root.lang=l==='pt'?'pt-BR':l;
+ const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentNode.closest('script,style')?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT});
+ let n;while(n=w.nextNode()){if(!ORIG.has(n))ORIG.set(n,n.nodeValue);const o=ORIG.get(n);const k=o.replace(/\s+/g,' ').trim();if(!k)continue;const v=I18N[k];
+  if(l==='pt'||!v){n.nodeValue=o}else{const lead=o.match(/^\s*/)[0],trail=o.match(/\s*$/)[0];n.nodeValue=lead+v[l==='en'?0:1]+trail}}
+ document.querySelectorAll('body *:not(#themeBtn)').forEach(el=>{let rec=ORIG.get(el);ATTRS.forEach(a=>{if(!el.hasAttribute(a))return;if(!rec){rec={};ORIG.set(el,rec)}if(!(a in rec))rec[a]=el.getAttribute(a);el.setAttribute(a,tr(rec[a]))})});
+ if(!ORIG.has(document))ORIG.set(document,{t:document.title,d:document.querySelector('meta[name=description]').content});
+ const od=ORIG.get(document);document.title=tr(od.t);document.querySelector('meta[name=description]').content=tr(od.d);
+ const cv=l==='en'?'cv-en.html':l==='es'?'cv-es.html':'cv.html';document.querySelectorAll('a[href^="cv"]').forEach(a=>a.setAttribute('href',cv));
+ document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.lang===l));
+ document.dispatchEvent(new CustomEvent('langchange'));}
+</script>
+<script>
+{
+ const F={sorri:'img/lais-cara.webp',pisca:'img/cara-pisca.webp',surpresa:'img/cara-surpresa.webp'};Object.values(F).forEach(u=>{new Image().src=u});
+ const lines=[['oi! eu sou a Laís em versão desenho ✦','clica em mim','sorri'],['os projetos estão logo aqui embaixo ↓','','sorri'],['curiosidade: eu era arquiteta antes do UX','','surpresa'],['passa o mouse nos cards e vê a minha cara','','surpresa'],['clica de novo!','','pisca']];
+ let i=0;const b=document.getElementById('bubble'),me=document.getElementById('me');
+ const say=()=>{i=(i+1)%lines.length;b.classList.add('swap');setTimeout(()=>{b.innerHTML=`<img src="${F[lines[i][2]]}" alt=""><span>${tr(lines[i][0])}${lines[i][1]?`<small>${tr(lines[i][1])}</small>`:''}</span>`;b.classList.remove('swap');},200);};
+ me.addEventListener('click',say);me.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();say();}});
+ const fine=window.matchMedia('(pointer:fine)').matches,still=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ if(fine){
+  const c=document.getElementById('cur'),em=c.querySelector('em'),fi=c.querySelector('img');
+  const face=t=>{const k=t&&t.closest('[data-face]');const f=k?k.dataset.face:(t&&t.closest('.card')?'surpresa':'sorri');const u=F[f];if(!fi.src.endsWith(u))fi.src=u;};document.documentElement.classList.add('cur');
+  let x=-100,y=-100,tx=x,ty=y;
+  addEventListener('mousemove',e=>{tx=e.clientX;ty=e.clientY;if(still){x=tx;y=ty;c.style.transform=`translate(${x}px,${y}px)`;}});
+  if(!still){const loop=()=>{x+=(tx-x)*.35;y+=(ty-y)*.35;c.style.transform=`translate(${x}px,${y}px)`;requestAnimationFrame(loop);};loop();}
+  addEventListener('mouseover',e=>{face(e.target);const t=e.target.closest('[data-cursor],a,button');if(t){c.classList.add('hov');em.textContent=t.dataset.cursor||'';em.style.display=t.dataset.cursor?'':'none';}});
+  addEventListener('mouseout',e=>{const t=e.target.closest('[data-cursor],a,button');if(t&&!t.contains(e.relatedTarget))c.classList.remove('hov');});
+  document.addEventListener('mouseleave',()=>{c.style.opacity=0});document.addEventListener('mouseenter',()=>{c.style.opacity=1});
+ }
+}
+
+ {const chips=document.querySelectorAll('#sobre .kr span');
+  if('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+   chips.forEach(c=>c.style.opacity=0);
+   const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const box=e.target;box.querySelectorAll('span').forEach((c,k)=>{c.style.animationDelay=(k*45)+'ms';c.classList.add('in');c.style.opacity='';c.addEventListener('animationend',()=>{c.classList.remove('in');c.style.animationDelay=''},{once:true})});io.unobserve(box);}})},{threshold:.3});
+   document.querySelectorAll('#sobre .kr>div').forEach(b=>io.observe(b));}}
+
+ {const F2={sorri:'img/lais-cara.webp',pisca:'img/cara-pisca.webp',surpresa:'img/cara-surpresa.webp'};
+  const face=document.getElementById('ctFace'),say=document.getElementById('ctSay'),def='me manda um oi!',T_=x=>tr(x);let t;
+  const set=(f,txt)=>{clearTimeout(t);face.src=F2[f]||F2.pisca;say.classList.add('swap');t=setTimeout(()=>{say.textContent=tr(txt);say.classList.remove('swap')},150)};
+  document.querySelectorAll('#contato [data-say]').forEach(el=>{el.addEventListener('mouseenter',()=>set(el.dataset.face,el.dataset.say));el.addEventListener('focus',()=>set(el.dataset.face,el.dataset.say));el.addEventListener('mouseleave',()=>set('pisca',def));el.addEventListener('blur',()=>set('pisca',def))});
+  const cp=document.getElementById('ctCopy');cp.addEventListener('click',async()=>{try{await navigator.clipboard.writeText('laismoraesdev@gmail.com');cp.textContent=tr('Copiado ✓');cp.classList.add('ok');set('sorri','copiado! te espero lá 💌')}catch(e){cp.textContent=tr('Selecione e copie');}setTimeout(()=>{cp.textContent=tr('Copiar');cp.classList.remove('ok')},2200)});}
+ {const mb=document.getElementById('menuBtn'),nv=document.getElementById('mainNav');
+  const set=o=>{nv.classList.toggle('open',o);mb.setAttribute('aria-expanded',o)};
+  mb.addEventListener('click',()=>set(!nv.classList.contains('open')));
+  nv.addEventListener('click',e=>{if(e.target.closest('a'))set(false)});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&nv.classList.contains('open')){set(false);mb.focus()}});
+  document.addEventListener('click',e=>{if(!e.target.closest('#mainNav,#menuBtn'))set(false)});}
+ {const btns=[...document.querySelectorAll('.fold')],body=document.querySelector('.fw-body'),ico=document.getElementById('fwIco'),h=document.getElementById('fwH'),t=document.getElementById('fwT'),path=document.getElementById('fwPath');
+  btns.forEach(b=>b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')==='true';btns.forEach(x=>x.setAttribute('aria-pressed','false'));body.classList.add('swap');
+   setTimeout(()=>{if(on){ico.innerHTML='<img src="img/lais-cara.webp" alt="">';h.textContent=tr('Escolhe uma pasta ✦');t.textContent=tr('8 arquivos sobre quem eu sou quando não estou desenhando telas.');path.textContent='laís_moraes/'}
+    else{b.setAttribute('aria-pressed','true');ico.textContent=b.dataset.e;h.textContent=b.dataset.h;t.textContent=b.dataset.t;path.textContent='laís_moraes/'+b.querySelector('span').textContent}
+    body.classList.remove('swap')},170)}));}
+ {const root=document.documentElement,btn=document.getElementById('themeBtn'),mq=matchMedia('(prefers-color-scheme: dark)');
+  const cur=()=>root.dataset.theme||(mq.matches?'dark':'light');
+  const paint=()=>{const d=cur()==='dark';root.classList.toggle('is-dark',d);btn.setAttribute('aria-label',tr(d?'Mudar para o tema claro':'Mudar para o tema escuro'));btn.dataset.cursor=tr(d?'tema claro':'tema escuro');btn._i18n=null};
+  btn.addEventListener('click',()=>{root.dataset.theme=cur()==='dark'?'light':'dark';try{localStorage.setItem('lm-theme',root.dataset.theme)}catch(e){}paint()});
+  mq.addEventListener('change',paint);btn.addEventListener('repaint',paint);paint();}
+
+ document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>{try{localStorage.setItem('lm-lang',b.dataset.lang)}catch(e){}applyLang(b.dataset.lang)}));
+ document.addEventListener('langchange',()=>{const bt=document.getElementById('themeBtn');if(bt)bt.dispatchEvent(new Event('repaint'))});
+ document.addEventListener('langchange',()=>{document.querySelectorAll('.fold[aria-pressed=true]').forEach(b=>b.click())});
+ applyLang(LANG);
+</script>
+</body>
+</html>

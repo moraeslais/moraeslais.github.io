@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Venzi · protótipo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700&display=swap" rel="stylesheet">
+<style>:root{
+--bg:#f4f7f6;--white:#fff;--subtle:#eef3f2;--bd:#dce4e2;--bd2:#c3cfcc;
+--tx:#13201f;--mut:#56686a;--sub:#657174;--on:#fff;
+--br:#0f766e;--brh:#0b5a54;--brs:#e2f2ef;--brt:#0b5a54;
+--rh:#c2410c;--rhs:#fdebe1;--rht:#9a3412;--rm:#b7791f;--rms:#fbf1db;--rmt:#8a5a12;
+--ok:#2f855a;--oks:#e3f4ea;--okt:#22663f;--ins:#e7eefb;--int:#2a4e9b;
+--r-sm:6px;--r-md:10px;--r-lg:14px;
+--fd:"Plus Jakarta Sans",Inter,system-ui,sans-serif;--fb:Inter,system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--fb);color:var(--tx);background:#dfe7e5;overflow:hidden;-webkit-font-smoothing:antialiased}
+html.embed body{background:transparent}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+input{font:inherit;color:inherit}
+svg{display:block;flex-shrink:0}
+#stage{position:absolute;left:50%;top:50%;transform-origin:center center;width:1440px}
+/* barra do guia */
+#guide{height:52px;margin-bottom:14px;display:flex;align-items:center;gap:12px;padding:0 8px 0 18px;background:var(--tx);color:#fff;border-radius:14px}
+#guide .gl{font:600 12px/1 var(--fb);letter-spacing:.08em;text-transform:uppercase;color:#9fd9d1;white-space:nowrap}
+#guide .gt{flex:1;font:500 14px/20px var(--fb);color:#fff;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+#guide .gt b{color:#9fd9d1;font-weight:600}
+#guide .gb{height:36px;padding:0 14px;border-radius:10px;font:600 13px/1 var(--fb);background:rgba(255,255,255,.08);color:#fff;white-space:nowrap}
+#guide .gb:hover{background:rgba(255,255,255,.16)}
+#guide .gb.on{background:var(--br)}
+html.embed #guide{border-radius:14px}
+/* app */
+.app{width:1440px;height:900px;display:flex;background:var(--bg);border-radius:16px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(19,32,31,.18)}
+html.embed .app{box-shadow:0 10px 40px rgba(19,32,31,.12)}
+.side{width:248px;flex-shrink:0;background:var(--white);border-right:1px solid var(--bd);display:flex;flex-direction:column;gap:20px;padding:24px 16px 16px 16px}
+.side .logo{padding-left:8px}
+.clin{width:100%;text-align:left;cursor:pointer;display:flex;align-items:center;gap:10px;background:var(--subtle);border-radius:var(--r-md);padding:10px 12px}
+.clin .t{flex:1}.clin b{display:block;font:600 14px/20px var(--fb)}.clin span{font:400 12px/16px var(--fb);color:var(--mut)}
+.nav{display:flex;flex-direction:column;gap:2px}
+.ni{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:var(--r-md);font:500 14px/20px var(--fb);color:var(--tx);text-align:left;width:100%}
+.ni svg{color:var(--mut)}
+.ni:hover{background:var(--bg)}
+.ni.on{background:var(--brs);color:var(--brt);font-weight:600}.ni.on svg{color:var(--br)}
+.ni .cnt{margin-left:auto;min-width:22px;height:20px;padding:0 6px;border-radius:999px;background:var(--subtle);font:600 12px/20px var(--fb);text-align:center;color:var(--mut)}
+.ni.on .cnt{background:var(--br);color:#fff}
+.ni .lock{margin-left:auto;display:flex;align-items:center;gap:4px;font:500 11px/1 var(--fb);color:var(--sub)}.ni .lock svg{color:var(--sub)}
+.side .sp{flex:1}
+.user{display:flex;align-items:center;gap:10px;padding:12px 8px;border-top:1px solid var(--bd);text-align:left;width:100%;border-radius:0}
+.user:hover{background:var(--bg)}
+.user b{display:block;font:600 14px/20px var(--fb)}.user span{font:400 12px/16px var(--fb);color:var(--mut)}
+.user .sw{margin-left:auto;font:500 11px/14px var(--fb);color:var(--brt);text-align:right}
+.main{flex:1;min-width:0;display:flex;flex-direction:column;gap:24px;padding:28px 32px;position:relative}
+/* cabeçalho */
+.hd{display:flex;align-items:center;gap:16px;flex-shrink:0}
+.hd .ti{flex:1;min-width:0}
+.hd .ey{font:400 13px/18px var(--fb);color:var(--mut)}
+.hd .ey a{color:var(--mut);text-decoration:none;cursor:pointer}.hd .ey a:hover{color:var(--brt);text-decoration:underline}
+.hd h1{font:700 28px/36px var(--fd);letter-spacing:-.01em}
+.hd .sb{font:400 12px/16px var(--fb);color:var(--mut)}
+.search{width:280px;height:40px;display:flex;align-items:center;gap:8px;padding:0 12px;border:1px solid var(--bd);border-radius:var(--r-md);background:var(--white);color:var(--mut)}
+.search input{border:0;outline:0;background:none;flex:1;font:400 14px/20px var(--fb);color:var(--tx);min-width:0}
+.search input::placeholder{color:var(--sub)}
+.iconbtn{width:40px;height:40px;border:1px solid var(--bd);border-radius:var(--r-md);background:var(--white);display:flex;align-items:center;justify-content:center;color:var(--mut);position:relative}
+.iconbtn .dot{position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--rh);border:2px solid #fff}
+/* botões */
+.btn{height:40px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 16px;border-radius:var(--r-md);font:600 14px/20px var(--fb);white-space:nowrap;transition:background .15s,box-shadow .15s}
+.btn.p{background:var(--br);color:#fff}.btn.p:hover{background:var(--brh)}
+.btn.s{background:var(--white);border:1px solid var(--bd2);color:var(--tx)}.btn.s:hover{background:var(--bg)}
+.btn.g{color:var(--brt);padding:0 10px}.btn.g:hover{background:var(--brs)}
+.btn.sm{height:34px;padding:0 12px;font-size:13px}
+.btn.full{width:100%}
+.btn:disabled{opacity:.5;cursor:default}
+/* selos */
+.selo{display:inline-flex;align-items:center;gap:6px;height:22px;padding:0 9px;border-radius:999px;font:500 12px/16px var(--fb);white-space:nowrap}
+.selo i{width:6px;height:6px;border-radius:50%;background:currentColor}
+.selo.alto{background:var(--rhs);color:var(--rht)}.selo.alto i{background:var(--rh)}
+.selo.medio{background:var(--rms);color:var(--rmt)}.selo.medio i{background:var(--rm)}
+.selo.ok{background:var(--oks);color:var(--okt)}.selo.ok i{background:var(--ok)}
+.selo.sem{background:var(--subtle);color:var(--mut)}.selo.sem i{background:var(--bd2)}
+.selo.chegou{background:var(--ins);color:var(--int)}
+.selo.lista{background:var(--brs);color:var(--brt)}
+.selo.feito{background:var(--oks);color:var(--okt)}
+/* geral */
+.av{width:32px;height:32px;border-radius:50%;background:var(--brs);color:var(--brt);font:600 12px/32px var(--fb);text-align:center;flex-shrink:0}
+.av.sm{width:26px;height:26px;font-size:11px;line-height:26px}
+.panel{background:var(--white);border:1px solid var(--bd);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;min-height:0}
+.ptl{display:flex;align-items:center;gap:8px;padding:16px 20px;border-bottom:1px solid var(--bd)}
+.ptl .t{flex:1;min-width:0}.ptl h2{font:700 18px/24px var(--fd)}.ptl h3{font:600 16px/22px var(--fd)}
+.ptl p{font:400 12px/16px var(--fb);color:var(--mut)}
+.scroll{overflow:auto;min-height:0;flex:1}
+.scroll::-webkit-scrollbar{width:8px}.scroll::-webkit-scrollbar-thumb{background:var(--bd);border-radius:8px}
+.kpis{display:flex;gap:16px;flex-shrink:0}
+.kpi{flex:1;background:var(--white);border:1px solid var(--bd);border-radius:var(--r-lg);padding:16px 18px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.kpi .l{font:500 13px/18px var(--fb);color:var(--mut)}
+.kpi .v{font:700 30px/38px var(--fd);letter-spacing:-.01em}
+.kpi .d{font:400 12px/16px var(--fb);color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpi.alert{background:var(--rhs);border-color:var(--rh)}.kpi.alert .d{color:var(--rht)}
+.cap{font:400 12px/16px var(--fb);color:var(--mut)}
+.lab{font:600 11px/14px var(--fb);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.b14{font:600 14px/20px var(--fb)}
+.t14{font:400 14px/20px var(--fb)}
+.row{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--bd)}
+.row:last-child{border-bottom:0}
+.row .tx{flex:1;min-width:0}
+.row .nm{display:flex;align-items:center;gap:8px;font:600 14px/20px var(--fb)}
+.link{cursor:pointer}.link:hover{color:var(--brt);text-decoration:underline}
+.why{display:flex;align-items:flex-start;gap:6px;font:400 12px/16px var(--fb);margin-top:4px}
+.why svg{margin-top:0}
+.why.alto{color:var(--rht)}.why.medio{color:var(--rmt)}
+.chips{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.chip{height:32px;display:inline-flex;align-items:center;gap:6px;padding:0 12px;border-radius:999px;border:1px solid var(--bd);background:var(--white);font:400 14px/20px var(--fb)}
+.chip span{font-size:12px;color:var(--mut)}
+.chip.on{background:var(--brs);border-color:var(--brs);color:var(--brt);font-weight:600}.chip.on span{color:var(--brt)}
+.fsel{height:36px;display:inline-flex;align-items:center;gap:8px;padding:0 10px 0 12px;border:1px solid var(--bd);border-radius:var(--r-md);background:var(--white);font:600 14px/20px var(--fb);color:var(--tx)}
+.fsel svg{color:var(--mut)}
+.thead{display:flex;gap:16px;padding:10px 20px;background:var(--subtle)}
+.thead div{font:600 11px/14px var(--fb);letter-spacing:.06em;text-transform:uppercase;color:var(--mut)}
+.banner{display:flex;align-items:center;gap:12px;padding:12px 18px;border-radius:var(--r-md);background:var(--ins);color:var(--int);font:400 14px/20px var(--fb);flex-shrink:0}
+.banner .t{flex:1}
+.banner.ok{background:var(--oks);color:var(--okt)}
+/* hoje */
+.cols{display:flex;gap:24px;min-height:0;flex:1}
+.done-row{opacity:.55}
+.done-row .nm{text-decoration:line-through}
+.empty{display:flex;flex-direction:column;align-items:center;gap:12px;padding:44px 40px;text-align:center}
+.empty .ic{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.empty h3{font:700 18px/24px var(--fd)}
+.empty p{font:400 14px/20px var(--fb);color:var(--mut);max-width:440px}
+.wait{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--bd)}
+.wait:last-child{border-bottom:0}
+.next{display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--bd)}
+.next:last-child{border-bottom:0}
+.next .h{width:44px;font:600 13px/18px var(--fb);color:var(--mut)}
+/* agenda */
+.agbar{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.seg{display:flex;gap:2px;padding:3px;background:var(--subtle);border-radius:var(--r-md)}
+.seg button{height:30px;padding:0 14px;border-radius:var(--r-sm);font:400 14px/20px var(--fb);color:var(--mut)}
+.seg button.on{background:#fff;color:var(--tx);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.legend{display:flex;gap:14px;margin-left:auto}
+.legend span{display:flex;align-items:center;gap:6px;font:400 12px/16px var(--fb);color:var(--mut)}
+.legend i{width:10px;height:10px;border-radius:3px}
+.grid{position:relative;flex:1;background:var(--white);border:1px solid var(--bd);border-radius:var(--r-lg);overflow:hidden}
+.g-ln{position:absolute;height:1px;background:var(--bd)}
+.g-ln.h{background:var(--subtle)}
+.g-vl{position:absolute;top:0;bottom:0;width:1px;background:var(--bd)}
+.g-hr{position:absolute;left:16px;font:400 12px/16px var(--fb);color:var(--mut)}
+.g-pro{position:absolute;top:12px;display:flex;align-items:center;gap:10px}
+.g-pro b{display:block;font:600 14px/20px var(--fb);white-space:nowrap}.g-pro span{font:400 12px/16px var(--fb);color:var(--mut)}
+.g-lunch{position:absolute;background:var(--subtle)}
+.g-now{position:absolute;height:2px;background:var(--rh)}
+.g-nowd{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--rh)}
+.ap{position:absolute;display:flex;align-items:stretch;gap:8px;border:1px solid var(--bd);border-radius:var(--r-sm);background:#fff;overflow:hidden;text-align:left;padding:0 8px 0 0;transition:box-shadow .15s,transform .1s}
+.ap:hover{box-shadow:0 4px 14px rgba(19,32,31,.12);z-index:2}
+.ap .bar{width:4px;flex-shrink:0}
+.ap .tt{flex:1;min-width:0;padding-top:6px}
+.ap .tt b{display:block;font:600 14px/20px var(--fb);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap .tt span{display:block;font:400 12px/16px var(--fb);color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ap.short .tt{padding-top:6px}.ap.short .tt span{color:var(--tx)}
+.ap .pt{width:8px;height:8px;border-radius:50%;align-self:center;flex-shrink:0}
+.ap.alto{background:var(--rhs);border-color:var(--rh)}
+.ap.atend{background:var(--brs)}
+.ap.sel{box-shadow:0 0 0 3px rgba(194,65,12,.35)}
+.ap.vago{background:var(--brs);border:1px dashed var(--br);padding-left:10px;align-items:center}
+.ap.vago span{font:500 12px/16px var(--fb);color:var(--brt)}
+.ap.novo{background:var(--oks);border-color:var(--ok)}
+/* drawer e modal */
+.ov{position:absolute;inset:0;background:rgba(19,32,31,.35);z-index:20;animation:fade .15s}
+.ov.light{background:rgba(19,32,31,.12)}
+.drawer{position:absolute;top:0;right:0;bottom:0;width:440px;background:#fff;z-index:21;box-shadow:-20px 0 50px rgba(13,38,38,.18);display:flex;flex-direction:column;animation:slide .2s ease-out}
+.dsec{padding:20px 24px;border-bottom:1px solid var(--bd);display:flex;flex-direction:column;gap:10px}
+.modal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;border-radius:var(--r-lg);z-index:21;box-shadow:0 20px 50px rgba(13,38,38,.25);padding:28px;display:flex;flex-direction:column;gap:20px;animation:pop .18s ease-out}
+.modal h2{font:700 20px/28px var(--fd)}
+.modal .x{position:absolute;top:18px;right:18px;width:32px;height:32px;border-radius:8px;color:var(--mut);font-size:18px}
+.modal .x:hover{background:var(--bg)}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{display:flex;align-items:center;gap:10px;padding:12px 14px;border:1px solid var(--bd);border-radius:var(--r-md);text-align:left;color:var(--mut)}
+.opt b{display:block;font:600 14px/20px var(--fb);color:var(--tx)}.opt span{font:400 12px/16px var(--fb);color:var(--mut)}
+.opt:hover{border-color:var(--bd2)}
+.opt.on{background:var(--brs);border-color:var(--br);box-shadow:inset 0 0 0 .5px var(--br);color:var(--br)}.opt.on b{color:var(--brt)}
+.pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--bd);font:400 12px/16px var(--fb);background:#fff}
+.pill.on{background:var(--br);border-color:var(--br);color:#fff}
+.fld{display:flex;flex-direction:column;gap:6px;flex:1}
+.fld label{font:400 12px/16px var(--fb);color:var(--mut)}
+.inp{height:40px;display:flex;align-items:center;gap:8px;padding:0 10px 0 12px;border:1px solid var(--bd2);border-radius:var(--r-md);font:400 14px/20px var(--fb);background:#fff}
+.inp input,.inp select{border:0;outline:0;background:none;flex:1;font:inherit;color:var(--tx);appearance:none;cursor:pointer}
+.inp svg{color:var(--mut)}
+textarea.ta{width:100%;height:64px;resize:none;border:1px solid var(--bd2);border-radius:var(--r-md);padding:10px 12px;font:400 14px/20px var(--fb);outline:0}
+textarea.ta:focus,.inp:focus-within{border-color:var(--br);box-shadow:0 0 0 3px var(--brs)}
+.check{display:flex;align-items:flex-start;gap:10px;padding:12px 14px;border-radius:var(--r-md);background:var(--bg);font:400 12px/16px var(--fb);text-align:left}
+.check .bx{width:18px;height:18px;border-radius:4px;border:1.5px solid var(--bd2);flex-shrink:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px}
+.check.on .bx{background:var(--br);border-color:var(--br)}
+.mfoot{display:flex;justify-content:flex-end;gap:10px}
+.toast{position:absolute;left:calc(248px + (1192px / 2));bottom:28px;transform:translateX(-50%);z-index:40;display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:var(--r-md);background:var(--tx);color:#fff;font:600 14px/20px var(--fb);box-shadow:0 8px 24px rgba(0,0,0,.18);animation:up .2s ease-out;white-space:nowrap}
+.toast svg{color:#9fd9d1}
+/* lista de espera */
+.vagos{display:flex;gap:16px;flex-shrink:0}
+.vg{flex:1;text-align:left;display:flex;flex-direction:column;gap:6px;padding:18px;border:1px solid var(--bd);border-radius:var(--r-lg);background:#fff;min-width:0}
+.vg:hover{border-color:var(--bd2)}
+.vg.on{background:var(--brs);border:1.5px solid var(--br);padding:17.5px}
+.vg.pode{border-style:dashed}
+.vg.feito{background:var(--oks);border-color:var(--ok)}
+.vg .top{display:flex;align-items:center}.vg .top .lab{flex:1}
+.vg.on .lab,.vg.on .top .cap{color:var(--brt)}
+.vg h3{font:700 18px/24px var(--fd)}
+.vg .inf{display:flex;align-items:center;gap:6px;font:400 12px/16px var(--fb);color:var(--mut)}
+.vg.pode .inf{color:var(--rmt)}
+.vg.feito .inf{color:var(--okt)}
+.cabe{height:20px;padding:0 8px;border-radius:999px;background:var(--brs);color:var(--brt);font:500 12px/20px var(--fb)}
+.sug{padding:16px 20px;border-bottom:1px solid var(--bd);display:flex;flex-direction:column;gap:10px}
+.sug .ok{display:flex;gap:8px;font:400 12px/16px var(--fb)}.sug .ok b{color:var(--okt);font-weight:600}
+.await{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:var(--r-md);background:var(--ins);color:var(--int);font:600 14px/20px var(--fb)}
+/* indicadores */
+.hm{display:grid;grid-template-columns:64px repeat(5,1fr);gap:6px;padding:0 20px 12px}
+.hm .c{height:44px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font:600 14px/20px var(--fb)}
+.hm .d{font:400 12px/16px var(--fb);color:var(--mut);text-align:center}
+.hm .p{font:400 12px/44px var(--fb);color:var(--mut)}
+.bars{flex:1;display:flex;align-items:flex-end;gap:0;padding:28px 20px 10px;position:relative}
+.bars .b{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.bars .b i{width:36px;border-radius:4px 4px 0 0;display:block}
+.bars .b span{font:400 12px/16px var(--fb);color:var(--mut)}
+.tbar{width:120px;height:6px;border-radius:3px;background:var(--subtle);overflow:hidden}.tbar i{display:block;height:100%;border-radius:3px}
+/* equipe */
+.mx{display:grid;grid-template-columns:1fr 86px 86px 86px;align-items:center}
+.mx>div{padding:10px 0;border-bottom:1px solid var(--bd);font:400 14px/20px var(--fb)}
+.mx>div.c{text-align:center;display:flex;justify-content:center}
+.yes{width:22px;height:22px;border-radius:50%;background:var(--oks);color:var(--okt);font:600 12px/22px var(--fb);text-align:center}
+.no{color:var(--bd2)}
+.only{height:20px;padding:0 8px;border-radius:999px;background:var(--subtle);color:var(--mut);font:400 12px/20px var(--fb)}
+.pf{height:22px;padding:0 10px;border-radius:999px;font:400 12px/22px var(--fb);white-space:nowrap}
+.pf.g{background:var(--brs);color:var(--brt)}.pf.r{background:var(--ins);color:var(--int)}.pf.p{background:var(--subtle);color:var(--tx)}
+.locked{flex:1;display:flex;align-items:center;justify-content:center}
+/* ficha */
+.fator{display:flex;align-items:center;gap:12px}
+.fator .w{display:flex;gap:3px}.fator .w i{width:14px;height:6px;border-radius:3px;background:var(--subtle)}
+.fator .tx{flex:1;font:400 14px/20px var(--fb)}
+.fator .lb{font:400 12px/16px var(--fb);color:var(--mut)}
+.hist{display:flex;align-items:center;gap:16px;padding:9px 20px;border-bottom:1px solid var(--bd)}
+.hist:last-child{border-bottom:0}
+.dots{display:flex;gap:6px}.dots i{width:12px;height:12px;border-radius:50%}
+.log{display:flex;gap:12px;padding:10px 20px}
+.log i{width:8px;height:8px;border-radius:50%;background:var(--bd2);margin-top:5px;flex-shrink:0}
+.log.new i{background:var(--br)}
+/* dica pulsante */
+.hint{position:relative;z-index:5;animation:hint 1.6s ease-in-out infinite}
+@keyframes hint{0%,100%{box-shadow:0 0 0 0 rgba(15,118,110,.55),0 0 0 0 rgba(15,118,110,.25)}50%{box-shadow:0 0 0 4px rgba(15,118,110,.55),0 0 0 10px rgba(15,118,110,.12)}}
+@keyframes fade{from{opacity:0}}
+@keyframes slide{from{transform:translateX(40px);opacity:0}}
+@keyframes pop{from{transform:translate(-50%,-48%);opacity:0}}
+@keyframes up{from{transform:translate(-50%,10px);opacity:0}}
+.skel{background:linear-gradient(90deg,var(--subtle) 0,#f7faf9 50%,var(--subtle) 100%);background-size:200% 100%;animation:sk 1.2s linear infinite;border-radius:6px}
+@keyframes sk{to{background-position:-200% 0}}
+
+/* login */
+.login{display:flex;width:100%;height:100%;background:#fff}
+.lg-art{width:620px;flex-shrink:0;background:var(--br);position:relative;overflow:hidden;padding:56px;display:flex;flex-direction:column;justify-content:space-between;color:#fff}
+.lg-art .c1,.lg-art .c2,.lg-art .c3{position:absolute;border-radius:50%}
+.lg-art .c1{width:520px;height:520px;right:-180px;top:-140px;background:rgba(255,255,255,.07)}
+.lg-art .c2{width:300px;height:300px;left:-90px;bottom:120px;background:rgba(255,255,255,.06)}
+.lg-art .c3{width:72px;height:72px;right:96px;top:150px;background:#fdba74;opacity:.9}
+.lg-art svg{position:relative}
+.lg-t{position:relative}
+.lg-t h2{font:700 48px/54px var(--fd);letter-spacing:-.02em}
+.lg-t p{font:400 16px/24px var(--fb);color:rgba(255,255,255,.82);max-width:420px;margin-top:16px}
+.lg-card{position:relative;background:#fff;color:var(--tx);border-radius:var(--r-lg);padding:18px 20px;width:380px;box-shadow:0 20px 50px rgba(0,0,0,.18)}
+.lg-n{display:flex;gap:24px;margin-top:8px}.lg-n b{display:block;font:700 26px/32px var(--fd)}.lg-n span{font:400 12px/16px var(--fb);color:var(--mut)}
+.lg-form{flex:1;display:flex;align-items:center;justify-content:center}
+.lg-form .inp input{cursor:default;color:var(--mut)}
+
+.clin:hover,.clin.open{background:var(--brs)}
+.ov.clear{background:transparent;animation:none}
+.pop{position:absolute;left:16px;top:132px;width:380px;background:#fff;border:1px solid var(--bd);border-radius:var(--r-lg);box-shadow:0 20px 50px rgba(13,38,38,.2);z-index:25;overflow:hidden;animation:fade .15s}
+.pop-h{display:flex;align-items:center;padding:16px 20px 8px}
+.pop-sum{display:flex;gap:16px;padding:0 20px 12px;border-bottom:1px solid var(--bd)}
+.pop-sum span{display:flex;align-items:center;gap:6px;font:500 12px/16px var(--fb);color:var(--mut)}.pop-sum i{width:8px;height:8px;border-radius:50%}
+.pop-r{width:100%;display:flex;align-items:center;gap:12px;padding:11px 16px 11px 20px;border-bottom:1px solid var(--bd);text-align:left}
+.pop-r:last-child{border-bottom:0}.pop-r:hover{background:var(--bg)}
+.avw{position:relative;flex-shrink:0}.avw i{position:absolute;right:-1px;bottom:-1px;width:11px;height:11px;border-radius:50%;border:2px solid #fff}
+.avw.lg .av{width:52px;height:52px;line-height:52px;font-size:16px}.avw.lg i{width:14px;height:14px}
+.pop-g{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--bd);border-bottom:1px solid var(--bd)}
+.pg{display:flex;gap:10px;padding:12px 16px;background:#fff;color:var(--mut)}.pg svg{margin-top:2px}
+.pop-g-t{padding:12px 20px 6px;font:600 11px/14px var(--fb);letter-spacing:.06em;text-transform:uppercase;color:var(--mut);background:var(--bg);border-bottom:1px solid var(--bd)}
+.pop-sc{max-height:640px;overflow:auto}
+.iconbtn.on{background:var(--brs);border-color:var(--br);color:var(--br)}
+.pop.notif{left:auto;right:180px;top:86px;width:420px}
+.pop-r.unread{background:#fbfdfc}
+.nic{width:36px;height:36px;border-radius:50%;background:var(--subtle);color:var(--mut);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pop-r.unread .nic{background:var(--brs);color:var(--br)}
+.udot{width:8px;height:8px;border-radius:50%;background:var(--br);flex-shrink:0;align-self:center}
+.inp input::placeholder{color:var(--sub)}
+.wk{display:grid;grid-template-columns:230px repeat(5,1fr);overflow:auto;flex:1}
+.wk>div,.wk>button{border-bottom:1px solid var(--bd);border-right:1px solid var(--bd)}
+.wk-h{padding:12px 14px;display:flex;align-items:baseline;gap:6px;background:var(--subtle)}
+.wk-h span{font:500 12px/16px var(--fb);color:var(--mut)}.wk-h b{font:700 18px/24px var(--fd)}.wk-h em{font:600 11px/14px var(--fb);font-style:normal;color:#fff;background:var(--rh);border-radius:999px;padding:2px 7px;margin-left:auto}
+.wk-h.hoje{background:var(--brs)}
+.wk-p{display:flex;gap:10px;align-items:center;padding:10px 14px}
+.wk-c{padding:10px 12px;display:flex;flex-direction:column;gap:5px;text-align:left;align-items:flex-start}
+button.wk-c:hover{background:var(--bg)}
+.wk-c.hoje{background:#f6fbfa}.wk-c.off{background:repeating-linear-gradient(45deg,#fff,#fff 6px,var(--bg) 6px,var(--bg) 12px);justify-content:center}
+.wk-c b{font:700 18px/22px var(--fd)}
+.wk-bar{width:100%;height:6px;border-radius:3px;background:var(--subtle);overflow:hidden}.wk-bar i{display:block;height:100%;border-radius:3px}
+.wk-c.tot{flex-direction:row;align-items:baseline;gap:6px;background:var(--subtle)}
+</style></head><body><div id="stage"><div id="guide"></div><div class="app" id="app"></div></div>
+<script>const IC={"cadeado":"<rect x=\"4.17\" y=\"9.17\" width=\"11.67\" height=\"8.33\" rx=\"1.67\"/><path d=\"M6.67 9.17V5.83a3.33 3.33 0 0 1 6.67 0v3.34\"/>","casa": "<path d=\"M2.5 8.33333L10 2.5L17.5 8.33333V16.6667C17.5 16.8877 17.4122 17.0996 17.2559 17.2559C17.0996 17.4122 16.8877 17.5 16.6667 17.5H12.5V12.5H7.5V17.5H3.33333C3.11232 17.5 2.90036 17.4122 2.74408 17.2559C2.5878 17.0996 2.5 16.8877 2.5 16.6667V8.33333Z\"/>", "calendario": "<path d=\"M15.8333 3.33333H4.16667C3.24619 3.33333 2.5 4.07953 2.5 5V16.6667C2.5 17.5871 3.24619 18.3333 4.16667 18.3333H15.8333C16.7538 18.3333 17.5 17.5871 17.5 16.6667V5C17.5 4.07953 16.7538 3.33333 15.8333 3.33333Z\"/><path d=\"M13.3333 1.66667V5M6.66667 1.66667V5M2.5 8.33333H17.5\"/>", "confirmar": "<path d=\"M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z\"/><path d=\"M7.08334 10L9.16667 12.0833L13.3333 7.91667\"/>", "lista": "<path d=\"M6.66667 5H17.5M6.66667 10H17.5M6.66667 15H17.5M2.5 5H2.50833M2.5 10H2.50833M2.5 15H2.50833\"/>", "pacientes": "<path d=\"M13.3333 17.5V15.8333C13.3333 14.9493 12.9821 14.1014 12.357 13.4763C11.7319 12.8512 10.8841 12.5 10 12.5H5C4.11595 12.5 3.2681 12.8512 2.64298 13.4763C2.01786 14.1014 1.66667 14.9493 1.66667 15.8333V17.5\"/><path d=\"M7.5 9.16667C9.34095 9.16667 10.8333 7.67428 10.8333 5.83333C10.8333 3.99238 9.34095 2.5 7.5 2.5C5.65906 2.5 4.16667 3.99238 4.16667 5.83333C4.16667 7.67428 5.65906 9.16667 7.5 9.16667Z\"/><path d=\"M18.3333 17.5V15.8333C18.3328 15.0948 18.087 14.3773 17.6345 13.7936C17.182 13.2099 16.5484 12.793 15.8333 12.6083M13.3333 2.60833C14.0503 2.79192 14.6859 3.20892 15.1397 3.79359C15.5935 4.37827 15.8399 5.09736 15.8399 5.8375C15.8399 6.57764 15.5935 7.29673 15.1397 7.88141C14.6859 8.46608 14.0503 8.88308 13.3333 9.06667\"/>", "grafico": "<path d=\"M2.5 2.5V17.5H17.5\"/><path d=\"M15 14.1667V7.5M10.8333 14.1667V4.16667M6.66667 14.1667V11.6667\"/>", "equipe": "<path d=\"M15.8333 4.16667H4.16667C3.24619 4.16667 2.5 4.91286 2.5 5.83333V14.1667C2.5 15.0871 3.24619 15.8333 4.16667 15.8333H15.8333C16.7538 15.8333 17.5 15.0871 17.5 14.1667V5.83333C17.5 4.91286 16.7538 4.16667 15.8333 4.16667Z\"/><path d=\"M7.5 10.8333C8.42048 10.8333 9.16668 10.0871 9.16668 9.16667C9.16668 8.24619 8.42048 7.5 7.5 7.5C6.57954 7.5 5.83334 8.24619 5.83334 9.16667C5.83334 10.0871 6.57954 10.8333 7.5 10.8333Z\"/><path d=\"M5 13.3333C5.66667 12.1667 6.58333 11.6667 7.5 11.6667C8.41667 11.6667 9.33333 12.1667 10 13.3333M12.5 8.33333H15M12.5 11.6667H15\"/>", "busca": "<path d=\"M9.16668 15C12.3883 15 15 12.3883 15 9.16667C15 5.94501 12.3883 3.33333 9.16668 3.33333C5.94502 3.33333 3.33334 5.94501 3.33334 9.16667C3.33334 12.3883 5.94502 15 9.16668 15Z\"/><path d=\"M17.5 17.5L13.9167 13.9167\"/>", "telefone": "<path d=\"M18.3333 14.0833V16.5833C18.3345 16.817 18.2865 17.0482 18.1926 17.2621C18.0986 17.476 17.9607 17.6678 17.7878 17.8249C17.6149 17.9821 17.4109 18.1011 17.1891 18.1744C16.9672 18.2476 16.7325 18.2734 16.5 18.25C13.9423 17.9597 11.488 17.075 9.33333 15.6667C7.31985 14.3872 5.61277 12.6801 4.33333 10.6667C2.92498 8.51199 2.04029 6.05769 1.75 3.5C1.72663 3.26754 1.7524 3.03276 1.82563 2.81091C1.89886 2.58905 2.01791 2.38506 2.17507 2.21219C2.33223 2.03932 2.52398 1.90142 2.73787 1.80744C2.95177 1.71346 3.18303 1.6655 3.41666 1.66667H5.91666C6.3186 1.66212 6.70864 1.803 7.01492 2.06333C7.32119 2.32366 7.52306 2.68591 7.58333 3.08333C7.66666 3.91667 7.91666 4.66667 8.16666 5.41667C8.27189 5.71766 8.28856 6.04252 8.21471 6.35271C8.14085 6.6629 7.97957 6.94539 7.75 7.16667L6.66666 8.25C7.85296 10.3363 9.58037 12.0637 11.6667 13.25L12.75 12.1667C12.9713 11.9371 13.2538 11.7758 13.564 11.702C13.8741 11.6281 14.199 11.6448 14.5 11.75C15.25 12 16 12.25 16.8333 12.3333C17.2308 12.3936 17.593 12.5955 17.8533 12.9017C18.1137 13.208 18.2545 13.5981 18.25 14L18.3333 14.0833Z\"/>", "sino": "<path d=\"M5 6.66667C5 5.34058 5.52678 4.06881 6.46447 3.13113C7.40215 2.19345 8.67392 1.66667 10 1.66667C11.3261 1.66667 12.5979 2.19345 13.5355 3.13113C14.4732 4.06881 15 5.34058 15 6.66667C15 12.5 17.5 14.1667 17.5 14.1667H2.5C2.5 14.1667 5 12.5 5 6.66667Z\"/><path d=\"M8.58334 17.5C8.72283 17.7537 8.92788 17.9653 9.17709 18.1127C9.42629 18.26 9.71049 18.3378 10 18.3378C10.2895 18.3378 10.5737 18.26 10.8229 18.1127C11.0721 17.9653 11.2772 17.7537 11.4167 17.5\"/>", "mensagem": "<path d=\"M6.58332 16.6667C8.1738 17.4825 10.0034 17.7035 11.7424 17.2898C13.4814 16.8761 15.0155 15.8549 16.0681 14.4101C17.1208 12.9654 17.6228 11.1923 17.4838 9.41013C17.3448 7.62801 16.5738 5.95414 15.3098 4.69016C14.0458 3.42618 12.372 2.65521 10.5899 2.51618C8.80773 2.37715 7.03455 2.87921 5.58984 3.93187C4.14513 4.98454 3.1239 6.51859 2.71018 8.25759C2.29645 9.9966 2.51744 11.8262 3.33332 13.4167L1.66666 18.3333L6.58332 16.6667Z\"/>", "relogio": "<path d=\"M10 17.5C14.1421 17.5 17.5 14.1421 17.5 10C17.5 5.85786 14.1421 2.5 10 2.5C5.85786 2.5 2.5 5.85786 2.5 10C2.5 14.1421 5.85786 17.5 10 17.5Z\"/><path d=\"M10 5.83333V10L12.5 11.6667\"/>", "mais": "<path d=\"M10 4.16667V15.8333M4.16669 10H15.8334\"/>", "seta": "<path d=\"M7.5 15L12.5 10L7.5 5\"/>", "alerta": "<path d=\"M8.58336 3.25L1.50002 15C1.35482 15.2514 1.27782 15.5364 1.27663 15.8267C1.27544 16.117 1.35011 16.4026 1.49324 16.6552C1.63638 16.9078 1.84301 17.1186 2.09268 17.2668C2.34235 17.415 2.6264 17.4954 2.91669 17.5H17.0834C17.3736 17.4954 17.6577 17.415 17.9074 17.2668C18.157 17.1186 18.3637 16.9078 18.5068 16.6552C18.6499 16.4026 18.7246 16.117 18.7234 15.8267C18.7222 15.5364 18.6452 15.2514 18.5 15L11.4167 3.25C11.2672 3.00882 11.0586 2.80979 10.8107 2.67177C10.5628 2.53375 10.2838 2.4613 10 2.4613C9.71628 2.4613 9.43723 2.53375 9.18932 2.67177C8.9414 2.80979 8.73283 3.00882 8.58336 3.25Z\"/><path d=\"M10 7.5V10.8333M10 14.1667H10.0083\"/>", "reenviar": "<path d=\"M2.5 10C2.50132 8.55276 2.92133 7.13682 3.70938 5.92295C4.49743 4.70908 5.61985 3.74914 6.94126 3.15891C8.26267 2.56868 9.72662 2.37337 11.1566 2.59654C12.5865 2.81972 13.9213 3.45184 15 4.41667L17.5 6.66667\"/><path d=\"M17.5 2.5V6.66667H13.3333\"/><path d=\"M17.5 10C17.4987 11.4472 17.0787 12.8632 16.2906 14.0771C15.5026 15.2909 14.3802 16.2509 13.0587 16.8411C11.7373 17.4313 10.2734 17.6266 8.84345 17.4035C7.41352 17.1803 6.07871 16.5482 5 15.5833L2.5 13.3333\"/><path d=\"M6.66667 13.3333H2.5V17.5\"/>", "chegou": "<path d=\"M13.3334 17.5V15.8333C13.3334 14.9493 12.9822 14.1014 12.357 13.4763C11.7319 12.8512 10.8841 12.5 10 12.5H5C4.11597 12.5 3.26812 12.8512 2.643 13.4763C2.01788 14.1014 1.66669 14.9493 1.66669 15.8333V17.5\"/><path d=\"M7.5 9.16667C9.34097 9.16667 10.8334 7.67428 10.8334 5.83333C10.8334 3.99238 9.34097 2.5 7.5 2.5C5.65907 2.5 4.16669 3.99238 4.16669 5.83333C4.16669 7.67428 5.65907 9.16667 7.5 9.16667Z\"/><path d=\"M13.3333 9.16667L15 10.8333L18.3333 7.5\"/>", "seletor": "<path d=\"M5.83331 12.5L9.99998 16.6667L14.1666 12.5M5.83331 7.5L9.99998 3.33333L14.1666 7.5\"/>"};
+
+// Dados fictícios da Clínica Jacarandá (coerentes com o Figma)
+const LOGO='<svg width="95" height="32" viewBox="0 0 95 32" fill="none"><rect width="32" height="32" rx="9" fill="#0F766E"/><path d="M9 10.5L16 21.5L23 10.5" stroke="white" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="23.5" cy="9.5" r="2.4" fill="#FDBA74"/><path d="M46.95 25L42.242 13.032H45.388L48.798 22.448H47.632L51.064 13.032H54.21L49.502 25H46.95ZM60.6641 25.264C59.4321 25.264 58.3541 24.9853 57.4301 24.428C56.5061 23.8707 55.7874 23.1153 55.2741 22.162C54.7608 21.2087 54.5041 20.1527 54.5041 18.994C54.5041 17.7913 54.7608 16.728 55.2741 15.804C55.8021 14.8653 56.5134 14.1247 57.4081 13.582C58.3174 13.0393 59.3294 12.768 60.4441 12.768C61.3828 12.768 62.2041 12.922 62.9081 13.23C63.6268 13.538 64.2354 13.9633 64.7341 14.506C65.2328 15.0487 65.6141 15.672 65.8781 16.376C66.1421 17.0653 66.2741 17.8133 66.2741 18.62C66.2741 18.8253 66.2594 19.038 66.2301 19.258C66.2154 19.478 66.1788 19.6687 66.1201 19.83H56.8801V17.63H64.4921L63.1281 18.664C63.2601 17.9893 63.2234 17.388 63.0181 16.86C62.8274 16.332 62.5048 15.914 62.0501 15.606C61.6101 15.298 61.0748 15.144 60.4441 15.144C59.8428 15.144 59.3074 15.298 58.8381 15.606C58.3688 15.8993 58.0094 16.3393 57.7601 16.926C57.5254 17.498 57.4374 18.1947 57.4961 19.016C57.4374 19.7493 57.5328 20.402 57.7821 20.974C58.0461 21.5313 58.4274 21.964 58.9261 22.272C59.4394 22.58 60.0261 22.734 60.6861 22.734C61.3461 22.734 61.9034 22.5947 62.3581 22.316C62.8274 22.0373 63.1941 21.6633 63.4581 21.194L65.7901 22.338C65.5554 22.91 65.1888 23.416 64.6901 23.856C64.1914 24.296 63.5974 24.6407 62.9081 24.89C62.2334 25.1393 61.4854 25.264 60.6641 25.264ZM67.8588 25V13.032H70.5648V15.386L70.3448 14.968C70.6235 14.2493 71.0781 13.7067 71.7088 13.34C72.3541 12.9587 73.1021 12.768 73.9528 12.768C74.8328 12.768 75.6101 12.9587 76.2848 13.34C76.9741 13.7213 77.5095 14.2567 77.8908 14.946C78.2721 15.6207 78.4628 16.4053 78.4628 17.3V25H75.5808V17.982C75.5808 17.454 75.4781 16.9993 75.2728 16.618C75.0675 16.2367 74.7815 15.9433 74.4148 15.738C74.0628 15.518 73.6448 15.408 73.1608 15.408C72.6915 15.408 72.2735 15.518 71.9068 15.738C71.5401 15.9433 71.2541 16.2367 71.0488 16.618C70.8435 16.9993 70.7408 17.454 70.7408 17.982V25H67.8588ZM79.2658 25V22.668L86.2178 14.616L86.6578 15.606H79.5738V13.032H89.2098V15.386L82.3898 23.438L81.9498 22.448H89.2538V25H79.2658ZM90.2916 25V13.032H93.1736V25H90.2916ZM90.2916 11.69V8.61H93.1736V11.69H90.2916Z" fill="#13201F"/></svg>';
+
+// pacientes (chave = id curto)
+const PAC={
+ MR:{n:'Mariana Reis',ini:'MR',idade:'7 anos',tel:'(11) 98412-3307',fixo:'(11) 3456-7812',resp:'Juliana Reis',rel:'mãe',melhor:'Depois das 18h',desde:'março de 2025',quando:'Amanhã, 9h00',dia:['SEX','20'],esp:'Pediatria',pro:'Dra. Camila Torres',tipo:'retorno · marcada em 30/10',risk:'alto',why:'Faltou 2 vezes nos últimos 6 meses e não respondeu o WhatsApp',pres:[6,8],last:'14/10',lastSt:'faltou',
+  fat:[['a','Faltou 2 vezes nos últimos 6 meses (14/10 e 02/07)'],['m','Não abriu os 2 lembretes (ontem 18h e hoje 7h)'],['b','Consulta marcada há 20 dias'],['n','Primeiro horário da manhã']],
+  hist:[['14/10','Pediatria · Dra. Camila Torres','f','Sem aviso. Na ligação, Juliana disse que esqueceu.'],['16/09','Pediatria · Dra. Camila Torres','c',''],['19/08','Nutrição · Marina Alves','c',''],['02/07','Pediatria · Dra. Camila Torres','f','Avisou 1h antes: criança com febre.'],['10/06','Pediatria · Dra. Camila Torres','c',''],['13/05','Pediatria · Dra. Camila Torres','c','Remarcada 1 vez antes.']],
+  log:[['Hoje, 7h00','2º lembrete por WhatsApp','Entregue, não lido'],['Ontem, 18h00','1º lembrete por WhatsApp','Entregue, não lido'],['14/10, 10h20','Ligação da recepção (Bruna)','Faltou: esqueceu. Pediu lembrete mais cedo.'],['13/10, 18h00','Lembrete por WhatsApp','Lido, sem resposta']],
+  novos:['Seg, 23/11 · 9h00','Ter, 24/11 · 14h30','Qua, 25/11 · 10h00'],vaga:'a900'},
+ JL:{n:'João Pedro Lima',ini:'JL',idade:'29 anos',tel:'(11) 99730-1182',melhor:'Na hora do almoço',desde:'janeiro de 2025',quando:'Amanhã, 10h30',dia:['SEX','20'],esp:'Ortopedia',pro:'Dr. Rafael Nunes',tipo:'consulta · marcada em 10/10',risk:'alto',why:'Agendou há 40 dias e não respondeu os 2 lembretes',pres:[4,5],last:'10/10',lastSt:'c',
+  fat:[['a','Agendou há 40 dias'],['m','Leu os 2 lembretes e não respondeu'],['b','Faltou 1 vez nas últimas 5 consultas']],
+  log:[['Hoje, 7h00','2º lembrete por WhatsApp','Lido, sem resposta'],['Ontem, 18h00','1º lembrete por WhatsApp','Lido, sem resposta']],
+  novos:['Seg, 23/11 · 10h00','Ter, 24/11 · 16h30','Qui, 26/11 · 11h00'],vaga:'a1030'},
+ AM:{n:'Ana Clara Mendes',ini:'AM',idade:'34 anos',tel:'(11) 97655-4021',melhor:'Não informado',desde:'novembro de 2026',quando:'Amanhã, 8h00',dia:['SEX','20'],esp:'Nutrição',pro:'Marina Alves',tipo:'primeira consulta · marcada em 12/11',risk:'alto',why:'Primeira consulta, marcada para as 8h e ainda sem confirmação',pres:null,last:'—',lastSt:'nova',
+  fat:[['a','Primeira consulta, sem histórico de presença'],['m','Não confirmou o lembrete de ontem'],['b','Primeiro horário do dia']],
+  log:[['Ontem, 18h00','1º lembrete por WhatsApp','Entregue, sem resposta']],
+  novos:['Seg, 23/11 · 8h00','Ter, 24/11 · 13h00','Qua, 25/11 · 9h00'],vaga:'a800'},
+ CS:{n:'Carlos Eduardo Silva',ini:'CS',idade:'58 anos',tel:'(11) 98123-9944',quando:'Amanhã, 11h00',dia:['SEX','20'],esp:'Cardiologia',pro:'Dr. Bruno Lima',tipo:'retorno',risk:null,pres:[5,5],last:'03/11',lastSt:'c'},
+ FC:{n:'Fernanda Couto',ini:'FC',idade:'37 anos',tel:'(11) 99288-0613',quando:'Amanhã, 13h30',dia:['SEX','20'],esp:'Ginecologia',pro:'Dra. Júlia Rocha',tipo:'consulta',risk:null,pres:[3,3],last:'12/08',lastSt:'c'},
+ GH:{n:'Gustavo Henrique',ini:'GH',idade:'44 anos',tel:'(11) 98840-7725',quando:'Amanhã, 14h00',dia:['SEX','20'],esp:'Dermatologia',pro:'Dra. Helena Prado',tipo:'consulta',risk:null,pres:[2,2],last:'05/09',lastSt:'c'},
+ PM:{n:'Paula Martins',ini:'PM',idade:'45 anos',tel:'(11) 97302-5518',quando:'Amanhã, 15h30',dia:['SEX','20'],esp:'Ortopedia',pro:'Dr. Rafael Nunes',tipo:'retorno',risk:'medio',why:'Remarcou 1 vez este mês',pres:[6,7],last:'05/11',lastSt:'c',fat:[['m','Remarcou 1 vez este mês'],['b','Faltou 1 vez em 7 consultas']]},
+ RA:{n:'Renato Alves',ini:'RA',idade:'52 anos',tel:'(11) 99561-2270',quando:'Amanhã, 17h00',dia:['SEX','20'],esp:'Nutrição',pro:'Marina Alves',tipo:'retorno',risk:null,pres:[4,4],last:'20/10',lastSt:'c'},
+ BA:{n:'Beatriz Alves',ini:'BA',idade:'41 anos',tel:'(11) 99103-7740',quando:'Hoje, 9h30',dia:['QUI','19'],esp:'Ginecologia',pro:'Dra. Júlia Rocha',tipo:'retorno',risk:null,pres:[9,9],last:'12/09',lastSt:'c'},
+ GF:{n:'Gael Freitas',ini:'GF',idade:'6 anos',tel:'(11) 98877-1209',resp:'Fernanda Freitas',rel:'mãe',quando:'Hoje, 13h30',dia:['QUI','19'],esp:'Pediatria',pro:'Dra. Camila Torres',tipo:'consulta',risk:'alto',why:'Faltou 2 das últimas 5 consultas',pres:[3,5],last:'20/10',lastSt:'faltou',fat:[['a','Faltou 2 das últimas 5 consultas'],['m','Não respondeu o lembrete de ontem'],['b','Primeiro horário depois do almoço']]},
+ LU:{n:'Lucas Ferreira',ini:'LF',idade:'63 anos',tel:'(11) 98200-4415',quando:'Hoje, 9h00',dia:['QUI','19'],esp:'Cardiologia',pro:'Dr. Bruno Lima',tipo:'retorno',risk:null,pres:[12,12],last:'18/08',lastSt:'c',chegou:'8h52'},
+ MS:{n:'Miguel Souza',ini:'MS',idade:'4 anos',tel:'(11) 97541-8830',resp:'Carla Souza',rel:'mãe',quando:'Hoje, 9h30',dia:['QUI','19'],esp:'Pediatria',pro:'Dra. Camila Torres',tipo:'retorno',risk:'medio',why:'Faltou 1 vez em 8 consultas',pres:[7,8],last:'02/11',lastSt:'c',fat:[['m','Faltou 1 vez em 8 consultas'],['b','Confirmou com 1 dia de atraso']]},
+ SM:{n:'Sofia Martins',ini:'SM',idade:'9 anos',tel:'(11) 99654-2087',resp:'Renata Martins',rel:'mãe',quando:'Hoje, 9h00',dia:['QUI','19'],esp:'Pediatria',pro:'Dra. Camila Torres',tipo:'retorno',risk:null,pres:[10,10],last:'22/10',lastSt:'c'},
+};
+const PAC_LISTA=['AM','BA','CS','GF','JL','LU','MR','MS','PM','SM'];
+const CONF=['MR','JL','AM','CS','FC','GH','PM','RA'];
+const LEMB={MR:['1º ontem 18h · não lido','2º hoje 7h · não lido'],JL:['1º ontem 18h · lido','2º hoje 7h · lido'],AM:['1º ontem 18h · entregue'],CS:['1º ontem 18h · entregue','2º hoje 12h · agendado'],FC:['1º ontem 18h · lido','2º hoje 12h · agendado'],GH:['1º ontem 18h · entregue','2º hoje 12h · agendado'],PM:['1º ontem 18h · lido','2º hoje 12h · agendado'],RA:['1º ontem 18h · entregue','2º hoje 12h · agendado']};
+const MOTIVO={CS:'Costuma responder perto do horário',FC:'Leu às 21h, sem resposta',GH:'Sem histórico de faltas',PM:'Remarcou 1 vez este mês',RA:'Último horário do dia'};
+const CONFIRMADAS=[['Sofia Lopes','Amanhã, 8h30','Dra. Camila Torres · Pediatria','Respondeu SIM ontem às 18h04'],['Otávio Reis','Amanhã, 9h00','Dr. Bruno Lima · Cardiologia','Respondeu SIM ontem às 18h11'],['Luana Prates','Amanhã, 9h30','Dra. Júlia Rocha · Ginecologia','Respondeu SIM ontem às 19h40'],['Marcelo Dias','Amanhã, 10h00','Dra. Helena Prado · Dermatologia','Respondeu SIM hoje às 7h02'],['Clara Nogueira','Amanhã, 11h00','Marina Alves · Nutrição','Confirmou por ligação ontem']];
+const REMARCAR=[['Tiago Moura','Era amanhã, 14h30','Dr. Rafael Nunes · Ortopedia','Novo horário: ter, 24/11, 15h00'],['Bianca Leal','Era amanhã, 16h00','Dra. Helena Prado · Dermatologia','Novo horário: seg, 23/11, 11h00'],['Rita Campos','Era amanhã, 10h00','Dra. Júlia Rocha · Ginecologia','Pediu para remarcar · sem horário']];
+
+// lista de espera
+const ESPERA={
+ LF:{n:'Lúcia Fernandes',ini:'LF',esp:'Dermatologia',pro:'Dra. Helena Prado',pref:'Tardes',dias:12},
+ RL:{n:'Roberto Lima',ini:'RL',esp:'Dermatologia',pro:null,pref:'Tarde ou manhã',dias:5},
+ CD:{n:'Camila Duarte',ini:'CD',esp:'Cardiologia',pro:'Dr. Bruno Lima',pref:'Tardes',dias:9},
+ PS:{n:'Pedro Santos',ini:'PS',esp:'Ortopedia',pro:'Dr. Rafael Nunes',pref:'Manhãs',dias:7},
+ HA:{n:'Henrique Alves',ini:'HA',esp:'Cardiologia',pro:null,pref:'Qualquer horário',dias:4},
+ IM:{n:'Isadora Matos',ini:'IM',esp:'Pediatria',pro:'Dra. Camila Torres',pref:'Manhãs',dias:3},
+ VC:{n:'Vânia Costa',ini:'VC',esp:'Nutrição',pro:'Marina Alves',pref:'Sextas',dias:1},
+};
+const VAGAS_BASE=[
+ {id:'h15',when:'Hoje',hr:'15h00',esp:'Dermatologia',pro:'Dra. Helena Prado',inf:'Cancelado ontem às 19h',sug:['LF','RL']},
+ {id:'a1030',when:'Amanhã',hr:'10h30',esp:'Ortopedia',pro:'Dr. Rafael Nunes',inf:'Pode vagar: João Pedro está em risco alto',pode:true,sug:['PS']},
+ {id:'s16',when:'Seg, 23/11',hr:'16h00',esp:'Cardiologia',pro:'Dr. Bruno Lima',inf:'Cancelado hoje às 7h40',sug:['CD','HA']},
+];
+const VAGAS_NOVAS={
+ a900:{id:'a900',when:'Amanhã',hr:'9h00',esp:'Pediatria',pro:'Dra. Camila Torres',inf:'Liberado agora por Mariana Reis',sug:['IM']},
+ a1030:{id:'a1030',when:'Amanhã',hr:'10h30',esp:'Ortopedia',pro:'Dr. Rafael Nunes',inf:'Liberado agora por João Pedro Lima',sug:['PS']},
+ a800:{id:'a800',when:'Amanhã',hr:'8h00',esp:'Nutrição',pro:'Marina Alves',inf:'Liberado agora por Ana Clara Mendes',sug:['VC']},
+};
+
+// agenda de hoje [coluna, início em meias horas desde 8h, duração, nome, situação, chave do paciente]
+const PROS=[['CT','Dra. Camila Torres','Pediatria'],['HP','Dra. Helena Prado','Dermatologia'],['RN','Dr. Rafael Nunes','Ortopedia'],['BL','Dr. Bruno Lima','Cardiologia'],['MA','Marina Alves','Nutrição'],['JR','Dra. Júlia Rocha','Ginecologia']];
+const AG=[
+[0,0,1,'Theo Andrade','atend'],[0,1,1,'Laura Pinto','ok'],[0,2,1,'Sofia Martins','ok','SM'],[0,3,1,'Miguel Souza','medio','MS'],[0,4,1,'Helena Duarte','ok'],[0,5,1,'Davi Ramos','sem'],[0,6,1,'Alice Moura','ok'],[0,7,1,'Benício Cruz','ok'],[0,10,1,'Valentina Lopes','ok'],[0,11,1,'Gael Freitas','alto','GF'],[0,12,1,'Manuela Dias','ok'],[0,13,1,'Arthur Melo','ok'],[0,14,1,'Lívia Barros','ok'],
+[1,1,1.5,'Renata Vieira','ok'],[1,2.5,1.5,'Patrícia Gomes','chegou'],[1,4,2,'Carla Mendes','ok'],[1,6,2,'Fernanda Lopes','ok'],[1,10,2,'Roberta Sá','ok'],[1,12,2,'Daniela Faria','sem'],[1,14,1,'VAGO','vago'],
+[2,0,2,'Marcos Tavares','atend'],[2,3,1,'Rafael Costa','ok'],[2,4,2,'Eduardo Pires','ok'],[2,6,2,'Paulo Henrique','sem'],[2,11,2,'Igor Santana','ok'],[2,13,2,'Sérgio Leal','medio'],
+[3,2,2,'Lucas Ferreira','chegou','LU'],[3,4,2,'Antônio Carvalho','ok'],[3,6,2,'Jorge Batista','alto'],[3,10,2,'Cláudio Rocha','ok'],[3,12,2,'Vera Lúcia Prado','ok'],
+[4,0,2,'Tatiane Ribeiro','atend'],[4,2,2,'Juliana Costa','ok'],[4,4,2,'Bianca Nogueira','sem'],[4,10,2,'Priscila Araújo','ok'],[4,12,2,'Larissa Monte','ok'],
+[5,1,1,'Aline Ferraz','ok'],[5,3,1,'Beatriz Alves','ok','BA'],[5,4,1,'Camila Prates','ok'],[5,5,1,'Débora Lins','medio'],[5,7,1,'Elaine Moraes','ok'],[5,11,1,'Gabriela Paes','ok'],[5,12,1,'Isabela Rios','sem']];
+const STL={ok:'Confirmada',sem:'Sem resposta',alto:'Risco alto',medio:'Risco médio',chegou:'Chegou',atend:'Em atendimento'};
+const STC={ok:'var(--ok)',sem:'var(--bd2)',alto:'var(--rh)',medio:'var(--rm)',chegou:'var(--int)',atend:'var(--br)'};
+
+// equipe
+const EQ=[['CM','Cláudia Moura','Gestora','g','Online agora'],['BS','Bruna Souza','Recepcionista','r','Online agora'],['DR','Diego Ramos','Recepcionista (tarde)','r','convite'],['CT','Dra. Camila Torres','Pediatria','p','Acesso hoje, 7h48'],['HP','Dra. Helena Prado','Dermatologia','p','Acesso hoje, 7h55'],['RN','Dr. Rafael Nunes','Ortopedia','p','Acesso ontem, 18h10'],['BL','Dr. Bruno Lima','Cardiologia','p','Acesso hoje, 8h01'],['MA','Marina Alves','Nutrição','p','Acesso hoje, 7h30'],['JR','Dra. Júlia Rocha','Ginecologia','p','Acesso ontem, 17h42']];
+const PERM=[['Agenda de todos os profissionais','s','n','s'],['Própria agenda e sala de espera','s','s','s'],['Confirmar, ligar e reenviar lembretes','s','n','s'],['Lista de espera e encaixe','s','n','s'],['Contato e presença do paciente','s','p','s'],['Dados clínicos (prontuário)','n','s*','n'],['Indicadores e receita','n','p','s'],['Regras de lembrete','n','n','s'],['Equipe e permissões','n','n','s']];
+// presença e horários de hoje (índice = coluna em PROS)
+const PRO_INFO=[
+ {st:'in',stt:'Na clínica desde 7h50',sala:'Consultório 2',hor:'8h às 17h',n:14,agora:'Theo Andrade, em atendimento',email:'camila.torres'},
+ {st:'in',stt:'Na clínica desde 7h55',sala:'Consultório 4',hor:'8h30 às 19h',n:8,agora:'Livre até 8h30 (Renata Vieira)',email:'helena.prado'},
+ {st:'in',stt:'Na clínica desde 7h58',sala:'Consultório 3',hor:'8h às 17h',n:7,agora:'Marcos Tavares, em atendimento',email:'rafael.nunes'},
+ {st:'late',stt:'Chega às 8h45',sala:'Consultório 1',hor:'9h às 15h',n:5,agora:'Primeiro paciente às 9h00 (Lucas Ferreira, já chegou)',email:'bruno.lima'},
+ {st:'in',stt:'Na clínica desde 7h40',sala:'Consultório 5',hor:'8h às 15h',n:5,agora:'Tatiane Ribeiro, em atendimento',email:'marina.alves'},
+ {st:'late',stt:'Chega às 8h20',sala:'Consultório 6',hor:'8h30 às 16h',n:7,agora:'Primeiro paciente às 8h30 (Aline Ferraz)',email:'julia.rocha'}];
+// equipe de apoio de hoje
+const STAFF=[
+ {ini:'BS',n:'Bruna Souza',papel:'Recepção',fn:'Recepcionista (manhã)',st:'in',stt:'No balcão desde 7h30',hor:'7h30 às 13h30',onde:'Balcão de entrada',agora:'Atendendo o balcão e o WhatsApp',ramal:'Ramal 101'},
+ {ini:'DR',n:'Diego Ramos',papel:'Recepção',fn:'Recepcionista (tarde)',st:'off',stt:'Entra às 13h',hor:'13h às 19h',onde:'Balcão de entrada',agora:'Fora do turno',ramal:'Ramal 101'},
+ {ini:'CM',n:'Cláudia Moura',papel:'Gestão',fn:'Gestora da clínica',st:'in',stt:'Na clínica desde 7h45',hor:'8h às 17h',onde:'Sala da gestão',agora:'Reunião com fornecedores até 9h',ramal:'Ramal 120'}];
+
+// ===== utilidades =====
+const ic=(n,s=20,extra='')=>`<svg width="${s}" height="${s}" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" ${extra}>${IC[n]||''}</svg>`;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const selo=k=>{const m={alto:['alto','Risco alto'],medio:['medio','Risco médio'],ok:['ok','Confirmada'],sem:['sem','Sem resposta'],chegou:['chegou','Chegou'],lista:['lista','Lista de espera'],feito:['feito','Feito']}[k];return m?`<span class="selo ${m[0]}"><i></i>${m[1]}</span>`:'';};
+const btn=(lbl,cls='p',a='',k='',icn='',h='',extra='')=>`<button class="btn ${cls}" data-a="${a}" data-k="${esc(k)}" ${h?`data-h="${h}"`:''} ${extra}>${icn?ic(icn,18):''}${lbl}</button>`;
+const av=(ini,cls='')=>`<div class="av ${cls}">${ini}</div>`;
+const W_FAT={a:[2,'var(--rh)','pesa mais'],m:[1,'var(--rm)','pesa'],b:[0,'var(--bd2)','pesa pouco'],n:[-1,'var(--bd2)','neutro']};
+const fator=(w,t)=>{const [l,c,lb]=W_FAT[w];return `<div class="fator"><div class="w">${[0,1,2].map(i=>`<i style="${i<=l?'background:'+c:''}"></i>`).join('')}</div><div class="tx">${t}</div><div class="lb">${lb}</div></div>`;};
+
+// ===== estado =====
+const S0=()=>({notif:false,lidas:{},agView:'dia',novosPac:[],pop:null,popPro:null,agPro:null,scr:'login',user:null,loginSel:'bruna',chamados:{},extraAg:[],pac:'MR',tasks:{},res:{},ficha:{},vagaSel:'h15',vagasExtra:[],convite:{},espera:Object.keys(ESPERA),preenchidas:{},reenv:{},chegou:{},confF:'agir',pacF:'todos',search:'',modal:null,drawer:null,regra:false,convidados:[],flow:null,step:0,toast:null});
+let S=S0();
+let toastT=null,cdT=null;
+const toast=(t,icn='confirmar')=>{S.toast={t,icn};clearTimeout(toastT);toastT=setTimeout(()=>{S.toast=null;render();},3600);};
+const isG=()=>S.user==='claudia';const isP=()=>S.user==='camila';const isR=()=>S.user==='bruna';
+const USERS={bruna:['BS','Bruna Souza','Recepção','hoje'],camila:['CT','Dra. Camila Torres','Profissional · Pediatria','agenda'],claudia:['CM','Cláudia Moura','Gestão','ind']};
+
+// ===== guia =====
+const FLOWS={
+ rec:{nome:'Fluxo da recepção',steps:[
+  {id:'login',h:'login-bruna',h2:'entrar',t:'Escolha o perfil <b>Recepção</b> e clique em <b>Entrar como recepção</b>.'},
+  {id:'mr',h:'mr-name',t:'Na tela <b>Hoje</b>, abra a ficha de <b>Mariana Reis</b>: ela tem risco alto de faltar amanhã.'},
+  {id:'ligar',h:'ligar-ficha',t:'Veja por que ela pode faltar e clique em <b>Ligar para Juliana</b>, a mãe.'},
+  {id:'salvar',h:'opt-remarcar',h2:'salvar-lig',t:'Juliana pediu para remarcar. Escolha <b>Quer remarcar</b> e clique em <b>Salvar e remarcar</b>.'},
+  {id:'lista',h:'nav-lista',t:'O horário de amanhã, 9h00, ficou livre. Abra a <b>Lista de espera</b>.'},
+  {id:'convite',h:'convite-IM',t:'O Venzi sugere a Isadora para amanhã às 9h00. Clique em <b>Enviar convite</b>.'},
+  {id:'espera',h:'',t:'Convite enviado. Aguardando a resposta da Isadora pelo WhatsApp…'},
+  {id:'fim',h:'',t:'<b>Pronto:</b> uma falta provável virou consulta remarcada, e o horário foi preenchido pela lista de espera.'}]},
+ pro:{nome:'Fluxo do profissional',steps:[
+  {id:'login',h:'login-camila',h2:'entrar',t:'Escolha o perfil <b>Profissional</b> (Dra. Camila Torres) e clique em <b>Entrar</b>.'},
+  {id:'chamar',h:'chamar-LP',t:'A Dra. Camila abre direto na própria agenda. Laura Pinto chegou: clique em <b>Chamar</b>.'},
+  {id:'fim',h:'',t:'<b>Pronto:</b> a profissional vê só o próprio dia e chama o paciente sem sair do consultório.'}]},
+ ges:{nome:'Fluxo da gestão',steps:[
+  {id:'login',h:'login-claudia',h2:'entrar',t:'Escolha o perfil <b>Gestão</b> (Cláudia Moura) e clique em <b>Entrar como gestão</b>.'},
+  {id:'regra',h:'criar-regra',t:'A gestão abre em <b>Indicadores</b>. As faltas se concentram na segunda de manhã: clique em <b>Criar regra</b>.'},
+  {id:'salvar',h:'salvar-regra',t:'Confira a prévia da mensagem e clique em <b>Criar regra</b>.'},
+  {id:'fim',h:'',t:'<b>Pronto:</b> a clínica ganhou um lembrete extra na sexta para as consultas de segunda de manhã.'}]}};
+const step=()=>S.flow?FLOWS[S.flow].steps[S.step]:null;
+const adv=(flow,id)=>{if(S.flow===flow&&step()&&step().id===id)S.step++;};
+const guideHTML=()=>{const st=step();const txt=st?st.t:'Protótipo navegável do <b>Venzi</b>, com dados fictícios. Siga um fluxo guiado ou explore as telas à vontade.';
+ const lab=S.flow?`${FLOWS[S.flow].nome} · ${Math.min(S.step+1,FLOWS[S.flow].steps.length)}/${FLOWS[S.flow].steps.length}`:'Venzi · protótipo';
+ return `<div class="gl">${lab}</div><div class="gt">${txt}</div><button class="gb ${S.flow==='rec'?'on':''}" data-a="flow" data-k="rec">Fluxo da recepção</button><button class="gb ${S.flow==='pro'?'on':''}" data-a="flow" data-k="pro">Fluxo do profissional</button><button class="gb ${S.flow==='ges'?'on':''}" data-a="flow" data-k="ges">Fluxo da gestão</button><button class="gb" data-a="reset">Reiniciar</button>`;};
+
+// ===== menu lateral =====
+const vagasAll=()=>{const ex=S.vagasExtra.map(id=>VAGAS_NOVAS[id]);const base=VAGAS_BASE.filter(v=>!S.vagasExtra.includes(v.id));return [...ex,...base];};
+const pendTasks=()=>['MR','JL','AM','sem','vaga'].filter(k=>!S.tasks[k]).length;
+const side=()=>{let items=[['hoje','casa','Hoje',pendTasks()],['agenda','calendario','Agenda'],['conf','confirmar','Confirmações',CONF.filter(k=>!S.res[k]&&!S.reenv[k]).length],['lista','lista','Lista de espera',S.espera.length],['pac','pacientes','Pacientes'],['ind','grafico','Indicadores',0,true],['eq','equipe','Equipe',0,true]];
+ if(isP())items=[['agenda','calendario','Minha agenda'],['pac','pacientes','Meus pacientes']];
+ const on=S.scr==='ficha'?'pac':S.scr;const u=USERS[S.user];
+ return `<aside class="side"><div class="logo">${LOGO}</div><button class="clin ${S.pop?'open':''}" data-a="clin" data-h="clin"><div class="t"><b>Clínica Jacarandá</b><span>${PRO_INFO.filter(p=>p.st==='in').length+STAFF.filter(p=>p.st==='in').length} de 9 na clínica agora</span></div>${ic('seletor',18,'style="color:var(--mut)"')}</button>
+ <nav class="nav">${items.map(([id,i,l,c,g])=>`<button class="ni ${on===id?'on':''}" data-a="go" data-k="${id}" data-h="nav-${id}">${ic(i)}${l}${c?`<span class="cnt">${c}</span>`:''}${g&&isR()?`<span class="lock">gestão${ic('cadeado',13)}</span>`:''}</button>`).join('')}</nav>
+ <div class="sp"></div><button class="user" data-a="logout" data-h="user">${av(u[0])}<div><b>${u[1]}</b><span>${u[2]}</span></div><div class="sw">sair</div></button></aside>`;};
+const head=(ey,t,b,sub='')=>`<div class="hd"><div class="ti"><div class="ey">${ey}</div><h1>${t}</h1>${sub?`<div class="sb">${sub}</div>`:''}</div>
+ <label class="search">${ic('busca',18)}<input data-in="gsearch" placeholder="Buscar paciente ou profissional"></label><button class="iconbtn ${S.notif?'on':''}" data-a="notif" data-h="sino">${ic('sino',20)}${notifs().some(n=>!S.lidas[n.id])?'<span class="dot"></span>':''}</button>${b||''}</div>`;
+const EY='Quinta-feira, 19 de novembro · 8h05';
+
+// ===== telas =====
+const SCR={};
+const LOGO_W=LOGO.replace('fill="#13201F"','fill="#FFFFFF"').replace('fill="#0F766E"','fill="#FFFFFF" fill-opacity=".16"');
+const loginHTML=()=>{const sel=S.loginSel;const P=[['bruna','Recepção','Bruna Souza','Agenda de todos, confirmações e lista de espera'],['camila','Profissional','Dra. Camila Torres','A própria agenda, sala de espera e pacientes'],['claudia','Gestão','Cláudia Moura','Tudo, mais indicadores, regras e equipe']];
+ const st=step();const entrarHint=st&&st.id==='login'&&st.h==='login-'+sel;
+ return `<div class="login"><div class="lg-art"><div class="c1"></div><div class="c2"></div><div class="c3"></div>${LOGO_W}<div class="lg-t"><h2>A agenda clínica<br>antes da falta.</h2><p>Quem pode faltar, por quê e o que fazer agora. Para a recepção, os profissionais e a gestão da clínica.</p></div><div class="lg-card"><div class="cap" style="color:var(--brt)">Hoje na Clínica Jacarandá</div><div class="lg-n"><div><b>46</b><span>consultas</span></div><div><b>3</b><span>com risco alto</span></div><div><b>7</b><span>na lista de espera</span></div></div></div></div>
+ <div class="lg-form"><div style="width:420px;display:flex;flex-direction:column;gap:20px"><div><h1 style="font:700 28px/36px var(--fd)">Entrar</h1><p class="t14" style="color:var(--mut)">Clínica Jacarandá</p></div>
+ <div class="fld"><label>E-mail</label><div class="inp"><input readonly value="${{bruna:'bruna',camila:'camila.torres',claudia:'claudia'}[sel]}@clinicajacaranda.com.br"></div></div>
+ <div class="fld"><label>Senha</label><div class="inp"><input readonly type="password" value="demonstracao"></div></div>
+ ${btn('Entrar como '+{bruna:'recepção',camila:'profissional',claudia:'gestão'}[sel],'p full','login',sel,'',entrarHint?'entrar':'')}
+ <div style="display:flex;align-items:center;gap:12px"><div style="flex:1;height:1px;background:var(--bd)"></div><span class="cap">Protótipo: escolha um perfil de demonstração</span><div style="flex:1;height:1px;background:var(--bd)"></div></div>
+ <div style="display:flex;flex-direction:column;gap:10px">${P.map(([k,p,n,d])=>`<button class="opt ${sel===k?'on':''}" data-a="loginSel" data-k="${k}" data-h="login-${k}" style="width:100%">${av(USERS[k][0])}<div style="flex:1"><b>${p} · ${n}</b><span>${d}</span></div>${sel===k?ic('confirmar',18):''}</button>`).join('')}</div></div></div></div>`;};
+
+SCR.hoje=()=>{const done=pendTasks()===0;
+ const kp=[['Consultas hoje','46','das 8h às 19h, 6 profissionais'],['Confirmadas','38','83% das consultas do dia'],['Sem resposta',S.tasks.sem?'1':'5',S.tasks.sem?'4 confirmaram após o reenvio':'lembrete enviado às 7h'],['Risco alto de falta',String(['MR','JL','AM'].filter(k=>!S.tasks[k]).length),['MR','JL','AM'].every(k=>S.tasks[k])?'ligações feitas':'ligue antes das 10h',!['MR','JL','AM'].every(k=>S.tasks[k])],['Lista de espera',String(S.espera.length),'2 cabem em horários de hoje']];
+ const tasks=[
+  {k:'MR',p:PAC.MR,why:PAC.MR.why},{k:'JL',p:PAC.JL,why:PAC.JL.why},{k:'AM',p:PAC.AM,why:PAC.AM.why}];
+ const rowT=t=>{const d=S.tasks[t.k];const p=t.p;return `<div class="row ${d?'done-row':''}">${av(p.ini)}<div class="tx"><div class="nm"><span class="link" data-a="ficha" data-k="${t.k}" data-h="${t.k==='MR'?'mr-name':''}">${p.n}</span>${d?selo('feito'):selo('alto')}</div><div class="cap">${p.quando} · ${p.esp} · ${p.pro}</div>${d?`<div class="why" style="color:var(--okt)">${ic('confirmar',14)}${S.tasks[t.k]}</div>`:`<div class="why alto">${ic('alerta',14)}${t.why}</div>`}</div>${d?'':btn('Ligar','p','call',t.k,'telefone')}</div>`;};
+ const semD=S.tasks.sem,vagD=S.tasks.vaga;
+ const list=done?`<div class="empty"><div class="ic" style="background:var(--oks);color:var(--okt)">${ic('confirmar',26)}</div><h3>Tudo feito por agora</h3><p>As tarefas da manhã estão concluídas. Se alguém cancelar ou um horário vagar, aparece aqui.</p></div>`:
+ tasks.map(rowT).join('')+
+ `<div class="row ${semD?'done-row':''}"><div class="av" style="background:var(--subtle);color:var(--mut)">${ic('mensagem',16,'style="margin:8px"')}</div><div class="tx"><div class="nm">5 consultas sem resposta ${semD?selo('feito'):selo('sem')}</div><div class="cap">Amanhã, entre 11h e 17h</div><div class="why" style="color:${semD?'var(--okt)':'var(--mut)'}">${semD?ic('confirmar',14)+'Reenviado às 8h06':'Lembrete enviado ontem às 18h. O segundo sai sozinho às 12h.'}</div></div>${semD?'':btn('Reenviar agora','s','reenvTodos','','reenviar')}</div>`+
+ `<div class="row ${vagD?'done-row':''}"><div class="av" style="background:var(--brs);color:var(--brt)">${ic('calendario',16,'style="margin:8px"')}</div><div class="tx"><div class="nm">Horário vago hoje às 15h ${vagD?selo('feito'):selo('lista')}</div><div class="cap">Dermatologia · Dra. Helena Prado</div><div class="why" style="color:${vagD?'var(--okt)':'var(--mut)'}">${vagD?ic('confirmar',14)+vagD:'2 pessoas da lista de espera podem vir nesse horário'}</div></div>${vagD?'':btn('Encaixar','g','vaga','h15','seta')}</div>`;
+ const n=5-pendTasks();
+ const chg=[['LU','Lucas Ferreira','Chegou 8h52 · Cardiologia às 9h00','chegou'],['PG','Patrícia Gomes','Chegou 8h58 · Dermatologia às 9h15','chegou'],['RC','Rafael Costa',S.chegou.RC?'Chegou agora · Ortopedia às 9h30':'A caminho · Ortopedia às 9h30',S.chegou.RC?'chegou':'ok']];
+ const nx=[['9h00','Lucas Ferreira','Dr. Bruno Lima · Cardiologia','chegou','LU'],['9h00','Sofia Martins','Dra. Camila Torres · Pediatria','ok','SM'],['9h15','Patrícia Gomes','Dra. Helena Prado · Dermatologia','chegou'],['9h30','Rafael Costa','Dr. Rafael Nunes · Ortopedia',S.chegou.RC?'chegou':'ok'],['9h30','Beatriz Alves','Dra. Júlia Rocha · Ginecologia','ok','BA']];
+ return head(EY,'Bom dia, Bruna',btn('Nova consulta','p','nova','','mais'))+
+ `<div class="kpis">${kp.map(([l,v,d,a])=>`<div class="kpi ${a?'alert':''}"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join('')}</div>
+ <div class="cols"><div class="panel" style="flex:1"><div class="ptl"><div class="t"><h2>Faça agora</h2><p>Em ordem do que mais evita faltas amanhã</p></div><span class="cap" style="${done?'color:var(--okt);font-weight:600':''}">${n} de 5 feitas</span></div><div class="scroll">${list}</div></div>
+ <div style="width:380px;display:flex;flex-direction:column;gap:24px;flex-shrink:0"><div class="panel"><div class="ptl"><div class="t"><h3>Sala de espera</h3></div><span class="cap">${chg.filter(c=>c[3]==='chegou').length} pessoas</span></div>${chg.map(([i,n2,d,s])=>`<div class="wait">${av(i,'sm')}<div class="tx" style="flex:1"><div class="b14">${n2}</div><div class="cap">${d}</div></div>${s==='chegou'?selo('chegou'):btn('Chegou','s sm','chegou','RC')}</div>`).join('')}</div>
+ <div class="panel"><div class="ptl"><div class="t"><h3>Próximas consultas</h3></div><button class="btn g sm" data-a="go" data-k="agenda">Ver agenda</button></div>${nx.map(([h,n2,d,s,k])=>`<div class="next"><div class="h">${h}</div><div style="flex:1"><div class="b14 ${k?'link':''}" ${k?`data-a="ficha" data-k="${k}"`:''}>${n2}</div><div class="cap">${d}</div></div>${selo(s)}</div>`).join('')}</div></div></div>`;};
+
+SCR.agenda=()=>{if(isP())return agendaPro(0);if(S.agPro!=null)return agendaPro(S.agPro);if(S.agView==='semana')return agendaSemana();const TC=64,HH=64,SL=36,colW=(1128-TC)/6;const hh=s=>{const m=480+s*30;return Math.floor(m/60)+'h'+String(m%60).padStart(2,'0');};
+ let g='';g+=`<div class="g-lunch" style="left:${TC}px;right:0;top:${HH+8*SL}px;height:${2*SL}px"></div><div class="cap" style="position:absolute;left:${TC+12}px;top:${HH+8*SL+12}px">Almoço</div>`;
+ for(let i=0;i<=15;i++){g+=`<div class="g-ln ${i%2?'h':''}" style="left:${TC}px;right:0;top:${HH+i*SL}px"></div>`;if(i%2===0&&i<15)g+=`<div class="g-hr" style="top:${HH+i*SL+4}px">${8+i/2}h</div>`;}
+ g+=`<div class="g-ln" style="left:0;right:0;top:${HH-1}px"></div>`;
+ PROS.forEach((p,i)=>{const x=TC+i*colW;g+=`<div class="g-vl" style="left:${x}px"></div><div class="g-pro" style="left:${x+12}px">${av(p[0])}<div><b>${p[1].length>17?p[1].slice(0,16)+'…':p[1]}</b><span>${p[2]}</span></div></div>`;});
+ const enc=S.preenchidas.h15;
+ AG.forEach(([ci,st,du,nm,k,pk],idx)=>{const x=TC+ci*colW+5,y=HH+st*SL+3,w=colW-10,h=du*SL-6;const sel=S.drawer&&S.drawer.idx===idx;
+  if(k==='vago'){if(S.extraAg.some(e=>e[0]===1&&e[1]===14))return;if(enc){g+=`<button class="ap novo" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px" data-a="toast" data-k="Encaixe feito pela lista de espera"><div class="bar" style="background:var(--ok)"></div><div class="tt"><span style="color:var(--okt)">${hh(st)}  ${enc} · encaixe</span></div></button>`;}else g+=`<button class="ap vago" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px" data-a="vaga" data-k="h15"><span>${hh(st)} · Vago · encaixar</span></button>`;return;}
+  const kk=S.chegou['ag'+idx]?'chegou':k;const long=du>1;
+  g+=`<button class="ap ${kk==='alto'?'alto':kk==='atend'?'atend':''} ${long?'':'short'} ${sel?'sel':''}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px" data-a="drawer" data-k="${idx}"><div class="bar" style="background:${STC[kk]}"></div><div class="tt">${long?`<b>${nm}</b><span style="${kk==='alto'?'color:var(--rht)':kk==='medio'?'color:var(--rmt)':''}">${hh(st)} · ${STL[kk]}</span>`:`<span>${hh(st)}  ${nm}</span>`}</div>${!long&&['sem','medio','alto','chegou'].includes(kk)?`<div class="pt" style="background:${STC[kk]}"></div>`:''}</button>`;});
+ S.extraAg.forEach(([ci,st,nm])=>{const x=TC+ci*colW+5,y=HH+st*SL+3,w=colW-10,h=SL-6;g+=`<div class="ap novo short" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px"><div class="bar" style="background:var(--ok)"></div><div class="tt"><span>${hh(st)}  ${nm}</span></div></div>`;});
+ const ny=HH+(5/30)*SL;g+=`<div class="g-now" style="left:${TC}px;right:0;top:${ny}px"></div><div class="g-nowd" style="left:${TC-5}px;top:${ny-4}px"></div><div class="lab" style="position:absolute;left:12px;top:${ny+10}px;color:var(--rht)">8h05</div>`;
+ const lg=[['atend','Em atendimento'],['chegou','Chegou'],['ok','Confirmada'],['sem','Sem resposta'],['medio','Risco médio'],['alto','Risco alto']];
+ return head(EY,'Agenda',btn('Nova consulta','p','nova','','mais'))+
+ `<div class="agbar"><div class="seg"><button class="${S.agView==='dia'?'on':''}" data-a="agView" data-k="dia">Dia</button><button class="${S.agView==='semana'?'on':''}" data-a="agView" data-k="semana" data-h="semana">Semana</button></div><div style="display:flex;gap:4px"><button class="iconbtn" style="width:34px;height:34px;transform:rotate(180deg)" data-a="toast" data-k="Neste protótipo, só o dia de hoje tem agenda">${ic('seta',16)}</button><button class="fsel" style="height:34px">Hoje</button><button class="iconbtn" style="width:34px;height:34px" data-a="toast" data-k="Neste protótipo, só o dia de hoje tem agenda">${ic('seta',16)}</button></div><button class="fsel" data-a="clin">${ic('equipe',16)}Todos os profissionais · 6${ic('seletor',16)}</button>
+ <div class="legend">${lg.map(([k,l])=>`<span><i style="background:${STC[k]}"></i>${l}</span>`).join('')}</div></div><div class="grid">${g}</div>`;};
+
+const agendaPro=(ci)=>{const own=isP();const TC=64,HH=20,SL=42;const hh=s=>{const m=480+s*30;return Math.floor(m/60)+'h'+String(m%60).padStart(2,'0');};const P=PROS[ci],D=PRO_INFO[ci];
+ let g=`<div class="g-lunch" style="left:${TC}px;right:0;top:${HH+8*SL}px;height:${2*SL}px"></div><div class="cap" style="position:absolute;left:${TC+12}px;top:${HH+8*SL+12}px">Almoço</div>`;
+ for(let i=0;i<=15;i++){g+=`<div class="g-ln ${i%2?'h':''}" style="left:${TC}px;right:0;top:${HH+i*SL}px"></div>`;if(i%2===0&&i<15)g+=`<div class="g-hr" style="top:${HH+i*SL+4}px">${8+i/2}h</div>`;}
+ AG.map((a,idx)=>[...a,idx]).filter(a=>a[0]===ci).forEach(([c,s0,du,nm,k0,pk,idx])=>{const y=HH+s0*SL+3,h=du*SL-6;
+  if(k0==='vago'){if(S.extraAg.some(e=>e[0]===ci&&e[1]===s0)||S.preenchidas.h15)return;g+=`<button class="ap vago" style="left:${TC+6}px;right:12px;top:${y}px;height:${h}px" data-a="novaVago" data-k="${ci}|${hh(s0)}"><span>${hh(s0)} · Vago · clique para agendar</span></button>`;return;}
+  let k=S.chegou['ag'+idx]?'chegou':k0,lab=STL[k];if(own&&nm==='Laura Pinto'){k=S.chamados.LP?'atend':'chegou';lab=S.chamados.LP?'Chamada para o consultório 2':'Chegou 8h01';}
+  g+=`<button class="ap ${k==='alto'?'alto':k==='atend'?'atend':''}" style="left:${TC+6}px;right:12px;top:${y}px;height:${h}px" data-a="${own?(pk?'ficha':'toast'):'drawer'}" data-k="${own?(pk||'Ficha de '+nm+' fora deste protótipo'):idx}"><div class="bar" style="background:${STC[k]}"></div><div class="tt" style="padding-top:8px;display:flex;gap:12px;align-items:baseline"><b style="font-size:13px;line-height:18px;flex:none">${hh(s0)}  ${nm}</b><span style="${k==='alto'?'color:var(--rht)':k==='medio'?'color:var(--rmt)':''}">${lab}</span></div>${['sem','medio','alto','chegou'].includes(k)?`<div class="pt" style="background:${STC[k]}"></div>`:''}</button>`;});
+ S.extraAg.filter(e=>e[0]===ci).forEach(([c,s0,nm])=>{g+=`<div class="ap novo" style="left:${TC+6}px;right:12px;top:${HH+s0*SL+3}px;height:${SL-6}px"><div class="bar" style="background:var(--ok)"></div><div class="tt" style="padding-top:8px"><b style="font-size:13px;line-height:18px">${hh(s0)}  ${nm}</b></div></div>`;});
+ const ny=HH+(5/30)*SL;g+=`<div class="g-now" style="left:${TC}px;right:0;top:${ny}px"></div><div class="g-nowd" style="left:${TC-5}px;top:${ny-4}px"></div>`;
+ if(!own){const info=[['relogio','Horário hoje',D.hor],['casa','Onde atende',D.sala],['chegou','Agora',D.agora],['mais','Próximo horário livre',proFree(ci)]];
+  return head(`<a data-a="agAll">Agenda</a>  ›  ${P[1]}`,P[1],btn('Todos os profissionais','s','agAll','','equipe')+btn('Nova consulta','p','novaPro',ci,'mais'),`${P[2]} · ${D.n} consultas hoje`)+`<div class="cols"><div class="grid" style="flex:1">${g}</div><div style="width:380px;flex-shrink:0;display:flex;flex-direction:column;gap:24px"><div class="panel"><div style="display:flex;gap:14px;align-items:center;padding:20px"><div class="avw lg">${av(P[0])}<i style="background:${stDot(D.st)}"></i></div><div><div style="font:700 18px/24px var(--fd)">${P[1]}</div><span class="selo ${D.st==='in'?'ok':'medio'}" style="margin-top:6px"><i></i>${D.stt}</span></div></div><div class="pop-g" style="border-top:1px solid var(--bd)">${info.map(([i,l,v])=>`<div class="pg">${ic(i,16)}<div><div class="cap">${l}</div><div class="b14">${v}</div></div></div>`).join('')}</div></div>
+  <div class="banner">${ic('lista',18)}<div class="t" style="font-size:13px;line-height:18px">Lista de espera: ${Object.values(ESPERA).filter(e=>e.esp===P[2]&&S.espera.some(k=>ESPERA[k]===e)).length} pessoa(s) esperando por ${P[2].toLowerCase()}.</div><button class="btn g sm" data-a="go" data-k="lista">Abrir</button></div></div></div>`;}
+ const sala=[['TA','Theo Andrade','Em atendimento desde 8h02','atend'],['LP','Laura Pinto','Chegou 8h01 · consulta às 8h30',S.chamados.LP?'cham':'chegou'],['SM','Sofia Martins','Confirmada · consulta às 9h00','ok']];
+ return head(EY,'Minha agenda','','Dra. Camila Torres · Pediatria · 14 consultas hoje')+`<div class="cols"><div class="grid" style="flex:1">${g}</div><div style="width:400px;display:flex;flex-direction:column;gap:24px;flex-shrink:0">
+ <div class="kpis" style="gap:12px"><div class="kpi"><div class="l">Hoje</div><div class="v">14</div><div class="d">consultas, 1 com risco alto</div></div><div class="kpi"><div class="l">Confirmadas</div><div class="v">11</div><div class="d">1 sem resposta</div></div></div>
+ <div class="panel"><div class="ptl"><div class="t"><h3>Sala de espera</h3><p>Seus pacientes agora</p></div></div>${sala.map(([i,n,d,s2])=>`<div class="wait">${av(i,'sm')}<div style="flex:1"><div class="b14">${n}</div><div class="cap">${s2==='cham'?'Chamada agora para o consultório 2':d}</div></div>${s2==='chegou'?btn('Chamar','p sm','chamar','LP','chegou','chamar-LP'):s2==='cham'?'<span class="selo chegou"><i></i>Chamada</span>':s2==='atend'?'<span class="selo lista"><i></i>Com você</span>':selo('ok')}</div>`).join('')}</div>
+ <div class="banner">${ic('alerta',18)}<div class="t" style="font-size:13px;line-height:18px">Gael Freitas, às 13h30, tem risco alto. A recepção já está cuidando da confirmação.</div></div></div></div>`;};
+SCR.conf=()=>{const status=k=>S.res[k]||null;
+ const agir=CONF.filter(k=>!S.res[k]);
+ const tabs=[['agir','Para agir',agir.length],['conf','Confirmadas',33+CONF.filter(k=>S.res[k]==='conf').length],['rem','Remarcar',3+CONF.filter(k=>S.res[k]==='rem').length],['todas','Todas',44]];
+ let rows='';
+ const thead=`<div class="thead"><div style="width:250px">Paciente</div><div style="width:230px">Consulta</div><div style="width:200px">Lembretes</div><div style="flex:1">Situação e motivo</div><div style="width:150px"></div></div>`;
+ if(S.confF==='agir'||S.confF==='todas'){if(!agir.length&&S.confF==='agir')rows=`<div class="empty"><div class="ic" style="background:var(--oks);color:var(--okt)">${ic('confirmar',26)}</div><h3>Ninguém para agir agora</h3><p>Todas as consultas de amanhã estão confirmadas ou já têm um próximo passo.</p></div>`;
+  rows+=agir.map(k=>{const p=PAC[k];const re=S.reenv[k];const lem=[...LEMB[k]];if(re)lem.push('3º agora · enviado');const sk=p.risk||'sem';
+   return `<div class="row" style="padding:11px 20px"><div style="width:250px;display:flex;gap:10px;align-items:center">${av(p.ini)}<div><div class="b14 link" data-a="ficha" data-k="${k}">${p.n}</div><div class="cap">${p.tel}</div></div></div><div style="width:230px"><div class="b14">${p.quando}</div><div class="cap">${p.pro} · ${p.esp}</div></div>
+   <div style="width:200px;display:flex;flex-direction:column;gap:2px">${lem.map(l=>`<div class="cap" style="display:flex;align-items:center;gap:6px;color:${l.includes('agendado')?'var(--mut)':'var(--tx)'}"><i style="width:6px;height:6px;border-radius:50%;background:${l.includes('agendado')?'var(--bd2)':l.includes('agora')?'var(--br)':'var(--int)'}"></i>${l}</div>`).join('')}</div>
+   <div style="flex:1;display:flex;flex-direction:column;gap:4px;align-items:flex-start">${selo(sk)}<div class="cap" style="${sk==='alto'?'color:var(--rht)':''}">${p.risk==='alto'?p.why:MOTIVO[k]||''}</div></div>
+   <div style="width:150px;display:flex;justify-content:flex-end">${p.risk==='alto'?btn('Ligar','p','call',k,'telefone'):re?`<span class="selo feito"><i></i>Reenviado</span>`:btn('Reenviar','s','reenv',k,'reenviar')}</div></div>`;}).join('');}
+ const simple=(arr,sk)=>arr.map(([n,q,pr,d])=>`<div class="row" style="padding:11px 20px"><div style="width:250px;display:flex;gap:10px;align-items:center">${av(n.split(' ').map(x=>x[0]).join('').slice(0,2))}<div class="b14">${n}</div></div><div style="width:230px"><div class="b14">${q}</div><div class="cap">${pr}</div></div><div style="width:200px" class="cap">—</div><div style="flex:1;display:flex;flex-direction:column;gap:4px;align-items:flex-start">${sk==='ok'?selo('ok'):'<span class="selo medio"><i></i>Remarcar</span>'}<div class="cap">${d}</div></div><div style="width:150px"></div></div>`).join('');
+ const resRows=t=>CONF.filter(k=>S.res[k]===t).map(k=>[PAC[k].n,PAC[k].quando,PAC[k].pro+' · '+PAC[k].esp,S.tasks[k]||'']);
+ if(S.confF==='conf'||S.confF==='todas')rows+=simple([...resRows('conf'),...CONFIRMADAS],'ok');
+ if(S.confF==='rem'||S.confF==='todas')rows+=simple([...resRows('rem'),...REMARCAR],'rem');
+ return head('Consultas de amanhã · sexta-feira, 20 de novembro','Confirmações',btn('Reenviar para sem resposta','p','reenvTodos','','reenviar'))+
+ `<div class="kpis">${[['Consultas amanhã','44','6 profissionais, das 8h às 18h'],['Confirmadas',String(33+CONF.filter(k=>S.res[k]==='conf').length),'75% · meta da clínica 85%'],['Sem resposta',String(CONF.filter(k=>!S.res[k]).length),'5 recebem o 2º lembrete às 12h'],['Para ligar hoje',String(['MR','JL','AM'].filter(k=>!S.res[k]).length),'risco alto, ligue antes das 10h',['MR','JL','AM'].some(k=>!S.res[k])],['Pediram para remarcar',String(3+CONF.filter(k=>S.res[k]==='rem').length),'2 já têm novo horário']].map(([l,v,d,a])=>`<div class="kpi ${a?'alert':''}"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join('')}</div>
+ <div class="banner">${ic('relogio',20)}<div class="t">Regra atual: 1º lembrete pelo WhatsApp na véspera às 18h, 2º às 12h do dia seguinte para quem não respondeu. Quem tem risco alto vai para a sua lista de ligações.</div>${isG()?`<button class="btn g sm" data-a="go" data-k="ind">Ajustar regra</button>`:''}</div>
+ <div class="panel" style="flex:1"><div class="ptl" style="padding:14px 20px"><div class="chips" style="flex:1">${tabs.map(([k,l,n])=>`<button class="chip ${S.confF===k?'on':''}" data-a="confF" data-k="${k}">${l} <span>${n}</span></button>`).join('')}</div><span class="cap">Ordenado por urgência</span></div>${thead}<div class="scroll">${rows}</div></div>`;};
+
+SCR.lista=()=>{const vs=vagasAll();if(!vs.find(v=>v.id===S.vagaSel))S.vagaSel=vs[0].id;const v=vs.find(x=>x.id===S.vagaSel);
+ const cards=vs.map(x=>{const pre=S.preenchidas[x.id];const fits=x.sug.filter(k=>S.espera.includes(k)).length;return `<button class="vg ${x.id===S.vagaSel?'on':''} ${x.pode?'pode':''} ${pre?'feito':''}" data-a="vagaSel" data-k="${x.id}"><div class="top"><span class="lab">${x.when}</span><span class="cap">${pre?'Preenchido':fits?(fits===1?'1 pessoa cabe':fits+' pessoas cabem'):'Ninguém cabe'}</span></div><h3>${x.hr} · ${x.esp}</h3><div class="t14" style="color:var(--mut)">${x.pro}</div><div class="inf">${ic(pre?'confirmar':x.pode?'alerta':'relogio',14)}${pre?pre+' aceitou':x.inf}</div></button>`;}).join('');
+ const reasons=k=>{const p=ESPERA[k];return [p.pro===v.pro?'Pediu '+(p.pro.startsWith('Dra')?'a ':p.pro.startsWith('Dr')?'o ':'')+p.pro:'Aceita qualquer profissional de '+p.esp.toLowerCase(),p.pref==='Qualquer horário'?'Qualquer horário serve':'Prefere '+p.pref.toLowerCase(),'Esperando há '+p.dias+(p.dias===1?' dia':' dias')];};
+ let right='';const cv=S.convite[v.id];const pre=S.preenchidas[v.id];
+ if(pre){right=`<div class="empty"><div class="ic" style="background:var(--oks);color:var(--okt)">${ic('confirmar',26)}</div><h3>Horário preenchido</h3><p>${pre} vem ${v.when.toLowerCase()} às ${v.hr} com ${v.pro}. Quem também cabia recebeu o aviso e continua na lista.</p>${v.id==='h15'?btn('Ver na agenda','s','go','agenda','calendario'):''}</div>`;}
+ else{const sug=v.sug.filter(k=>S.espera.includes(k));
+  right=sug.length?sug.map((k,i)=>{const p=ESPERA[k];const waiting=cv&&cv.to===k;return `<div class="sug"><div style="display:flex;gap:10px;align-items:center">${av(p.ini)}<div><div class="b14">${p.n}</div><div class="cap" style="${i===0?'color:var(--brt)':''}">${i===0?'Melhor opção':'Segunda opção'}</div></div></div>${reasons(k).map(r=>`<div class="ok"><b>✓</b>${r}</div>`).join('')}${waiting?`<div class="await">${ic('relogio',16)}Aguardando resposta · expira em <span id="cd">30:00</span></div>`:cv?'':btn('Enviar convite',i===0?'p':'s','convite',k,'mensagem',k==='IM'?'convite-IM':'')}</div>`;}).join('')+`<div class="sug" style="flex-direction:row;border:0">${ic('mensagem',16,'style="color:var(--mut)"')}<div class="cap">O convite vai pelo WhatsApp e vale por 30 minutos. Quem aceitar primeiro fica com o horário.</div></div>`
+  :`<div class="empty"><div class="ic" style="background:var(--subtle);color:var(--mut)">${ic('lista',24)}</div><h3>Ninguém cabe agora</h3><p>Ninguém da lista espera por ${v.esp.toLowerCase()} nesse horário. O horário fica aberto na agenda.</p></div>`;}
+ const lst=S.espera.map(k=>{const p=ESPERA[k];const fit=v.sug.includes(k)&&!pre;return `<div class="row" style="padding:11px 20px;${fit?'background:var(--bg)':''}">${av(p.ini)}<div class="tx"><div class="nm">${p.n}${fit?`<span class="cabe">Cabe às ${v.hr}</span>`:''}</div><div class="cap">${p.esp} · ${p.pro||'qualquer profissional'}</div></div><div style="width:130px"><div class="lab">Prefere</div><div class="cap" style="color:var(--tx)">${p.pref}</div></div><div style="width:90px"><div class="lab">Na lista</div><div class="cap" style="color:var(--tx)">há ${p.dias} ${p.dias===1?'dia':'dias'}</div></div></div>`;}).join('');
+ return head(EY,'Lista de espera',btn('Adicionar à lista','p','addLista','','mais'))+
+ `<div class="vagos">${cards}</div><div class="cols"><div class="panel" style="flex:1"><div class="ptl"><div class="t"><h2>Na lista</h2><p>${S.espera.length} pessoas · quem pediu profissional específico primeiro</p></div><span class="cap">Mais antigos primeiro</span></div><div class="scroll">${lst}</div></div>
+ <div class="panel" style="width:400px;flex-shrink:0"><div class="ptl"><div class="t"><h2>${pre?'Encaixe feito':'Encaixe para '+v.when.toLowerCase()+', '+v.hr}</h2><p>${v.esp} · ${v.pro}</p></div></div><div class="scroll">${right}</div></div></div>`;};
+
+SCR.pac=()=>{const q=S.search.trim().toLowerCase();const norm=s=>s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+ let ks=PAC_LISTA.filter(k=>{const p=PAC[k];if(isP()&&p.pro!=='Dra. Camila Torres')return false;if(S.pacF==='faltas'&&p.lastSt!=='faltou'&&!(p.pres&&p.pres[0]<p.pres[1]))return false;if(S.pacF==='nova'&&p.lastSt!=='nova')return false;if(S.pacF==='semana'&&!/Hoje|Amanhã/.test(p.quando))return false;return !q||norm(p.n).includes(norm(q))||p.tel.replace(/\D/g,'').includes(q.replace(/\D/g,'')||'§');});
+ const cnt={todos:1284,semana:212,faltas:96,nova:18};
+ let body;
+ if(!ks.length){const first=norm(q.split(' ')[0]||'');const sug=PAC_LISTA.find(k=>first&&norm(PAC[k].n).startsWith(first));
+  body=`<div class="empty"><div class="ic" style="background:var(--subtle);color:var(--mut)">${ic('busca',24)}</div><h3>Nenhum paciente com “${esc(S.search)}”</h3><p>Confira a grafia ou busque pelo telefone.${sug?` Você quis dizer ${PAC[sug].n}, ${PAC[sug].idade}?`:''}</p><div style="display:flex;gap:8px">${sug?btn('Abrir '+PAC[sug].n,'s','ficha',sug):btn('Limpar busca','s','clearSearch')}${btn('Cadastrar paciente','p','novoPac','','mais')}</div></div>`;}
+ else body=ks.map(k=>{const p=PAC[k];const pr=p.pres;return `<div class="row link-row" style="padding:10px 20px;cursor:pointer" data-a="ficha" data-k="${k}"><div style="width:250px;display:flex;gap:10px;align-items:center">${av(p.ini)}<div><div class="b14">${p.n}</div><div class="cap">${p.idade}</div></div></div><div style="width:150px"><div class="t14">${p.tel}</div><div class="cap">WhatsApp</div></div><div style="width:130px"><div class="t14">${p.last}</div><div class="cap" style="${p.lastSt==='faltou'?'color:var(--rht)':p.lastSt==='nova'?'color:var(--int)':''}">${p.lastSt==='faltou'?'Faltou':p.lastSt==='nova'?'Primeira vez':'Compareceu'}</div></div><div style="width:160px"><div class="t14">${p.quando}</div><div class="cap">${p.esp}</div></div><div style="flex:1;display:flex;align-items:center;gap:10px">${pr?`<div class="tbar" style="width:90px"><i style="width:${pr[0]/pr[1]*100}%;background:${pr[0]/pr[1]<.8?'var(--rm)':'var(--ok)'}"></i></div><span class="cap" style="color:var(--tx)">${pr[0]} de ${pr[1]}</span>`:'<span class="cap">Sem histórico</span>'}</div><div style="width:120px">${p.risk?selo(p.risk):'<span class="cap">—</span>'}</div></div>`;}).join('');
+ return head(isP()?'Dra. Camila Torres · Pediatria':'Clínica Jacarandá',isP()?'Meus pacientes':'Pacientes',isP()?'':btn('Novo paciente','p','novoPac','','mais'))+
+ `<div style="display:flex;align-items:center;gap:8px;flex-shrink:0"><div class="chips">${[['todos','Todos'],['semana','Com consulta esta semana'],['faltas','Faltaram nos últimos 6 meses'],['nova','Primeira vez']].map(([k,l])=>`<button class="chip ${S.pacF===k?'on':''}" data-a="pacF" data-k="${k}">${l} <span>${q?(S.pacF===k?ks.length:''):cnt[k]}</span></button>`).join('')}</div><label class="search" style="margin-left:auto;width:300px;height:36px">${ic('busca',18)}<input data-in="psearch" placeholder="Filtrar por nome ou telefone" value="${esc(S.search)}"></label></div>
+ <div class="panel" style="flex:1"><div class="thead"><div style="width:250px">Paciente ↑</div><div style="width:150px">Contato</div><div style="width:130px">Última consulta</div><div style="width:160px">Próxima consulta</div><div style="flex:1">Presença</div><div style="width:120px">Risco</div></div><div class="scroll">${body}</div><div class="ptl" style="border-top:1px solid var(--bd);border-bottom:0;padding:12px 20px"><div class="t cap">${ks.length?'Mostrando 1–'+ks.length+' de 1.284':''}</div><div class="cap">${ic('alerta',14,'style="display:inline;vertical-align:-2px"')} Recepção vê só contato e presença</div></div></div>`;};
+
+SCR.ficha=()=>{const k=S.pac,p=PAC[k],f=S.ficha[k];const rem=f&&f.r==='rem',conf=f&&f.r==='conf',canc=f&&f.r==='canc';
+ const contato=p.resp?`${p.resp}`:p.n.split(' ')[0];
+ let top;
+ if(f&&f.r!=='nao'){const cls=rem||canc?'medio':'ok';top=`<div class="panel" style="flex-shrink:0;border-color:${conf?'var(--ok)':'var(--rm)'}"><div style="display:flex;align-items:center;gap:16px;padding:20px 24px;background:${conf?'var(--oks)':'var(--rms)'}"><div style="width:64px;height:64px;border-radius:10px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="lab" style="color:${conf?'var(--okt)':'var(--rmt)'}">${rem?f.novo.slice(0,3).toUpperCase():p.dia[0]}</div><div style="font:700 20px/26px var(--fd)">${rem?f.novo.slice(5,7):p.dia[1]}</div></div><div style="flex:1"><div class="lab" style="color:${conf?'var(--okt)':'var(--rmt)'}">${conf?'Consulta confirmada por ligação':rem?'Consulta remarcada':'Consulta cancelada'}</div><div style="font:700 20px/28px var(--fd)">${rem?f.novo.replace(' · ',', ')+' · '+p.esp:canc?'Sem próxima consulta':p.quando+' · '+p.esp}</div><div class="cap">${p.pro}${rem||canc?' · horário de '+p.quando.toLowerCase()+' liberado'+(f.oferta?' para a lista de espera':''):''}</div></div>${conf?selo('ok'):'<span class="selo medio"><i></i>'+(rem?'Remarcada':'Cancelada')+'</span>'}</div>
+  <div style="padding:16px 24px;display:flex;gap:10px;align-items:center">${(rem||canc)&&f.oferta?btn('Ver o horário na lista de espera','p','go','lista','lista'):''}${btn('Ligar de novo','s','call',k,'telefone')}</div></div>`;}
+ else{const al=p.risk==='alto';top=`<div class="panel" style="flex-shrink:0;${al?'border-color:var(--rh)':''}"><div style="display:flex;align-items:center;gap:16px;padding:20px 24px;background:${al?'var(--rhs)':p.risk==='medio'?'var(--rms)':'var(--bg)'}"><div style="width:64px;height:64px;border-radius:10px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="lab" style="color:${al?'var(--rht)':'var(--mut)'}">${p.dia[0]}</div><div style="font:700 20px/26px var(--fd)">${p.dia[1]}</div></div><div style="flex:1"><div class="lab" style="color:${al?'var(--rht)':'var(--mut)'}">Próxima consulta</div><div style="font:700 20px/28px var(--fd)">${p.quando} · ${p.esp}</div><div class="cap">${p.pro} · ${p.tipo||'consulta'}</div></div>${p.risk?selo(p.risk):selo('ok')}</div>
+  ${p.fat?`<div style="padding:18px 24px 6px;display:flex;flex-direction:column;gap:10px"><h3 style="font:600 16px/22px var(--fd)">Por que ${p.risk==='alto'?'risco alto':'risco médio'}</h3>${p.fat.map(([w,t])=>fator(w,t)).join('')}</div>`:`<div style="padding:16px 24px 4px" class="t14">Comparece sempre. Nenhum sinal de risco para esta consulta.</div>`}
+  ${f&&f.r==='nao'?`<div style="margin:12px 24px 0" class="banner">${ic('relogio',18)}<div class="t">Não atendeu às ${f.h}. Tente de novo ${p.melhor?p.melhor.toLowerCase():'mais tarde'}.</div></div>`:''}
+  <div style="padding:16px 24px 20px;display:flex;gap:10px">${btn('Ligar para '+contato,'p','call',k,'telefone','ligar-ficha')}${btn('Reenviar lembrete','s','reenv',k,'reenviar')}${btn('Remarcar','g','callRem',k,'calendario')}</div></div>`;}
+ const hist=p.hist||Array.from({length:Math.min((p.pres||[0,0])[1],6)},(_,i)=>[['03/11','12/10','14/09','10/08','06/07','08/06'][i],p.esp+' · '+p.pro,(p.pres&&i<p.pres[1]-p.pres[0]&&p.lastSt==='faltou')?'f':'c','']);
+ const dots=hist.slice().reverse().map(h=>`<i style="background:${h[2]==='f'?'var(--rh)':'var(--ok)'}"></i>`).join('');
+ const logs=[...(f?[[f.quando,'Ligação da recepção (Bruna)',f.txt,1]]:[]),...(S.reenv[k]?[['Agora','Lembrete reenviado por WhatsApp','Entregue',1]]:[]),...(p.log||[['Ontem, 18h00','Lembrete por WhatsApp','Entregue']])];
+ return head(`<a data-a="go" data-k="pac">Pacientes</a>  ›  ${p.n}`,p.n,btn('Ligar','p','call',k,'telefone'),`${p.idade}${p.desde?' · paciente desde '+p.desde:''}${p.resp?' · responsável '+p.resp+' ('+p.rel+')':''}`)+
+ `<div class="cols"><div style="flex:1;display:flex;flex-direction:column;gap:24px;min-width:0">${top}
+ <div class="panel" style="flex:1"><div class="ptl"><div class="t"><h3>Histórico de presença</h3><p>${p.pres?p.pres[0]+' de '+p.pres[1]+' consultas':'Primeira consulta: ainda sem histórico'}${hist.length?' · mostrando as últimas '+hist.length:''}</p></div><div class="dots">${dots}</div></div><div class="scroll">${hist.length?hist.map(([d,e,s,o])=>`<div class="hist"><div class="b14" style="width:56px">${d}</div><div class="t14" style="width:260px">${e}</div><div style="width:110px;display:flex;align-items:center;gap:6px;font:600 14px/20px var(--fb);color:${s==='f'?'var(--rht)':'var(--okt)'}"><i style="width:8px;height:8px;border-radius:50%;background:${s==='f'?'var(--rh)':'var(--ok)'}"></i>${s==='f'?'Faltou':'Compareceu'}</div><div class="cap" style="flex:1">${o||'—'}</div></div>`).join(''):`<div class="empty" style="padding:28px"><p>Quando ${p.n.split(' ')[0]} vier à primeira consulta, o histórico aparece aqui.</p></div>`}</div></div></div>
+ <div style="width:360px;flex-shrink:0;display:flex;flex-direction:column;gap:24px"><div class="panel"><div class="ptl"><div class="t"><h3>Contato</h3></div></div>${[['mensagem','WhatsApp (preferido)',p.tel],...(p.fixo?[['telefone','Telefone',p.fixo]]:[]),...(p.resp?[['pacientes','Responsável',p.resp+', '+p.rel]]:[]),...(p.melhor?[['relogio','Melhor horário',p.melhor]]:[])].map(([i,l,v])=>`<div style="display:flex;gap:12px;align-items:center;padding:10px 20px"><span style="color:var(--mut)">${ic(i,18)}</span><div><div class="cap">${l}</div><div class="b14">${v}</div></div></div>`).join('')}</div>
+ <div class="panel" style="flex:1"><div class="ptl"><div class="t"><h3>Registro de contatos</h3></div></div><div class="scroll">${logs.map(([w,t,d,n])=>`<div class="log ${n?'new':''}"><i></i><div><div class="cap">${w}</div><div class="b14">${t}</div><div class="cap">${d}</div></div></div>`).join('')}</div><div style="display:flex;gap:8px;align-items:center;padding:12px 20px;background:var(--subtle)" class="cap">${ic('alerta',14)}Prontuário e dados clínicos não aparecem para a recepção.</div></div></div></div>`;};
+
+const LOCK=t=>`<div class="locked"><div class="empty" style="background:#fff;border:1px solid var(--bd);border-radius:var(--r-lg)"><div class="ic" style="background:var(--subtle);color:var(--mut)">${ic('cadeado',24)}</div><h3>${t} é só para a gestão</h3><p>O perfil Recepção não vê receita nem permissões. É assim que o Venzi separa o que cada pessoa precisa ver. Para abrir, entre com o perfil Gestão.</p>${btn('Entrar como gestão','p','logout','claudia','cadeado')}</div></div>`;
+SCR.ind=()=>{if(!isG())return head('Novembro de 2026','Indicadores')+LOCK('Indicadores');
+ const HM=[['Seg',27,18],['Ter',15,14],['Qua',14,16],['Qui',16,17],['Sex',19,15]];const bin=v=>v>=24?['var(--rh)','#fff']:v>=18?['var(--rm)','#fff']:v>=15?['var(--rms)','var(--rmt)']:['var(--subtle)','var(--mut)'];
+ const M=[['jun',21.4],['jul',22.0],['ago',20.8],['set',19.6],['out',20.1],['nov',17.5]];
+ const P=[['CT','Dra. Camila Torres · Pediatria',210,50,24,'R$ 14.000'],['MA','Marina Alves · Nutrição',140,31,22,'R$ 8.680'],['JR','Dra. Júlia Rocha · Ginecologia',125,25,20,'R$ 7.000'],['RN','Dr. Rafael Nunes · Ortopedia',175,28,16,'R$ 7.840'],['HP','Dra. Helena Prado · Dermatologia',190,23,12,'R$ 6.440'],['BL','Dr. Bruno Lima · Cardiologia',150,17,11,'R$ 4.760']];
+ return head('Novembro de 2026 · até quinta, 19','Indicadores',btn('Exportar relatório','p','toast','Relatório exportado em PDF (simulação)'))+
+ `<div style="display:flex;gap:8px;align-items:center;flex-shrink:0"><div class="chips"><button class="chip on">Este mês</button><button class="chip" data-a="toast" data-k="Neste protótipo, só o mês atual tem dados">Mês passado</button><button class="chip" data-a="toast" data-k="Neste protótipo, só o mês atual tem dados">Últimos 3 meses</button></div><button class="fsel" style="margin-left:auto">${ic('equipe',16)}Todos os profissionais${ic('seletor',16)}</button></div>
+ <div class="kpis">${[['Taxa de faltas','17,5%','↓ 2,6 pontos contra outubro (20,1%)'],['Receita perdida com faltas','R$ 48.720','174 faltas × ticket médio de R$ 280',1],['Ocupação da agenda','82%','meta da clínica: 85%'],['Recuperado com encaixes','R$ 6.440','23 horários vagos preenchidos']].map(([l,v,d,a])=>`<div class="kpi ${a?'alert':''}"><div class="l">${l}</div><div class="v">${v}</div><div class="d">${d}</div></div>`).join('')}</div>
+ <div style="display:flex;gap:24px;flex-shrink:0"><div class="panel" style="flex:1"><div class="ptl" style="border:0"><div class="t"><h3>Onde as faltas acontecem</h3><p>Taxa de faltas por dia da semana e período · novembro</p></div></div>
+ <div class="hm"><div></div>${HM.map(r=>`<div class="d">${r[0]}</div>`).join('')}${[1,2].map(pi=>`<div class="p">${pi===1?'Manhã':'Tarde'}</div>${HM.map(r=>{const [b,c]=bin(r[pi]);return `<div class="c" style="background:${b};color:${c};${r[pi]===27?'box-shadow:inset 0 0 0 2px var(--tx)':''}">${r[pi]}%</div>`;}).join('')}`).join('')}</div>
+ ${S.regra?`<div class="banner ok" style="border-radius:0">${ic('confirmar',18)}<div class="t" style="font-size:12px;line-height:16px">Regra ativa: lembrete extra na sexta, às 18h, para as consultas de segunda de manhã.</div></div>`:`<div class="banner" style="border-radius:0;background:var(--brs);color:var(--brt)"><div class="t" style="font-size:12px;line-height:16px">Segunda de manhã concentra as faltas (27%). Um lembrete extra na sexta para essas consultas pode ajudar.</div>${btn('Criar regra','s sm','regra','','','criar-regra')}</div>`}</div>
+ <div class="panel" style="width:420px;flex-shrink:0"><div class="ptl" style="border:0"><div class="t"><h3>Taxa de faltas por mês</h3><p>Desde que a clínica começou a usar o Venzi (setembro)</p></div></div><div class="bars" style="height:180px">${M.map(([m,v],i)=>`<div class="b"><span style="${i===5?'color:var(--brt);font-weight:600':''}">${String(v).replace('.',',')}%</span><i style="height:${(v/25)*110}px;background:${i===5?'var(--br)':i>=3?'var(--brs)':'var(--subtle)'}"></i><span>${m}</span></div>`).join('')}<div style="position:absolute;left:50%;top:10px;bottom:30px;border-left:1px dashed var(--bd2)"></div><div class="lab" style="position:absolute;left:calc(50% + 6px);top:8px;color:var(--brt)">Venzi</div></div></div></div>
+ <div class="panel" style="flex:1"><div class="thead"><div style="flex:1">Profissional</div><div style="width:110px">Consultas</div><div style="width:90px">Faltas</div><div style="width:220px">Taxa</div><div style="width:150px">Receita perdida</div></div><div class="scroll">${P.map(([i,n,c,f,t,r])=>`<div class="row" style="padding:6px 20px"><div style="flex:1;display:flex;gap:10px;align-items:center">${av(i,'sm')}<span class="b14">${n}</span></div><div class="t14" style="width:110px">${c}</div><div class="t14" style="width:90px">${f}</div><div style="width:220px;display:flex;gap:10px;align-items:center"><div class="tbar"><i style="width:${t/30*100}%;background:${t>=20?'var(--rh)':t>=15?'var(--rm)':'var(--ok)'}"></i></div><span class="b14" style="${t>=20?'color:var(--rht)':''}">${t}%</span></div><div class="b14" style="width:150px">${r}</div></div>`).join('')}</div></div>`;};
+
+SCR.eq=()=>{if(!isG())return head('Clínica Jacarandá','Equipe e permissões')+LOCK('Equipe e permissões');
+ const ppl=[...EQ,...S.convidados.map(n=>[n.split(' ').map(x=>x[0]).join('').slice(0,2),n,'Recepcionista','r','novo'])];
+ return head(`Clínica Jacarandá · ${ppl.length} pessoas`,'Equipe e permissões',btn('Convidar pessoa','p','convidar','','mais'))+
+ `<div class="cols"><div class="panel" style="flex:1"><div class="ptl"><div class="t"><h3>Pessoas</h3><p>Quem acessa o Venzi e com qual perfil</p></div></div><div class="scroll">${ppl.map(([i,n,f,pf,l])=>`<div class="row" style="padding:10px 20px">${av(i)}<div class="tx"><div class="b14">${n}</div><div class="cap">${f}</div></div><div style="width:120px"><span class="pf ${pf}">${{g:'Gestão',r:'Recepção',p:'Profissional'}[pf]}</span></div><div style="width:160px;text-align:right">${l==='convite'?'<span class="selo medio">Convite enviado ontem</span>':l==='novo'?'<span class="selo chegou">Convite enviado agora</span>':`<span class="cap" style="${l.startsWith('Online')?'color:var(--okt)':''}">${l}</span>`}</div></div>`).join('')}</div></div>
+ <div class="panel" style="width:470px;flex-shrink:0"><div class="ptl"><div class="t"><h3>O que cada perfil pode fazer</h3><p>Ajustável só pela gestão</p></div></div><div style="padding:0 20px"><div class="mx"><div class="lab" style="background:var(--subtle);margin:0 -20px;padding:10px 20px">Permissão</div><div class="c cap" style="background:var(--subtle)">Recepção</div><div class="c cap" style="background:var(--subtle)">Profissional</div><div class="c cap" style="background:var(--subtle);margin-right:-20px">Gestão</div>${PERM.map(([l,...v])=>`<div>${l}</div>${v.map(x=>`<div class="c">${x==='s'?'<span class="yes">✓</span>':x==='s*'?'<span class="yes">✓</span>*':x==='p'?'<span class="only">só seus</span>':'<span class="no">—</span>'}</div>`).join('')}`).join('')}</div><p class="cap" style="padding:12px 0">* O prontuário continua no sistema clínico. O Venzi só mostra ao profissional o atalho para abrir.</p></div></div></div>`;};
+
+// ===== nova consulta =====
+const hrToSlot=h=>{const [a,b]=h.split('h').map(Number);return ((a*60+(b||0))-480)/30;};
+const freeSlots=pi=>{const occ=[];AG.filter(a=>a[0]===pi&&a[4]!=='vago').forEach(([c,s0,du])=>occ.push([s0,s0+du]));S.extraAg.filter(e=>e[0]===pi).forEach(e=>occ.push([e[1],e[1]+1]));const out=[];for(let i=1;i<15;i++){if(i===8||i===9)continue;if(!occ.some(([a,b])=>i<b&&i+1>a))out.push(i);}return out.map(i=>{const m=480+i*30;return Math.floor(m/60)+'h'+String(m%60).padStart(2,'0');});};
+// ===== profissionais da clínica =====
+const stDot=st=>st==='in'?'var(--ok)':st==='late'?'var(--rm)':'var(--bd2)';
+const stCol=st=>st==='in'?'var(--okt)':st==='late'?'var(--rmt)':'var(--mut)';
+const proFree=i=>{const f=freeSlots(i);return f.length?f[0]+(f.length>1?` (+${f.length-1})`:''):'Nenhum hoje';};
+const proNext=i=>{const nx=AG.filter(a=>a[0]===i&&a[4]!=='vago'&&a[1]>=0.5).sort((a,b)=>a[1]-b[1])[0];if(!nx)return '—';const m=480+nx[1]*30;return Math.floor(m/60)+'h'+String(m%60).padStart(2,'0')+' · '+nx[3];};
+const popHTML=()=>{const pi=S.popPro;
+ if(pi==null){const inN=PRO_INFO.filter(p=>p.st==='in').length+STAFF.filter(p=>p.st==='in').length;
+  const grp=(t)=>`<div class="pop-g-t">${t}</div>`;
+  const row=(k,ini,n,sub,st,stt,hor)=>`<button class="pop-r" data-a="popPro" data-k="${k}" data-h="pro-${k}"><div class="avw">${av(ini)}<i style="background:${stDot(st)}"></i></div><div style="flex:1;min-width:0"><div class="b14">${n}</div><div class="cap">${sub}</div></div><div style="text-align:right"><div class="cap" style="color:${stCol(st)};font-weight:500">${st==='in'?'Na clínica':stt}</div><div class="cap">${hor}</div></div>${ic('seta',16,'style="color:var(--sub)"')}</button>`;
+  return `<div class="ov clear" data-a="closePop"></div><div class="pop"><div class="pop-h"><div><b>Equipe de hoje</b><div class="cap">Clínica Jacarandá · quinta-feira, 19/11 · 8h05</div></div></div>
+ <div class="pop-sum"><span><i style="background:var(--ok)"></i>${inN} na clínica</span><span><i style="background:var(--rm)"></i>${PRO_INFO.filter(p=>p.st==='late').length} chegando</span><span><i style="background:var(--bd2)"></i>${STAFF.filter(p=>p.st==='off').length} em outro turno</span></div>
+ <div class="pop-sc">${grp('Profissionais · 6')}${PROS.map((p,i)=>row(i,p[0],p[1],p[2]+' · '+PRO_INFO[i].sala,PRO_INFO[i].st,PRO_INFO[i].stt,PRO_INFO[i].hor)).join('')}
+ ${grp('Recepção · 2')}${STAFF.filter(x=>x.papel==='Recepção').map(x=>row('s'+STAFF.indexOf(x),x.ini,x.n,x.fn,x.st,x.stt,x.hor)).join('')}
+ ${grp('Gestão · 1')}${STAFF.filter(x=>x.papel==='Gestão').map(x=>row('s'+STAFF.indexOf(x),x.ini,x.n,x.fn,x.st,x.stt,x.hor)).join('')}</div></div>`;}
+ if(String(pi).startsWith('s')){const x=STAFF[+String(pi).slice(1)];const me=USERS[S.user]&&USERS[S.user][1]===x.n;
+  return `<div class="ov clear" data-a="closePop"></div><div class="pop"><div class="pop-h"><button class="btn g sm" data-a="popBack" style="padding:0 8px;margin-left:-8px">${ic('seta',16,'style="transform:rotate(180deg)"')}Equipe</button></div>
+ <div style="display:flex;gap:14px;align-items:center;padding:4px 20px 16px"><div class="avw lg">${av(x.ini)}<i style="background:${stDot(x.st)}"></i></div><div><div style="font:700 18px/24px var(--fd)">${x.n}${me?' <span class="cap">(você)</span>':''}</div><div class="cap">${x.fn}</div><span class="selo ${x.st==='in'?'ok':'sem'}" style="margin-top:6px"><i></i>${x.stt}</span></div></div>
+ <div class="pop-g">${[['relogio','Turno hoje',x.hor],['casa','Onde fica',x.onde],['chegou','Agora',x.agora],['telefone','Contato interno',x.ramal]].map(([i,l,v])=>`<div class="pg">${ic(i,16)}<div><div class="cap">${l}</div><div class="b14">${v}</div></div></div>`).join('')}</div>
+ <div style="display:flex;gap:8px;padding:16px 20px 20px">${me?'<span class="cap">Este é o seu perfil.</span>':btn('Enviar mensagem','s','toast','Mensagem enviada para '+x.n+' (simulação)','mensagem')}${isG()&&!me?btn('Ver em Equipe','g','go','eq','equipe'):''}</div></div>`;}
+ const p=PROS[pi],d=PRO_INFO[pi];
+ return `<div class="ov clear" data-a="closePop"></div><div class="pop"><div class="pop-h"><button class="btn g sm" data-a="popBack" style="padding:0 8px;margin-left:-8px">${ic('seta',16,'style="transform:rotate(180deg)"')}Profissionais</button></div>
+ <div style="display:flex;gap:14px;align-items:center;padding:4px 20px 16px"><div class="avw lg">${av(p[0])}<i style="background:${stDot(d.st)}"></i></div><div><div style="font:700 18px/24px var(--fd)">${p[1]}</div><div class="cap">${p[2]}</div><span class="selo ${d.st==='in'?'ok':'medio'}" style="margin-top:6px"><i></i>${d.stt}</span></div></div>
+ <div class="pop-g">${[['relogio','Horário hoje',d.hor],['casa','Onde atende',d.sala],['calendario','Consultas hoje',d.n+' consultas'],['chegou','Agora',d.agora],['pacientes','Próximo paciente',proNext(pi)],['mais','Próximo horário livre',proFree(pi)]].map(([i,l,v])=>`<div class="pg">${ic(i,16)}<div><div class="cap">${l}</div><div class="b14">${v}</div></div></div>`).join('')}</div>
+ <div style="display:flex;gap:8px;padding:16px 20px 20px">${btn('Ver agenda','s','agPro',pi,'calendario','pro-agenda')}${isP()?'':btn('Nova consulta','p','novaPro',pi,'mais')}</div></div>`;};
+// ===== notificações =====
+const notifs=()=>{const L=[];
+ if(isP()){L.push({id:'p1',ic:'chegou',t:'Laura Pinto chegou',d:'Consulta às 8h30 · sala de espera',h:'8h01',go:'agenda'});L.push({id:'p2',ic:'alerta',t:'Gael Freitas tem risco alto',d:'Consulta às 13h30. A recepção está confirmando.',h:'7h00',go:'agenda'});L.push({id:'p3',ic:'calendario',t:'Nova consulta na sua agenda',d:'Sofia Martins, hoje às 9h00',h:'Ontem',go:'agenda'});return L;}
+ if(isG()){L.push({id:'g1',ic:'grafico',t:'Faltas caíram 2,6 pontos em novembro',d:'17,5% contra 20,1% em outubro',h:'7h00',go:'ind'});L.push({id:'g2',ic:'alerta',t:'Segunda de manhã concentra as faltas',d:'27% de faltas. Sugestão: lembrete extra na sexta.',h:'7h00',go:'ind'});L.push({id:'g3',ic:'equipe',t:'Diego Ramos ainda não aceitou o convite',d:'Enviado ontem. Vale por mais 6 dias.',h:'Ontem',go:'eq'});}
+ Object.entries(S.preenchidas).forEach(([v,n])=>L.push({id:'enc-'+v,ic:'confirmar',t:n+' aceitou o encaixe',d:'Horário preenchido pela lista de espera',h:'Agora',go:'lista'}));
+ if(!isG()){L.push({id:'r1',ic:'chegou',t:'Patrícia Gomes chegou',d:'Dermatologia às 9h15 · Dra. Helena Prado',h:'8h58',go:'hoje'});L.push({id:'r2',ic:'chegou',t:'Lucas Ferreira chegou',d:'Cardiologia às 9h00 · Dr. Bruno Lima',h:'8h52',go:'hoje'});L.push({id:'r3',ic:'calendario',t:'Cancelamento: segunda, 23/11, 16h00',d:'Dr. Bruno Lima · 2 pessoas da lista de espera cabem',h:'7h40',go:'lista'});L.push({id:'r4',ic:'alerta',t:'3 consultas de amanhã com risco alto',d:'Mariana Reis, João Pedro Lima e Ana Clara Mendes',h:'7h00',go:'conf'});L.push({id:'r5',ic:'mensagem',t:'2º lembrete programado',d:'Sai às 12h para 5 pessoas sem resposta',h:'7h00',go:'conf'});}
+ return L;};
+const notifHTML=()=>{const L=notifs();const un=L.filter(n=>!S.lidas[n.id]).length;
+ return `<div class="ov clear" data-a="closeNotif"></div><div class="pop notif"><div class="pop-h" style="padding-bottom:12px;border-bottom:1px solid var(--bd)"><div style="flex:1"><b>Notificações</b><div class="cap">${un?un+' não lidas':'Tudo lido'}</div></div>${un?btn('Marcar todas como lidas','g sm','lerTodas'):''}</div>
+ <div class="pop-sc" style="max-height:560px">${L.map(n=>`<button class="pop-r ${S.lidas[n.id]?'':'unread'}" data-a="abrirNotif" data-k="${n.id}"><div class="nic">${ic(n.ic,18)}</div><div style="flex:1;min-width:0"><div class="b14">${n.t}</div><div class="cap">${n.d}</div></div><div class="cap" style="align-self:flex-start;white-space:nowrap">${n.h}</div>${S.lidas[n.id]?'':'<i class="udot"></i>'}</button>`).join('')}</div>
+ <div style="padding:12px 20px;border-top:1px solid var(--bd)" class="cap">Avisos de chegada, cancelamento e confirmação aparecem aqui em tempo real.</div></div>`;};
+// ===== agenda semanal =====
+const agendaSemana=()=>{const D=[['Seg','16'],['Ter','17'],['Qua','18'],['Qui','19'],['Sex','20']];
+ const W=[[13,14,12,14,12],[8,9,7,8,9],[7,6,7,7,8],[5,6,5,5,0],[6,5,6,5,6],[7,0,7,7,6]];const R2=[[2,1,1,1,2],[0,1,0,0,1],[1,0,1,1,1],[1,0,1,1,0],[1,1,0,0,1],[0,0,1,0,0]];
+ const CAP=[16,10,9,7,8,9];
+ return head('Semana de 16 a 20 de novembro','Agenda',btn('Nova consulta','p','nova','','mais'))+
+ `<div class="agbar"><div class="seg"><button data-a="agView" data-k="dia">Dia</button><button class="on">Semana</button></div><div style="display:flex;gap:4px"><button class="iconbtn" style="width:34px;height:34px;transform:rotate(180deg)" data-a="toast" data-k="Neste protótipo, só esta semana tem dados">${ic('seta',16)}</button><button class="fsel" style="height:34px">Esta semana</button><button class="iconbtn" style="width:34px;height:34px" data-a="toast" data-k="Neste protótipo, só esta semana tem dados">${ic('seta',16)}</button></div>
+ <div class="legend"><span><i style="background:var(--brs)"></i>Até 70% ocupado</span><span><i style="background:#9fd9d1"></i>70 a 90%</span><span><i style="background:var(--br)"></i>Acima de 90%</span><span><i style="background:var(--rh)"></i>Consultas com risco alto</span></div></div>
+ <div class="panel" style="flex:1"><div class="wk"><div class="wk-h"></div>${D.map(([d,n],i)=>`<div class="wk-h ${i===3?'hoje':''}"><span>${d}</span><b>${n}</b>${i===3?'<em>hoje</em>':''}</div>`).join('')}
+ ${PROS.map((p,ci)=>`<div class="wk-p">${av(p[0],'sm')}<div><div class="b14">${p[1]}</div><div class="cap">${p[2]}</div></div></div>${D.map((d,di)=>{const n=W[ci][di];if(!n)return `<div class="wk-c off"><span class="cap">Não atende</span></div>`;const oc=Math.min(100,Math.round(n/CAP[ci]*100));const bg=oc>90?'var(--br)':oc>=70?'#9fd9d1':'var(--brs)';const fg=oc>90?'#fff':'var(--brt)';const r=R2[ci][di];
+  return `<button class="wk-c ${di===3?'hoje':''}" data-a="semCel" data-k="${ci}|${di}"><div class="wk-bar"><i style="width:${oc}%;background:${bg}"></i></div><div style="display:flex;align-items:baseline;gap:6px"><b>${n}</b><span class="cap">consultas · ${oc}%</span></div>${r?`<span class="selo alto" style="height:20px"><i></i>${r} risco alto</span>`:'<span class="cap">sem risco alto</span>'}</button>`;}).join('')}`).join('')}
+ <div class="wk-p" style="border-bottom:0"><b class="b14">Total</b></div>${D.map((d,di)=>{const t=W.reduce((a,r)=>a+r[di],0);return `<div class="wk-c tot ${di===3?'hoje':''}"><b>${t}</b><span class="cap">consultas</span></div>`;}).join('')}</div></div>`;};
+// ===== sobreposições =====
+const drawerHTML=()=>{const d=S.drawer;const a=AG[d.idx];const [ci,st,du,nm,k0,pk]=a;const k=S.chegou['ag'+d.idx]?'chegou':k0;const p=pk?PAC[pk]:null;const pro=PROS[ci];const m=480+st*30;const hr=Math.floor(m/60)+'h'+String(m%60).padStart(2,'0');
+ const fat=p&&p.fat?p.fat:k==='alto'?[['a','Faltou 2 vezes nos últimos 6 meses'],['m','Não respondeu o lembrete de ontem']]:k==='medio'?[['m','Remarcou 1 vez este mês'],['b','Confirmou com atraso']]:k==='sem'?[['m','Ainda não respondeu o lembrete']]:null;
+ return `<div class="ov light" data-a="closeD"></div><div class="drawer"><div class="dsec"><div style="display:flex;align-items:center"><span class="lab" style="flex:1;color:${k==='alto'?'var(--rht)':'var(--mut)'}">Hoje · ${hr}</span><button class="btn g sm" data-a="closeD" style="font-size:18px">✕</button></div><div style="font:700 20px/28px var(--fd)">${nm}</div><div class="t14" style="color:var(--mut)">${p?p.idade+' · ':''}${pro[2]} · ${pro[1]}</div><div>${selo(k==='atend'?'ok':k)}${k==='atend'?' <span class="cap">em atendimento agora</span>':''}</div></div>
+ ${fat?`<div class="dsec"><h3 style="font:600 16px/22px var(--fd)">${k==='alto'?'Por que risco alto':k==='medio'?'Por que risco médio':'Atenção'}</h3>${fat.map(([w,t])=>fator(w,t)).join('')}</div>`:''}
+ <div class="dsec"><h3 style="font:600 16px/22px var(--fd)">Contato</h3>${p&&p.resp?`<div style="display:flex;gap:12px;align-items:center"><span style="color:var(--mut)">${ic('pacientes',18)}</span><div><div class="cap">Responsável</div><div class="b14">${p.resp}, ${p.rel}</div></div></div>`:''}<div style="display:flex;gap:12px;align-items:center"><span style="color:var(--mut)">${ic('mensagem',18)}</span><div><div class="cap">WhatsApp</div><div class="b14">${p?p.tel:'(11) 9'+(8000+d.idx*37)+'-'+(1000+d.idx*91)}</div></div></div></div>
+ <div class="dsec"><h3 style="font:600 16px/22px var(--fd)">Ações</h3>${k==='chegou'||k==='atend'?`<div class="banner ok">${ic('confirmar',18)}<div class="t">${k==='atend'?'Em atendimento com '+pro[1]+'.':'Na sala de espera.'}</div></div>`:btn('Ligar para '+(p&&p.resp?p.resp.split(' ')[0]:nm.split(' ')[0]),'p full','callAg',d.idx,'telefone')}<div style="display:flex;gap:8px">${btn('Reenviar','s sm','toast','Lembrete reenviado para '+nm)}${btn('Remarcar','s sm','toast','Remarcação: use a ficha do paciente')}${k!=='chegou'&&k!=='atend'?btn('Chegou','s sm','chegouAg',d.idx):''}</div></div>
+ <div style="padding:16px 24px">${p?btn('Abrir ficha completa','g','ficha',pk):'<span class="cap">Ficha completa disponível para os pacientes da lista de Pacientes.</span>'}</div></div>`;};
+
+const modalHTML=()=>{const m=S.modal;
+ if(m.t==='call'){const p=PAC[m.k];const who=p.resp?`${p.resp}, ${p.rel} de ${p.n.split(' ')[0]}`:p.n;const vg=p.vaga&&VAGAS_NOVAS[p.vaga];const sug=vg&&vg.sug.filter(x=>S.espera.includes(x))[0];
+  const opts=[['conf','Vai comparecer','Confirma a consulta','confirmar'],['rem','Quer remarcar','Libera o horário de '+p.quando.split(',')[0].toLowerCase(),'calendario'],['canc','Vai cancelar','Libera o horário e encerra','alerta'],['nao','Não atendeu','Tenta de novo '+(p.melhor&&p.melhor!=='Não informado'?p.melhor.toLowerCase():'mais tarde'),'relogio']];
+  const novos=p.novos||['Seg, 23/11 · 9h00','Ter, 24/11 · 14h30','Qua, 25/11 · 10h00'];
+  return `<div class="ov" data-a="closeM"></div><div class="modal" style="width:580px"><button class="x" data-a="closeM">✕</button><div><h2>Como foi a ligação?</h2><p class="t14" style="color:var(--mut)">${who} · consulta de ${p.quando.toLowerCase()}, com ${p.pro}</p></div>
+  <div class="opts">${opts.map(([k,t,d,i])=>`<button class="opt ${m.r===k?'on':''}" data-a="opt" data-k="${k}" ${k==='rem'?'data-h="opt-remarcar"':''}>${ic(i,20)}<div><b>${t}</b><span>${d}</span></div></button>`).join('')}</div>
+  ${m.r==='rem'?`<div style="display:flex;flex-direction:column;gap:8px"><span class="cap">Novo horário com ${p.pro}</span><div class="pills">${novos.map(n=>`<button class="pill ${m.novo===n?'on':''}" data-a="novo" data-k="${n}">${n}</button>`).join('')}</div></div>`:''}
+  <div style="display:flex;flex-direction:column;gap:6px"><span class="cap">Observação (opcional)</span><textarea class="ta" data-in="obs" placeholder="${p.lastSt==='faltou'?'Ex.: pediu lembrete mais cedo':'Ex.: prefere ser contatado por WhatsApp'}">${esc(m.obs||'')}</textarea></div>
+  ${(m.r==='rem'||m.r==='canc')&&vg?`<button class="check ${m.oferta?'on':''}" data-a="oferta"><span class="bx">${m.oferta?'✓':''}</span><span>Oferecer ${p.quando.toLowerCase()} para a lista de espera.${sug?` ${ESPERA[sug].n} (${ESPERA[sug].esp}, ${ESPERA[sug].pref.toLowerCase()}) pode ocupar.`:' Ninguém da lista cabe agora; o horário fica aberto.'}</span></button>`:''}
+  <div class="mfoot">${btn('Cancelar','g','closeM')}${btn(m.r==='rem'?'Salvar e remarcar':m.r==='canc'?'Salvar e cancelar':'Salvar','p','saveCall','','','salvar-lig',m.r?'':'disabled')}</div></div>`;}
+ if(m.t==='regra')return `<div class="ov" data-a="closeM"></div><div class="modal" style="width:600px"><button class="x" data-a="closeM">✕</button><div><h2>Nova regra de lembrete</h2><p class="t14" style="color:var(--mut)">Para o padrão encontrado: segundas de manhã têm 27% de faltas.</p></div>
+  <div style="display:flex;gap:12px"><div class="fld"><label>Para consultas de</label><div class="inp"><select><option>Segunda-feira</option><option>Sexta-feira</option></select>${ic('seletor',16)}</div></div><div class="fld"><label>Período</label><div class="inp"><select><option>Manhã (8h às 12h)</option><option>Tarde</option></select>${ic('seletor',16)}</div></div></div>
+  <div style="display:flex;gap:12px"><div class="fld"><label>Enviar lembrete extra</label><div class="inp"><select><option>Na sexta anterior</option><option>No domingo</option></select>${ic('seletor',16)}</div></div><div class="fld" style="flex:0 0 140px"><label>Horário</label><div class="inp"><select><option>18h00</option><option>12h00</option></select>${ic('seletor',16)}</div></div><div class="fld" style="flex:0 0 160px"><label>Canal</label><div class="inp"><select><option>WhatsApp</option><option>SMS</option></select>${ic('seletor',16)}</div></div></div>
+  <div style="background:var(--bg);border-radius:var(--r-md);padding:16px;display:flex;flex-direction:column;gap:8px"><span class="lab">Prévia da mensagem</span><div style="max-width:440px;background:var(--oks);border-radius:12px 12px 12px 4px;padding:10px 14px" class="t14">Oi, Juliana! Lembrete da consulta da Mariana na segunda, 23/11, às 9h00, com a Dra. Camila Torres, na Clínica Jacarandá. Responda SIM para confirmar ou REMARCAR para outro horário.</div></div>
+  <div class="cap" style="display:flex;gap:8px;align-items:center">${ic('calendario',16)}Vale para cerca de 100 consultas por mês. Os lembretes de sempre continuam.</div>
+  <div class="mfoot">${btn('Cancelar','g','closeM')}${btn('Criar regra','p','saveRegra','','','salvar-regra')}</div></div>`;
+ if(m.t==='convidar')return `<div class="ov" data-a="closeM"></div><div class="modal" style="width:560px"><button class="x" data-a="closeM">✕</button><div><h2>Convidar pessoa</h2><p class="t14" style="color:var(--mut)">O convite chega por WhatsApp ou e-mail e vale por 7 dias.</p></div>
+  <div class="fld"><label>Nome</label><div class="inp"><input data-in="cnome" value="${esc(m.nome||'Paula Teixeira')}"></div></div><div class="fld"><label>WhatsApp ou e-mail</label><div class="inp"><input value="(11) 99412-0087"></div></div>
+  <div style="display:flex;flex-direction:column;gap:8px"><span class="cap">Perfil</span>${[['r','Recepção','Agenda de todos, confirmações, lista de espera e contato dos pacientes.'],['p','Profissional','Só a própria agenda, sala de espera e os próprios números.'],['g','Gestão','Tudo, mais indicadores, regras de lembrete e equipe.']].map(([k,t,d])=>`<button class="opt ${(m.pf||'r')===k?'on':''}" data-a="pf" data-k="${k}" style="width:100%"><span style="width:18px;height:18px;border-radius:50%;border:${(m.pf||'r')===k?'6px solid var(--br)':'1.5px solid var(--bd2)'};flex-shrink:0"></span><div><b>${t}</b><span>${d}</span></div></button>`).join('')}</div>
+  <div class="mfoot">${btn('Cancelar','g','closeM')}${btn('Enviar convite','p','saveConvite','','mensagem')}</div></div>`;
+ if(m.t==='nova'){const pi=+m.pro;const slots=m.dia==='Hoje'?freeSlots(pi):['8h30','10h00','11h30','14h30','16h00'];const ok=m.pac&&m.hr;
+  const nomes=[...new Set([...PAC_LISTA.map(k=>PAC[k].n),...Object.values(ESPERA).map(e=>e.n)])].sort((a,b)=>a.localeCompare(b));
+  return `<div class="ov" data-a="closeM"></div><div class="modal" style="width:640px"><button class="x" data-a="closeM">✕</button><div><h2>Nova consulta</h2><p class="t14" style="color:var(--mut)">Os lembretes saem sozinhos, pela regra da clínica.</p></div>
+  <div style="display:flex;gap:12px"><div class="fld"><label>Paciente</label><div class="inp"><select data-in="npac" data-h="npac"><option value="">Escolha o paciente</option>${nomes.map(n=>`<option ${m.pac===n?'selected':''}>${n}</option>`).join('')}</select>${ic('busca',16)}</div></div><div class="fld"><label>Profissional</label><div class="inp"><select data-in="npro">${PROS.map((p,i)=>`<option value="${i}" ${pi===i?'selected':''}>${p[1]} · ${p[2]}</option>`).join('')}</select>${ic('seletor',16)}</div></div></div>
+  <div style="display:flex;flex-direction:column;gap:8px"><span class="cap">Tipo</span><div class="pills">${['Consulta','Retorno','Primeira consulta'].map(t=>`<button class="pill ${m.tipo===t?'on':''}" data-a="ntipo" data-k="${t}">${t}</button>`).join('')}</div></div>
+  <div style="display:flex;flex-direction:column;gap:8px"><span class="cap">Dia</span><div class="pills">${['Hoje','Amanhã','Seg, 23/11'].map(t=>`<button class="pill ${m.dia===t?'on':''}" data-a="ndia" data-k="${t}">${t}</button>`).join('')}</div></div>
+  <div style="display:flex;flex-direction:column;gap:8px"><span class="cap">Horários livres · ${PROS[pi][1]}</span><div class="pills">${slots.length?slots.map(t=>`<button class="pill ${m.hr===t?'on':''}" data-a="nhr" data-k="${t}">${t}${m.dia==='Hoje'&&pi===1&&t==='15h00'?' · vago':''}</button>`).join(''):'<span class="cap">Sem horários livres hoje. Escolha outro dia.</span>'}</div>${m.dia==='Hoje'&&pi===1&&m.hr==='15h00'?`<div class="cap" style="color:var(--brt)">Este horário vagou ontem. 2 pessoas da lista de espera também cabem nele.</div>`:''}</div>
+  <button class="check ${m.avisar?'on':''}" data-a="navisar"><span class="bx">${m.avisar?'✓':''}</span><span>Avisar o paciente agora pelo WhatsApp. Depois, lembretes na véspera às 18h e no dia às 12h.</span></button>
+  <div class="mfoot">${btn('Cancelar','g','closeM')}${btn('Agendar consulta','p','saveNova','','calendario','',ok?'':'disabled')}</div></div>`;}
+ if(m.t==='lista'){const nomes=[...new Set([...PAC_LISTA.map(k=>PAC[k].n)])].sort((a,b)=>a.localeCompare(b));const esps=[...new Set(PROS.map(p=>p[2]))];const pros=PROS.filter(p=>p[2]===m.esp);const ok=!!m.pac;
+  const fit=VAGAS_BASE.filter(v=>v.esp===m.esp&&(!m.pro||m.pro===v.pro));
+  return `<div class="ov" data-a="closeM"></div><div class="modal" style="width:600px"><button class="x" data-a="closeM">✕</button><div><h2>Adicionar à lista de espera</h2><p class="t14" style="color:var(--mut)">Quando um horário que combina vagar, o Venzi sugere esta pessoa.</p></div>
+  <div class="fld"><label>Paciente</label><div class="inp"><select data-in="m_pac"><option value="">Escolha o paciente</option>${nomes.map(n=>`<option ${m.pac===n?'selected':''}>${n}</option>`).join('')}</select>${ic('busca',16)}</div></div>
+  <div style="display:flex;gap:12px"><div class="fld"><label>Especialidade</label><div class="inp"><select data-in="m_esp">${esps.map(e=>`<option ${m.esp===e?'selected':''}>${e}</option>`).join('')}</select>${ic('seletor',16)}</div></div><div class="fld"><label>Profissional</label><div class="inp"><select data-in="m_pro"><option value="">Qualquer profissional</option>${pros.map(p=>`<option ${m.pro===p[1]?'selected':''}>${p[1]}</option>`).join('')}</select>${ic('seletor',16)}</div></div></div>
+  <div style="display:flex;flex-direction:column;gap:8px"><span class="cap">Prefere</span><div class="pills">${['Manhãs','Tardes','Qualquer horário','Sextas'].map(t=>`<button class="pill ${m.pref===t?'on':''}" data-a="lpref" data-k="${t}">${t}</button>`).join('')}</div></div>
+  ${fit.length?`<div class="banner" style="background:var(--brs);color:var(--brt)">${ic('calendario',18)}<div class="t" style="font-size:13px;line-height:18px">Já existe um horário vago que combina: ${fit.map(v=>v.when.toLowerCase()+', '+v.hr+' com '+v.pro).join('; ')}.</div></div>`:''}
+  <div class="mfoot">${btn('Cancelar','g','closeM')}${btn('Adicionar à lista','p','saveLista','','lista','',ok?'':'disabled')}</div></div>`;}
+ if(m.t==='pac'){const ok=m.nome&&m.tel;
+  return `<div class="ov" data-a="closeM"></div><div class="modal" style="width:600px"><button class="x" data-a="closeM">✕</button><div><h2>Novo paciente</h2><p class="t14" style="color:var(--mut)">Só o necessário para agendar e lembrar. Dados clínicos ficam no prontuário.</p></div>
+  <div style="display:flex;gap:12px"><div class="fld" style="flex:2"><label>Nome completo</label><div class="inp"><input data-in="m_nome" placeholder="Ex.: Carla Menezes" value="${esc(m.nome)}"></div></div><div class="fld"><label>Nascimento</label><div class="inp"><input data-in="m_nasc" placeholder="dd/mm/aaaa" value="${esc(m.nasc)}"></div></div></div>
+  <div class="fld"><label>WhatsApp</label><div class="inp">${ic('mensagem',16)}<input data-in="m_tel" placeholder="(11) 90000-0000" value="${esc(m.tel)}"></div></div>
+  <button class="check ${m.crianca?'on':''}" data-a="pcrianca"><span class="bx">${m.crianca?'✓':''}</span><span>Paciente é criança ou depende de um responsável</span></button>
+  ${m.crianca?`<div class="fld"><label>Nome do responsável (quem recebe os lembretes)</label><div class="inp"><input data-in="m_resp" placeholder="Ex.: Juliana Reis, mãe" value="${esc(m.resp)}"></div></div>`:''}
+  <div style="display:flex;flex-direction:column;gap:8px"><span class="cap">Melhor horário para contato</span><div class="pills">${['Manhã','Almoço','Depois das 18h','Qualquer horário'].map(t=>`<button class="pill ${m.melhor===t?'on':''}" data-a="pmelhor" data-k="${t}">${t}</button>`).join('')}</div></div>
+  <button class="check ${m.ok?'on':''}" data-a="pok"><span class="bx">${m.ok?'✓':''}</span><span>Aceita receber lembretes de consulta pelo WhatsApp (pode cancelar a qualquer momento).</span></button>
+  <div class="mfoot">${btn('Cancelar','g','closeM')}${btn('Cadastrar paciente','p','savePac','','pacientes','',ok?'':'disabled')}</div></div>`;}
+ return '';};
+
+// ===== render =====
+function render(){const st=step();
+ document.getElementById('guide').innerHTML=guideHTML();
+ document.getElementById('app').innerHTML=S.scr==='login'?loginHTML()+(S.toast?`<div class="toast">${ic(S.toast.icn,18)}${S.toast.t}</div>`:''):side()+`<main class="main">${SCR[S.scr]()}</main>`+(S.pop?popHTML():'')+(S.notif?notifHTML():'')+(S.drawer?drawerHTML():'')+(S.modal?modalHTML():'')+(S.toast?`<div class="toast">${ic(S.toast.icn,18)}${S.toast.t}</div>`:'');
+ if(st){let h=st.h;if(st.h2&&((S.modal&&S.modal.r==='rem')||(S.scr==='login'&&st.h==='login-'+S.loginSel)))h=st.h2;if(h){const el=document.querySelector(`#app [data-h="${h}"]`);if(el)el.classList.add('hint');}}
+ const f=document.activeElementSel;if(f){const el=document.querySelector(`[data-in="${f}"]`);if(el){el.focus();const v=el.value;el.setSelectionRange(v.length,v.length);}document.activeElementSel=null;}
+ tickCd();}
+function renderKeep(k){const el=document.querySelector(`[data-in="${k}"]`);const pos=el&&el.selectionStart;render();const n=document.querySelector(`[data-in="${k}"]`);if(n&&n.tagName==='INPUT'){n.focus();try{n.setSelectionRange(pos,pos);}catch(e){}}}
+function tickCd(){clearInterval(cdT);const el=document.getElementById('cd');if(!el)return;const c=Object.values(S.convite).find(x=>x.st==='ag');if(!c)return;const up=()=>{const left=Math.max(0,1800-Math.floor((Date.now()-c.t)/1000));const e=document.getElementById('cd');if(e)e.textContent=String(Math.floor(left/60)).padStart(2,'0')+':'+String(left%60).padStart(2,'0');};up();cdT=setInterval(up,1000);}
+
+// ===== ações =====
+const go=s=>{S.scr=s;S.drawer=null;S.modal=null;if(s==='lista'){adv('rec','lista');if(S.flow==='rec'&&S.vagasExtra.includes('a900'))S.vagaSel='a900';}};
+const nowStr=()=>'Hoje, 8h'+String(6+Math.floor(Math.random()*8)).padStart(2,'0');
+const A={
+ go:k=>go(k),
+ flow:k=>{S=S0();S.flow=k;S.step=0;S.loginSel={rec:'bruna',pro:'camila',ges:'claudia'}[k];},
+ reset:()=>{S=S0();},
+ toast:k=>toast(k,'alerta'),
+ loginSel:k=>{S.loginSel=k;},
+ notif:()=>{S.notif=!S.notif;S.pop=null;},closeNotif:()=>{S.notif=false;},lerTodas:()=>{notifs().forEach(n=>S.lidas[n.id]=1);},
+ abrirNotif:k=>{const n=notifs().find(x=>x.id===k);S.lidas[k]=1;S.notif=false;if(n&&n.go){if(n.go.startsWith('ficha:'))A.ficha(n.go.slice(6));else go(n.go);}},
+ agView:k=>{S.agView=k;},semCel:k=>{const [c,d]=k.split('|');if(d==='3'){S.agView='dia';S.agPro=+c;}else toast('Neste protótipo, só quinta-feira (hoje) tem a agenda detalhada','calendario');},
+ addLista:()=>{S.modal={t:'lista',pac:'',esp:'Dermatologia',pro:'',pref:'Tardes'};},
+ lpref:k=>{S.modal.pref=k;},
+ saveLista:()=>{const m=S.modal;if(!m.pac)return;const k='N'+Date.now();const ini=m.pac.split(' ').map(x=>x[0]).join('').slice(0,2).toUpperCase();ESPERA[k]={n:m.pac,ini,esp:m.esp,pro:m.pro||null,pref:m.pref,dias:0};S.espera.push(k);VAGAS_BASE.forEach(v=>{if(v.esp===m.esp&&(!m.pro||m.pro===v.pro))v.sug.push(k);});S.modal=null;toast(m.pac+' entrou na lista de espera de '+m.esp.toLowerCase(),'lista');},
+ novoPac:()=>{S.modal={t:'pac',nome:S.search&&!/\d/.test(S.search)?S.search.replace(/\b\w/g,c=>c.toUpperCase()):'',nasc:'',tel:'',crianca:false,resp:'',melhor:'Qualquer horário',ok:true};},
+ pcrianca:()=>{S.modal.crianca=!S.modal.crianca;},pmelhor:k=>{S.modal.melhor=k;},pok:()=>{S.modal.ok=!S.modal.ok;},
+ savePac:()=>{const m=S.modal;if(!m.nome||!m.tel)return;const k='P'+Date.now();const ini=m.nome.split(' ').filter(Boolean).map(x=>x[0]).join('').slice(0,2).toUpperCase();
+  PAC[k]={n:m.nome,ini,idade:m.nasc?m.nasc:'—',tel:m.tel,resp:m.crianca&&m.resp?m.resp:undefined,rel:m.crianca?'responsável':undefined,melhor:m.melhor,desde:'novembro de 2026',quando:'Sem consulta marcada',dia:['—','—'],esp:'—',pro:'—',tipo:'',risk:null,pres:null,last:'—',lastSt:'nova',log:[['Agora','Cadastro na recepção (Bruna)',m.ok?'Aceitou lembretes por WhatsApp':'Não quer lembretes por WhatsApp']]};
+  PAC_LISTA.unshift(k);S.modal=null;S.search='';S.scr='pac';toast('Cadastro feito: '+m.nome+'. Agende a primeira consulta quando quiser.','pacientes');},
+ clin:()=>{S.pop=S.pop?null:'clin';S.popPro=null;},closePop:()=>{S.pop=null;S.popPro=null;},popPro:k=>{S.popPro=String(k).startsWith('s')?k:+k;},popBack:()=>{S.popPro=null;},
+ agPro:k=>{S.pop=null;S.popPro=null;S.agPro=+k;S.scr='agenda';S.drawer=null;S.modal=null;},agAll:()=>{S.agPro=null;},
+ novaVago:k=>{const [c,h]=k.split('|');S.modal={t:'nova',pac:'',pro:+c,dia:'Hoje',hr:h,tipo:'Consulta',avisar:true};},
+ novaPro:k=>{S.pop=null;S.popPro=null;S.modal={t:'nova',pac:'',pro:+k,dia:'Hoje',hr:null,tipo:'Consulta',avisar:true};},
+ login:k=>{S.user=k;S.scr=USERS[k][3];adv(S.flow,'login');toast('Olá, '+USERS[k][1].replace('Dra. ','').split(' ')[0]+'!','pacientes');},
+ logout:k=>{S.pop=null;S.agPro=null;S.user=null;S.scr='login';S.modal=null;S.drawer=null;if(k)S.loginSel=k;},
+ chamar:k=>{S.chamados[k]=1;toast('Laura Pinto foi chamada para o consultório 2','chegou');adv('pro','chamar');},
+ nova:()=>{S.modal={t:'nova',pac:'',pro:1,dia:'Hoje',hr:null,tipo:'Consulta',avisar:true};},
+ ntipo:k=>{S.modal.tipo=k;},ndia:k=>{S.modal.dia=k;S.modal.hr=null;},nhr:k=>{S.modal.hr=k;},navisar:()=>{S.modal.avisar=!S.modal.avisar;},
+ saveNova:()=>{const m=S.modal;if(!m.pac||!m.hr)return;const pro=PROS[m.pro];if(m.dia==='Hoje'){const sl=hrToSlot(m.hr);S.extraAg.push([+m.pro,sl,m.pac]);if(+m.pro===1&&sl===14){S.preenchidas.h15=m.pac;S.tasks.vaga='Horário preenchido: '+m.pac+' às 15h00';}}
+  const ek=Object.keys(ESPERA).find(x=>ESPERA[x].n===m.pac);if(ek)S.espera=S.espera.filter(x=>x!==ek);S.modal=null;toast(`Consulta agendada: ${m.pac}, ${m.dia.toLowerCase()} às ${m.hr}, com ${pro[1]}. Lembretes programados.`,'calendario');},
+
+ ficha:k=>{S.pac=k;S.scr='ficha';S.drawer=null;S.modal=null;if(k==='MR')adv('rec','mr');},
+ call:k=>{S.modal={t:'call',k,r:null,oferta:true};if(k==='MR'){if(S.scr!=='ficha'){S.pac='MR';}adv('rec','ligar');}},
+ callRem:k=>{S.modal={t:'call',k,r:'rem',novo:(PAC[k].novos||[])[0],oferta:true};},
+ callAg:i=>{const pk=AG[i][5];if(pk){S.drawer=null;A.call(pk);}else toast('Ligando para '+AG[i][3]+'… (simulação)','telefone');},
+ opt:k=>{S.modal.r=k;if(k==='rem'&&!S.modal.novo)S.modal.novo=(PAC[S.modal.k].novos||['Seg, 23/11 · 9h00'])[0];},
+ novo:k=>{S.modal.novo=k;},
+ oferta:()=>{S.modal.oferta=!S.modal.oferta;},
+ closeM:()=>{S.modal=null;},closeD:()=>{S.drawer=null;},
+ saveCall:()=>{const m=S.modal;if(!m.r)return;const k=m.k,p=PAC[k];const q=nowStr();
+  const txt={conf:'Vai comparecer. Consulta confirmada.',rem:'Quer remarcar. Novo horário: '+(m.novo||'').replace(' · ',', ')+'.',canc:'Vai cancelar.',nao:'Não atendeu.'}[m.r]+(m.obs?' '+m.obs:'');
+  S.ficha[k]={r:m.r,novo:m.novo,oferta:m.oferta,quando:q,txt,h:q.slice(6)};
+  if(m.r!=='nao')S.res[k]=m.r==='conf'?'conf':'rem';
+  const tlab={conf:'Vai comparecer: consulta confirmada',rem:'Remarcou para '+(m.novo||'').replace(' · ',', '),canc:'Cancelou a consulta',nao:'Não atendeu: tentar de novo '+(p.melhor?p.melhor.toLowerCase():'mais tarde')}[m.r];
+  if(['MR','JL','AM'].includes(k))S.tasks[k]=tlab;
+  if((m.r==='rem'||m.r==='canc')&&m.oferta&&p.vaga&&!S.vagasExtra.includes(p.vaga)){S.vagasExtra.unshift(p.vaga);S.vagaSel=p.vaga;}
+  S.modal=null;
+  toast(m.r==='rem'?`Consulta remarcada para ${(m.novo||'').replace(' · ',', ')}.${m.oferta?' Horário liberado para a lista de espera.':''}`:m.r==='conf'?'Consulta confirmada.':m.r==='canc'?'Consulta cancelada.'+(m.oferta?' Horário liberado para a lista de espera.':''):'Tentativa registrada. O Venzi lembra você mais tarde.','confirmar');
+  if(k==='MR'&&m.r==='rem'&&m.oferta)adv('rec','salvar');},
+ reenv:k=>{S.reenv[k]=1;toast('Lembrete reenviado para '+PAC[k].n,'mensagem');},
+ reenvTodos:()=>{['CS','FC','GH','PM','RA'].forEach(k=>S.reenv[k]=1);S.tasks.sem='Reenviado às 8h06';toast('Lembrete reenviado para 5 pessoas sem resposta','mensagem');},
+ vaga:k=>{S.vagaSel=k;go('lista');S.vagaSel=k;},
+ vagaSel:k=>{S.vagaSel=k;},
+ convite:k=>{const v=S.vagaSel;const vg=vagasAll().find(x=>x.id===v);S.convite[v]={to:k,st:'ag',t:Date.now()};toast('Convite enviado para '+ESPERA[k].n+' pelo WhatsApp','mensagem');if(k==='IM')adv('rec','convite');
+  setTimeout(()=>{const c=S.convite[v];if(!c||c.st!=='ag')return;c.st='ok';S.preenchidas[v]=ESPERA[k].n;S.espera=S.espera.filter(x=>x!==k);if(v==='h15')S.tasks.vaga='Encaixe feito: '+ESPERA[k].n+' às 15h00';toast(`${ESPERA[k].n.split(' ')[0]} aceitou. A agenda ${vg.pro.startsWith('Dra.')?'da':vg.pro.startsWith('Dr.')?'do':'de'} ${vg.pro} foi atualizada.`,'confirmar');if(k==='IM')adv('rec','espera');render();},4500);},
+ drawer:i=>{S.drawer={idx:+i};},
+ chegou:k=>{S.chegou[k]=1;toast('Rafael Costa chegou. O aviso foi para o Dr. Rafael Nunes.','chegou');},
+ chegouAg:i=>{S.chegou['ag'+i]=1;toast(AG[i][3]+' chegou. O aviso foi para '+PROS[AG[i][0]][1]+'.','chegou');},
+ confF:k=>{S.confF=k;},pacF:k=>{S.pacF=k;},clearSearch:()=>{S.search='';},
+ regra:()=>{S.modal={t:'regra'};adv('ges','regra');},
+ saveRegra:()=>{S.regra=true;S.modal=null;toast('Regra criada: lembrete extra na sexta, 18h, para consultas de segunda de manhã','confirmar');adv('ges','salvar');},
+ convidar:()=>{S.modal={t:'convidar',pf:'r'};},pf:k=>{S.modal.pf=k;},
+ saveConvite:()=>{const n=(S.modal.nome||'Paula Teixeira').trim()||'Paula Teixeira';S.convidados.push(n);S.modal=null;toast('Convite enviado para '+n,'mensagem');},
+};
+document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t||!document.getElementById('stage').contains(t))return;const a=t.dataset.a;if(!A[a])return;if(t.disabled)return;A[a](t.dataset.k);render();});
+const onIn=e=>{const t=e.target;const k=t.dataset&&t.dataset.in;if(!k)return;
+ if(k==='psearch'||k==='gsearch'){S.search=t.value;if(k==='gsearch'){S.scr='pac';S.drawer=null;}document.activeElementSel='psearch';render();}
+ else if(k==='obs'&&S.modal)S.modal.obs=t.value;else if(k==='npac'&&S.modal){S.modal.pac=t.value;render();}else if(k==='npro'&&S.modal){S.modal.pro=+t.value;S.modal.hr=null;render();}else if(k==='cnome'&&S.modal)S.modal.nome=t.value;else if(k&&k.startsWith('m_')&&S.modal){S.modal[k.slice(2)]=t.value;if(t.tagName==='SELECT'||k==='m_nome'||k==='m_tel')renderKeep(k);}};
+document.addEventListener('input',e=>{if(e.target.tagName!=='SELECT')onIn(e);});document.addEventListener('change',e=>{if(e.target.tagName==='SELECT')onIn(e);});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&(S.modal||S.drawer)){S.modal=null;S.drawer=null;render();}});
+function fit(){const st=document.getElementById('stage');const H=900+66,W=1440;const pad=document.documentElement.classList.contains('embed')?8:28;const s=Math.min((innerWidth-pad*2)/W,(innerHeight-pad*2)/H,1.25);st.style.transform=`translate(-50%,-50%) scale(${s})`;}
+addEventListener('resize',fit);
+const qp=new URLSearchParams(location.search);if(qp.get('embed')==='1')document.documentElement.classList.add('embed');if(qp.get('flow'))S.flow=qp.get('flow');
+fit();render();
+
+</script></body></html>

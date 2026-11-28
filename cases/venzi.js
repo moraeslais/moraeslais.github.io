@@ -13,12 +13,13 @@ pt:{
  title:'Venzi',hud:'Saúde · B2B · Product design',
  sub:'Um painel web para a recepção de clínicas que mostra quem pode faltar, por quê e o que fazer antes que a falta aconteça.',
  proto:'Abrir o protótipo navegável',protoNote:'Desktop · 3 fluxos guiados · dados fictícios',
- concept:'Projeto conceitual de portfólio, feito do zero, da pesquisa ao protótipo. Ainda não foi validado com usuários: conversar com recepcionistas e gestoras de clínica é o próximo passo, e os resultados entram aqui quando existirem.',
+ concept:'Projeto conceitual de portfólio, feito do zero, da pesquisa ao protótipo. O protótipo foi testado com 6 pessoas. O próximo passo é testar com recepcionistas e gestoras de clínica.',
  meta:[['Meu papel','Pesquisa, UX, UI e protótipo (solo)'],['Tipo','B2B · desktop · saúde'],['Cliente','Clínica Jacarandá (fictícia), 6 profissionais'],['Entregas','28 telas, marca, styleguide, componentes, handoff e protótipo']],
  stats:[['23%','das consultas ambulatoriais têm falta, na média mundial'],['−25%','de faltas quando há lembrete por SMS ou e-mail'],['39% × 29%','de redução: ligação feita por pessoa contra lembrete automático'],['28','telas desktop no Figma, com estados e telas de apoio']],
  statSrc:'Fontes na seção de pesquisa.',
  h:{problem:'O problema',research:'O que a pesquisa mostrou',bench:'Benchmark',who:'Para quem',scope:'Escopo do MVP',principles:'Princípios',flow:'O fluxo principal',decisions:'Decisões de design',try:'Experimente o protótipo',ds:'Marca e design system',next:'Próximos passos',metrics:'Como eu mediria',learn:'O que eu aprendi'},
  problem:['Numa clínica, a falta é o problema mais caro da agenda e quase sempre é descoberta tarde demais. A recepção confirma consultas uma a uma, por telefone e WhatsApp, enquanto atende o balcão.','Quando a falta aparece, o horário já passou e não dá para encaixar ninguém. E a gestão não enxerga quanto isso custa nem onde as faltas se concentram.'],
+ hyp:{short:1,items:[["Hipótese", "Se o Venzi mostrar quem tem risco de faltar, sempre com o motivo, e transformar a agenda numa lista de tarefas, a recepção age antes da falta sem trabalhar mais."], ["Como validei", "Pesquisa em artigos publicados sobre faltas (a ligação reduz 39% delas, contra 29% do lembrete automático), benchmarking de 5 produtos e protótipo com 3 fluxos guiados, testado com 6 pessoas e acompanhado no GA4 e no Hotjar."], ["Próximo passo", "Conversar com 2 ou 3 pessoas de recepção e gestão de clínica e testar com elas o fluxo da recepção."]]},
  hmw:'Como fazer a recepção agir antes da falta, e a gestão ver o impacto em reais, sem aumentar o trabalho de ninguém?',
  srcWord:'Fonte',
  findings:[['Faltar é comum','A média mundial é de 23% das consultas ambulatoriais. Numa UBS do Sul do Brasil, 19,2% de 3.131 consultas.',['jamia','rbmfc']],['Lembrete funciona','Lembretes por SMS ou e-mail reduzem as faltas em cerca de 25%, e mandar mais de um ajuda mais.',['bmj']],['Ligação funciona melhor, mas custa tempo','A ligação feita por uma pessoa reduz 39% das faltas, contra 29% do lembrete automático. Daí a tese: não ligar para todo mundo, e sim dizer para quem vale a pena ligar.',['pmc']]],
@@ -46,12 +47,13 @@ en:{
  title:'Venzi',hud:'Healthcare · B2B · Product design',
  sub:'A web dashboard for clinic front desks that shows who might miss an appointment, why, and what to do before it happens.',
  proto:'Open the clickable prototype',protoNote:'Desktop · 3 guided flows · sample data (UI in Portuguese)',
- concept:'A self-initiated portfolio project, built from scratch, from research to prototype. It hasn’t been validated with users yet: talking to clinic receptionists and managers is the next step, and the results will be added here.',
+ concept:'A self-initiated portfolio project, built from scratch, from research to prototype. The prototype was tested with 6 people. The next step is testing with clinic receptionists and managers.',
  meta:[['My role','Research, UX, UI and prototype (solo)'],['Type','B2B · desktop · healthcare'],['Client','Clínica Jacarandá (fictional), 6 practitioners'],['Deliverables','28 screens, brand, styleguide, components, handoff and prototype']],
  stats:[['23%','of outpatient appointments are missed, global average'],['−25%','fewer no-shows with SMS or email reminders'],['39% × 29%','reduction: a person’s phone call vs an automated reminder'],['28','desktop screens in Figma, with states and support screens']],
  statSrc:'Sources in the research section.',
  h:{problem:'The problem',research:'What the research showed',bench:'Benchmark',who:'Who it’s for',scope:'MVP scope',principles:'Principles',flow:'The main flow',decisions:'Design decisions',try:'Try the prototype',ds:'Brand and design system',next:'Next steps',metrics:'How I’d measure it',learn:'What I learned'},
  problem:['At a clinic, no-shows are the most expensive problem on the schedule, and they’re almost always found out too late. The front desk confirms appointments one by one, by phone and WhatsApp, while serving the counter.','By the time a no-show shows up, the slot is gone and nobody can be fitted in. And management can’t see what it costs or where no-shows cluster.'],
+ hyp:{short:1,items:[["Hypothesis", "If Venzi shows who is at risk of missing, always with the reason, and turns the schedule into a task list, the front desk acts before the no-show without working more."], ["How I validated it", "Research into published articles on no-shows (a call cuts them by 39%, against 29% for automatic reminders), a benchmark of 5 products and a prototype with 3 guided flows, tested with 6 people and tracked in GA4 and Hotjar."], ["Next step", "Talk to 2 or 3 clinic front-desk and management staff and test the front-desk flow with them."]]},
  hmw:'How might we help the front desk act before a no-show, and show management the impact in money, without adding work for anyone?',
  srcWord:'Source',
  findings:[['Missing appointments is common','The global average is 23% of outpatient appointments. At a public clinic in southern Brazil, 19.2% of 3,131 appointments.',['jamia','rbmfc']],['Reminders work','SMS or email reminders cut no-shows by about 25%, and more than one reminder helps more.',['bmj']],['Calls work better, but cost time','A phone call from a person cuts no-shows by 39%, versus 29% for automated reminders. Hence the idea: don’t call everyone, tell the desk who is worth calling.',['pmc']]],
@@ -79,12 +81,13 @@ es:{
  title:'Venzi',hud:'Salud · B2B · Product design',
  sub:'Un panel web para la recepción de clínicas que muestra quién puede faltar, por qué y qué hacer antes de que la falta ocurra.',
  proto:'Abrir el prototipo navegable',protoNote:'Escritorio · 3 flujos guiados · datos ficticios (interfaz en portugués)',
- concept:'Proyecto conceptual de portafolio, hecho desde cero, de la investigación al prototipo. Todavía no se validó con usuarios: hablar con recepcionistas y gestoras de clínicas es el próximo paso, y los resultados se sumarán aquí.',
+ concept:'Proyecto conceptual de portafolio, hecho desde cero, de la investigación al prototipo. El prototipo se probó con 6 personas. El próximo paso es probarlo con recepcionistas y gestoras de clínicas.',
  meta:[['Mi rol','Investigación, UX, UI y prototipo (sola)'],['Tipo','B2B · escritorio · salud'],['Cliente','Clínica Jacarandá (ficticia), 6 profesionales'],['Entregas','28 pantallas, marca, styleguide, componentes, handoff y prototipo']],
  stats:[['23%','de las consultas ambulatorias tienen falta, promedio mundial'],['−25%','de faltas con recordatorios por SMS o e-mail'],['39% × 29%','de reducción: llamada de una persona contra recordatorio automático'],['28','pantallas de escritorio en Figma, con estados y pantallas de apoyo']],
  statSrc:'Fuentes en la sección de investigación.',
  h:{problem:'El problema',research:'Lo que mostró la investigación',bench:'Benchmark',who:'Para quién',scope:'Alcance del MVP',principles:'Principios',flow:'El flujo principal',decisions:'Decisiones de diseño',try:'Prueba el prototipo',ds:'Marca y design system',next:'Próximos pasos',metrics:'Cómo lo mediría',learn:'Lo que aprendí'},
  problem:['En una clínica, la falta es el problema más caro de la agenda y casi siempre se descubre tarde. La recepción confirma turnos uno por uno, por teléfono y WhatsApp, mientras atiende el mostrador.','Cuando aparece la falta, el horario ya pasó y no se puede ubicar a nadie. Y la gestión no ve cuánto cuesta ni dónde se concentran las faltas.'],
+ hyp:{short:1,items:[["Hipótesis", "Si Venzi muestra quién tiene riesgo de faltar, siempre con el motivo, y convierte la agenda en una lista de tareas, la recepción actúa antes de la falta sin trabajar más."], ["Cómo lo validé", "Investigación en artículos publicados sobre faltas (la llamada las reduce un 39%, contra un 29% del recordatorio automático), benchmarking de 5 productos y prototipo con 3 flujos guiados, probado con 6 personas y seguido en GA4 y Hotjar."], ["Próximo paso", "Hablar con 2 o 3 personas de recepción y gestión de clínicas y probar con ellas el flujo de la recepción."]]},
  hmw:'¿Cómo lograr que la recepción actúe antes de la falta, y que la gestión vea el impacto en dinero, sin sumar trabajo a nadie?',
  srcWord:'Fuente',
  findings:[['Faltar es común','El promedio mundial es 23% de las consultas ambulatorias. En un centro de salud del sur de Brasil, 19,2% de 3.131 consultas.',['jamia','rbmfc']],['Los recordatorios funcionan','Los recordatorios por SMS o e-mail reducen las faltas cerca de 25%, y enviar más de uno ayuda más.',['bmj']],['La llamada funciona mejor, pero cuesta tiempo','La llamada de una persona reduce 39% de las faltas, contra 29% del recordatorio automático. De ahí la idea: no llamar a todos, sino decir a quién vale la pena llamar.',['pmc']]],
@@ -126,6 +129,7 @@ function venziView(lang, esc, backLabel, nextLabel, protoUrl){
  <p class="u-muted">${esc(Q.statSrc)}</p>
  <h2>${esc(Q.h.problem)}</h2>${Q.problem.map(p=>`<p>${esc(p)}</p>`).join('')}
  <blockquote class="hmw">${esc(Q.hmw)}</blockquote>
+ ${typeof hypBlock==='function'?hypBlock(Q.hyp):''}
  <h2>${esc(Q.h.research)}</h2>
  <div class="decisions">${Q.findings.map(([t,d,s])=>`<div class="dec"><b>${esc(t)}</b><span>${esc(d)}</span><small class="vz-src">${esc(Q.srcWord)}: ${src(s)}</small></div>`).join('')}</div>
  <h2>${esc(Q.h.bench)}</h2>${tbl(Q.benchCols,Q.bench,true)}

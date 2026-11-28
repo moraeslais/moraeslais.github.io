@@ -130,6 +130,21 @@ code{font-family:Inter,system-ui,sans-serif}
 .ph{margin:0;border-radius:26px;overflow:hidden;border:6px solid #1c0f12;background:#1c0f12;box-shadow:0 10px 30px rgba(90,10,30,.14)}
 .ph img{width:100%;height:auto;display:block}
 @media(max-width:720px){.phones,.phones.four{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-phones .ph:nth-child(3){display:none}}
+.hyp-s{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:14px;align-items:stretch;max-width:1040px;margin:24px 0 8px;padding:18px 20px;border:2px dashed var(--line);border-radius:8px}
+.hyp-s b{display:block;font:700 11.5px/1.2 Inter;letter-spacing:.08em;text-transform:uppercase;color:var(--cocoa);margin-bottom:6px}
+.hyp-s p{margin:0;font-size:14.5px;line-height:1.5}
+.hyp-ar{align-self:center;font:600 20px/1 Inter;color:var(--blush)}
+@media(max-width:860px){.hyp-s{grid-template-columns:1fr}.hyp-ar{transform:rotate(90deg);justify-self:start;margin-left:4px}}
+.hyp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:1040px;margin:28px 0 12px}
+.hyp>div{background:var(--card,#fff);border:2px solid var(--ink);border-radius:8px;box-shadow:4px 4px 0 var(--hs,var(--ink));padding:20px 20px 18px}
+.hyp b{display:flex;align-items:center;gap:8px;font:700 12px/1.2 Inter;letter-spacing:.08em;text-transform:uppercase;color:var(--cocoa);margin-bottom:10px}
+.hyp b i{font-style:normal;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--cocoa);color:#fff;font-size:12px;letter-spacing:0}
+.hyp p{margin:0;font-size:15.5px;line-height:1.55}
+.hyp ul{margin:0;padding-left:18px;font-size:15px;line-height:1.5}.hyp li+li{margin-top:6px}
+.hyp .res{grid-column:1/-1;background:var(--pink-soft,#fbe7ea)}.hyp .res p+p{margin-top:8px}
+.hyp .next{grid-column:1/-1;background:transparent;border-style:dashed;box-shadow:none;padding:14px 20px}
+.hyp .next p{font-size:15px}
+@media(max-width:860px){.hyp{grid-template-columns:1fr}}
 .cmps{display:grid;grid-template-columns:repeat(3,minmax(0,280px));gap:24px;justify-content:center;margin:24px 0 8px}
 .cmp-f{margin:0}
 .cmp{position:relative;border-radius:22px;overflow:hidden;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--hs,var(--ink));aspect-ratio:394/853;background:#fff;touch-action:pan-y}
@@ -187,11 +202,11 @@ video{max-width:100%;border-radius:18px}
  <span>© 2026 Laís Moraes. <span data-t="rights">Todos os direitos reservados.</span></span>
  <div class="sf-links"><a href="mailto:laismoraesdev@gmail.com">laismoraesdev@gmail.com</a><a href="https://www.linkedin.com/in/laismoraesdev/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="cv.html" data-cv data-t="nCv">Currículo</a></div>
 </div></footer>
-<script src="cases/unify.js?v=20261128c"></script>
+<script src="cases/unify.js?v=20261128e"></script>
 <script src="cases/edu.js?v=20261128e"></script>
-<script src="cases/fixer.js?v=20261128c"></script>
-<script src="cases/venzi.js?v=20261128c"></script>
-<script src="cases/squad.js?v=20261128c"></script>
+<script src="cases/fixer.js?v=20261128e"></script>
+<script src="cases/venzi.js?v=20261128e"></script>
+<script src="cases/squad.js?v=20261128e"></script>
 <script src="cases/ds.js?v=20261128c"></script>
 <script>
 const L={
@@ -211,6 +226,9 @@ function view(id){const t=L[S.lang];
  if(id==='squad')return squadView(S.lang,esc,t.back,t.next,LINKS.squadProto);
  if(id==='ds')return dsView(S.lang,esc,t.back,t.next);
  return unifyView(S.lang,esc,t.back,t.next);}
+/* "O que não estava claro / Minha hipótese / Como testei" block, shared by the cases */
+function hypBlock(H){if(!H)return '';if(H.short){const e=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');return `<div class="hyp-s">${H.items.map(([t,v])=>`<div><b>${e(t)}</b><p>${e(v)}</p></div>`).join('<span class="hyp-ar" aria-hidden="true">→</span>')}</div>`}const e=t=>String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');const body=v=>Array.isArray(v)?`<ul>${v.map(x=>`<li>${e(x)}</li>`).join('')}</ul>`:`<p>${e(v)}</p>`;
+ return `<section class="hyp" aria-label="${e(H.label)}">${H.items.map(([t,v],i)=>`<div><b><i>${i+1}</i>${e(t)}</b>${body(v)}</div>`).join('')}${H.result?`<div class="res"><b><i>${H.items.length+1}</i>${e(H.result[0])}</b>${H.result[1].map(x=>`<p>${e(x)}</p>`).join('')}</div>`:''}${H.next?`<div class="next"><b>${e(H.next[0])}</b>${body(H.next[1])}</div>`:''}</section>`}
 function render(keepScroll){
  const id=(location.hash.replace('#case-','').replace('#','')||'unify');const cid=COVERS[id]?id:'unify';const t=L[S.lang];const y=scrollY;
  m.innerHTML=view(cid);
@@ -232,7 +250,7 @@ function render(keepScroll){
 
 function balance(){const gcd=(a,b)=>b?gcd(b,a%b):a;
  document.querySelectorAll('article.case .wrap *').forEach(g=>{
-  if(g.dataset.bal===undefined){const cs=getComputedStyle(g);if(cs.display!=='grid'||g.tagName==='TABLE')return;const k=[...g.children];if(k.length<3||k.some(c=>c.tagName!==k[0].tagName))return;g.dataset.bal=g.style.gridTemplateColumns||''}
+  if(g.dataset.bal===undefined){const cs=getComputedStyle(g);if(cs.display!=='grid'||g.tagName==='TABLE'||g.classList.contains('hyp')||g.classList.contains('hyp-s'))return;const k=[...g.children];if(k.length<3||k.some(c=>c.tagName!==k[0].tagName))return;g.dataset.bal=g.style.gridTemplateColumns||''}
   const k=[...g.children];g.style.gridTemplateColumns=g.dataset.bal;k.forEach(c=>c.style.gridColumn='');
   const n=k.length,cols=new Set(k.map(c=>Math.round(c.getBoundingClientRect().left))).size;
   if(g.classList.contains('phones')&&n===4&&innerWidth>700){g.style.gridTemplateColumns='repeat(4,minmax(0,1fr))';return}

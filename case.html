@@ -146,6 +146,14 @@ video{max-width:100%;border-radius:18px}
 .sf-row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
 .sf-links{display:flex;gap:18px;flex-wrap:wrap}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.dec,.btn{transition:none}}
+.sketch{position:relative;margin:30px 0 14px;max-width:760px}
+.sketch img{display:block;width:100%;height:auto}
+.sketch.paper img{background:#fff;border:1px solid rgba(58,26,31,.14);box-shadow:5px 5px 0 light-dark(#8E0926,#EDC4C8);transform:rotate(-.5deg)}
+.sketch.paper::before{content:"";position:absolute;top:-11px;left:50%;width:92px;height:24px;transform:translateX(-50%) rotate(-3deg);background:rgba(237,196,200,.8);z-index:1}
+.sketch.narrow{max-width:520px}
+.sketch.postit{max-width:300px;transform:rotate(2.5deg);margin-left:6px}
+.sketch .cap{margin-top:14px}
+@media (prefers-reduced-motion:reduce){.sketch img{transform:none}}
 </style>
 </head>
 <body>

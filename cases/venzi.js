@@ -135,6 +135,7 @@ function venziView(lang, esc, backLabel, nextLabel, protoUrl){
  <div class="vz-pair">${dk('login','Login')}${dk('equipe','Equipe')}</div>
  <h2>${esc(Q.h.scope)}</h2>${tbl(Q.scopeCols,Q.scope)}<p>${esc(Q.scopeNote)}</p>
  <h2>${esc(Q.h.principles)}</h2><div class="decisions">${Q.principles.map(([t,d])=>`<div class="dec"><b>✦ ${esc(t)}</b><span>${esc(d)}</span></div>`).join('')}</div>
+ <figure class="sketch paper narrow"><img src="img/rascunhos/venzi-faltas.webp" alt="${({pt:'Rascunho à mão do card Hoje, quem pode faltar: Ana às 14h risco alto, João às 15h médio, Bia às 16h baixo, com a nota recepção decide em 5 segundos?',en:'Hand sketch of the Today, who might miss card: Ana 2pm high risk, João 3pm medium, Bia 4pm low, with the note can the front desk decide in 5 seconds?',es:'Boceto a mano de la tarjeta Hoy, quién puede faltar: Ana 14h riesgo alto, João 15h medio, Bia 16h bajo, con la nota ¿la recepción decide en 5 segundos?'})[lang]}" loading="lazy"><figcaption class="cap">${({pt:'O primeiro rascunho do painel: a recepção precisa decidir em segundos.',en:'The dashboard\x27s first sketch: the front desk has to decide in seconds.',es:'El primer boceto del panel: la recepción tiene que decidir en segundos.'})[lang]}</figcaption></figure>
  <h2>${esc(Q.h.flow)}</h2><ol class="u-steps">${Q.flow.map(([t,d])=>`<li><b>${esc(t)}</b><span>${esc(d)}</span></li>`).join('')}</ol>
  <div class="vz-pair">${dk('lista',Q.flow[3][0])}${dk('encaixe',Q.flow[5][0])}</div>
  <h2>${esc(Q.h.decisions)}</h2>

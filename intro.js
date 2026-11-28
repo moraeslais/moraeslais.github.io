@@ -4,7 +4,8 @@
   const q=new URLSearchParams(location.search);
   let replay=false;try{replay=sessionStorage.getItem('lm-replay')==='1';sessionStorage.removeItem('lm-replay')}catch(e){}
   const force=q.has('intro')||window.LM_INTRO_FORCE===true||replay;
-  let seen=false;try{seen=sessionStorage.getItem('lm-intro')==='1'}catch(e){}
+  // toca sempre que alguém abre o site (inclusive ao recarregar); não toca ao voltar de um case ou do currículo
+  let seen=false;try{const r=document.referrer?new URL(document.referrer):null;seen=!!r&&r.origin===location.origin&&r.pathname!==location.pathname}catch(e){}
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hero=document.querySelector('.hero');
   window.LM_BUILD=force||(!seen&&!reduce);
@@ -67,7 +68,7 @@
   // 2) Desenhar: o fundo rosa é pintado a partir do cursor, e o texto aparece
   move(1,starts[1],targets[1],700,180);
   at(820,()=>{const r=R(hero),[x,y]=targets[1];const a=cover.animate([{clipPath:`circle(150% at ${x-r.left}px ${y-r.top}px)`},{clipPath:`circle(0% at ${x-r.left}px ${y-r.top}px)`}],{duration:620,easing:'cubic-bezier(.5,0,.2,1)',fill:'forwards'});anims.push(a);
-    [...hero.querySelectorAll('.stagewrap>*:not(.me):not(.bubble)')].forEach(e=>show(e,[{opacity:0},{opacity:1}],500));
+    [...hero.querySelectorAll('.stagewrap>*:not(.me):not(.bubble):not(.blueprint)')].forEach(e=>show(e,[{opacity:0},{opacity:1}],500));
     [...hero.querySelectorAll('.hero-t>*:not(.hello):not(h1):not(.btns)')].forEach((e,k)=>at(120+k*70,()=>show(e,[{opacity:0,transform:'translateY(10px)'},{opacity:1,transform:'none'}],420)))});
   // 3) Validar: a mascote entra
   move(2,starts[2],targets[2],700,420);
@@ -199,6 +200,6 @@
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const u=units.find(x=>x.root===e.target);if(u){build(u);io.unobserve(e.target)}}}),{rootMargin:'0px 0px -12% 0px',threshold:0});
   // espera a abertura do topo terminar antes de começar a construir o que já está na tela
   const startIO=()=>{if(startIO.on)return;startIO.on=true;bar.classList.remove('off');if(mini){bar.style.display='none';peek.hidden=false}nowLab.textContent=TX.wait;units.forEach(u=>io.observe(u.root))};
-  if(window.LM_INTRO_DONE||!document.documentElement.classList.contains('intro-on'))startIO();else{addEventListener('lm-intro-done',startIO,{once:true});setTimeout(startIO,3200)}
+  if(window.LM_INTRO_DONE||!document.documentElement.classList.contains('intro-on'))startIO();else{addEventListener('lm-intro-done',startIO,{once:true});setTimeout(startIO,4800)}
   addEventListener('scroll',()=>{units.forEach(u=>{if(!u.done&&u.root.getBoundingClientRect().bottom<0){u.done=true;u.els.forEach(e=>e.classList.remove('bld-wait'))}})},{passive:true});
 })();

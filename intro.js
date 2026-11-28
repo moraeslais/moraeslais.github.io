@@ -84,7 +84,7 @@
 (function(){
   if(!window.LM_BUILD||!('IntersectionObserver' in window))return;
   const L=(document.documentElement.lang||'pt').slice(0,2);
-  const LAB={pt:['Entender','Desenhar','Validar','Entregar'],en:['Understand','Design','Validate','Ship'],es:['Entender','Diseñar','Validar','Entregar']}[L]||[];
+  const LABA={pt:['Entender','Desenhar','Validar','Entregar'],en:['Understand','Design','Validate','Ship'],es:['Entender','Diseñar','Validar','Entregar']};let LAB=LABA[L]||LABA.pt;
   const C=[['#8E0926','img/lais-cara.webp'],['#CB7288','img/cara-pisca.webp'],['#7d8c38','img/cara-surpresa.webp'],['#6A4228','img/lais-cara.webp']];
   const st=document.createElement('style');
   st.textContent=`.bld-wait{opacity:0}
@@ -135,7 +135,7 @@
   }
 
   // barra de controle: velocidade e "mostrar tudo"
-  const TX={pt:{re:'Ver a animação de novo',min:'Esconder controles',max:'Mostrar controles da animação',wait:'Role para continuar ↓',ok:'Site montado',b:'Construindo',sp:['Devagar','Normal','Rápido'],all:'Mostrar tudo',lab:'Velocidade da animação'},en:{re:'Replay the animation',min:'Hide controls',max:'Show animation controls',wait:'Scroll to keep going ↓',ok:'All built',b:'Building',sp:['Slow','Normal','Fast'],all:'Show all',lab:'Animation speed'},es:{re:'Ver la animación de nuevo',min:'Ocultar controles',max:'Mostrar controles de la animación',wait:'Desplázate para seguir ↓',ok:'Sitio armado',b:'Construyendo',sp:['Lento','Normal','Rápido'],all:'Mostrar todo',lab:'Velocidad de la animación'}}[L]||{};
+  const TXA={pt:{re:'Ver a animação de novo',min:'Esconder controles',max:'Mostrar controles da animação',wait:'Role para continuar ↓',ok:'Site montado',b:'Construindo',sp:['Devagar','Normal','Rápido'],all:'Mostrar tudo',lab:'Velocidade da animação'},en:{re:'Replay the animation',min:'Hide controls',max:'Show animation controls',wait:'Scroll to keep going ↓',ok:'All built',b:'Building',sp:['Slow','Normal','Fast'],all:'Show all',lab:'Animation speed'},es:{re:'Ver la animación de nuevo',min:'Ocultar controles',max:'Mostrar controles de la animación',wait:'Desplázate para seguir ↓',ok:'Sitio armado',b:'Construyendo',sp:['Lento','Normal','Rápido'],all:'Mostrar todo',lab:'Velocidad de la animación'}};let TX=TXA[L]||TXA.pt;
   const bst=document.createElement('style');bst.textContent=`.bbar{position:fixed;left:50%;bottom:18px;transform:translate(-50%,0);z-index:10000;display:flex;align-items:center;gap:12px;padding:7px 8px 7px 10px;border-radius:999px;background:light-dark(rgba(255,255,255,.92),rgba(38,21,25,.92));color:var(--ink);border:1px solid var(--line);box-shadow:0 10px 30px rgba(58,26,31,.18);backdrop-filter:blur(8px);font:500 13px/1 Inter,system-ui,sans-serif;transition:opacity .3s,transform .3s}
   .bbar.off{opacity:0;transform:translate(-50%,16px);pointer-events:none}
   .bbar .fc{display:flex}.bbar .fc img{width:26px;height:26px;border-radius:50%;border:2px solid var(--c);background:#fff;margin-left:-8px;object-fit:cover}.bbar .fc img:first-child{margin-left:0}
@@ -166,8 +166,14 @@
   bar.querySelectorAll('.seg button').forEach(btn=>btn.onclick=()=>{SPD=+btn.dataset.v;try{localStorage.setItem('lm-bspd',SPD)}catch(e){}bar.querySelectorAll('.seg button').forEach(x=>x.setAttribute('aria-pressed',x===btn))});
   function showAll(){STOP=true;units.forEach(u=>{u.done=true;u.els.forEach(e=>e.classList.remove('bld-wait'))});document.querySelectorAll('.bc,.bsel').forEach(e=>e.remove());nowLab.textContent=TX.ok;nowB.textContent='✓';bar.classList.add('fin')}
   bar.querySelector('.all').onclick=showAll;
+  // troca de idioma sem recarregar: atualiza a barra e os próximos cursores
+  function relabel(){const nl=(document.documentElement.lang||'pt').slice(0,2),nt=TXA[nl]||TXA.pt;if(nt===TX)return;
+    const k=Object.keys(TX).find(x=>TX[x]===nowLab.textContent);TX=nt;LAB=LABA[nl]||LABA.pt;if(k)nowLab.textContent=TX[k];if(k==='b'&&curU)nowB.textContent='· '+secName(curU);
+    bar.setAttribute('aria-label',TX.lab);bar.querySelectorAll('.seg button').forEach((b,i)=>b.textContent=TX.sp[i]);bar.querySelector('.all').textContent=TX.all;
+    [['.bre',TX.re],['.bmin',TX.min]].forEach(([q,t])=>{const b=bar.querySelector(q);b.setAttribute('aria-label',t);b.title=t});peek.setAttribute('aria-label',TX.max);peek.title=TX.max}
+  new MutationObserver(relabel).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
   const secName=u=>{const sec=u.root.closest('section');const h=sec&&sec.querySelector('h2');return h?h.textContent.trim():''};
-  function busy(u,on){if(STOP)return;active+=on?1:-1;if(on){nowLab.textContent=TX.b;nowB.textContent='· '+secName(u)}else if(active<=0){if(units.every(x=>x.done)){nowLab.textContent=TX.ok;nowB.textContent='✓';bar.classList.add('fin')}else{nowLab.textContent=TX.wait;nowB.textContent=''}}}
+  let curU=null;function busy(u,on){if(STOP)return;active+=on?1:-1;if(on){curU=u;nowLab.textContent=TX.b;nowB.textContent='· '+secName(u)}else if(active<=0){if(units.every(x=>x.done)){nowLab.textContent=TX.ok;nowB.textContent='✓';bar.classList.add('fin')}else{nowLab.textContent=TX.wait;nowB.textContent=''}}}
   async function build(u){
     if(u.done||STOP)return;u.done=true;busy(u,true);
     const lanes=Math.min(3,Math.max(1,Math.ceil(u.els.length/2)));

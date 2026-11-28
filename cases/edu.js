@@ -1,5 +1,18 @@
 /* EduMentor AI · full case study page (EN / PT / ES) */
 const EDU_IMG = 'img/edu/';
+/* Sketch -> final comparison (drag or arrow keys) */
+const EDU_CMP={
+ pt:{h:'Do rascunho à tela final',p:'Antes de partir para o visual, desenhei cada tela em baixa fidelidade, na mesma ordem do fluxograma. Arraste a barra para ver o rascunho virar a tela da v1.3.',a:'Rascunho',b:'Final',lbl:'Comparar rascunho e tela final',s:[['home','Home'],['mentorina','Mentorina'],['questao','Questão do simulado']]},
+ en:{h:'From sketch to final screen',p:'Before any visual design, I drew every screen in low fidelity, in the same order as the flowchart. Drag the handle to watch the sketch turn into the v1.3 screen.',a:'Sketch',b:'Final',lbl:'Compare sketch and final screen',s:[['home','Home'],['mentorina','Mentorina'],['questao','Mock-exam question']]},
+ es:{h:'Del boceto a la pantalla final',p:'Antes de pasar al visual, dibujé cada pantalla en baja fidelidad, en el mismo orden del diagrama de flujo. Arrastra la barra para ver el boceto convertirse en la pantalla de la v1.3.',a:'Boceto',b:'Final',lbl:'Comparar boceto y pantalla final',s:[['home','Inicio'],['mentorina','Mentorina'],['questao','Pregunta del simulacro']]}
+};
+const EDU_FINAL={home:'v13-09-home',mentorina:'v13-11-mentorina',questao:'v13-13-questao'};
+function eduCmp(lang){
+ const C=EDU_CMP[lang]||EDU_CMP.pt;
+ return `<h3>${C.h}</h3><p>${C.p}</p><div class="cmps">${C.s.map(([k,t])=>`<figure class="cmp-f"><div class="cmp" style="--x:50%"><img src="${EDU_IMG}${EDU_FINAL[k]}.webp" alt="${t} · ${C.b}" loading="lazy" width="394" height="853"><img class="cmp-a" src="${EDU_IMG}lofi-${k}.webp" alt="${t} · ${C.a}" loading="lazy" width="394" height="853"><span class="cmp-line" aria-hidden="true"><i></i></span><span class="cmp-t l" aria-hidden="true">${C.a}</span><span class="cmp-t r" aria-hidden="true">${C.b}</span><input type="range" min="0" max="100" value="50" aria-label="${C.lbl}: ${t}"></div><figcaption class="cap">${t}</figcaption></figure>`).join('')}</div>`;
+}
+if(!window.__eduCmp){window.__eduCmp=1;document.addEventListener('input',e=>{const t=e.target;if(t&&t.matches&&t.matches('.cmp input'))t.parentNode.style.setProperty('--x',t.value+'%')})}
+
 const EDU = {
 en: {
  title: 'EduMentor AI',
@@ -148,6 +161,7 @@ function eduView(lang, esc, backLabel, nextLabel, LINKS){
  <p>${esc(E.scope)}</p>
  <h2>${esc(E.h.flows)}</h2><ol>${E.flows.map(f=>`<li>${esc(f)}</li>`).join('')}</ol>
  <div class="phones four">${ph('v13-03-curso','Course')}${ph('v13-04-comecar','How to start')}${ph('v13-05-nivel','Placement quiz')}${ph('v13-09-home','Home')}</div><p class="cap">${esc(E.capOnboarding)}</p>
+ ${eduCmp(lang)}
  <h2>${esc(X.hDesk)}</h2><p>${esc(X.deskP)}</p>
  <div class="dgrid">${[['d02-comecar',X.d[0]],['d05-trilha',X.d[1]],['d07-mentorina',X.d[2]],['d09-questao',X.d[3]],['d10-resultado',X.d[4]],['d12-feedback',X.d[5]]].map(([f,c])=>`<figure class="browser-f sm"><div class="bf-bar" aria-hidden="true"><i></i><i></i><i></i></div><img src="img/edu/desk/${f}.webp" alt="${esc(c)}" loading="lazy" width="1440" height="900"><figcaption>${esc(c)}</figcaption></figure>`).join('')}</div>
  <p><a class="btn primary" href="edu/desktop.html" target="_blank" rel="noopener">${esc(X.openDesk)} ↗</a></p>

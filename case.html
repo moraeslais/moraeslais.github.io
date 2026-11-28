@@ -130,6 +130,19 @@ code{font-family:Inter,system-ui,sans-serif}
 .ph{margin:0;border-radius:26px;overflow:hidden;border:6px solid #1c0f12;background:#1c0f12;box-shadow:0 10px 30px rgba(90,10,30,.14)}
 .ph img{width:100%;height:auto;display:block}
 @media(max-width:720px){.phones,.phones.four{grid-template-columns:repeat(2,minmax(0,1fr))}.hero-phones .ph:nth-child(3){display:none}}
+.cmps{display:grid;grid-template-columns:repeat(3,minmax(0,280px));gap:24px;justify-content:center;margin:24px 0 8px}
+.cmp-f{margin:0}
+.cmp{position:relative;border-radius:22px;overflow:hidden;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--hs,var(--ink));aspect-ratio:394/853;background:#fff;touch-action:pan-y}
+.cmp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.cmp .cmp-a{clip-path:inset(0 calc(100% - var(--x)) 0 0)}
+.cmp-line{position:absolute;top:0;bottom:0;left:var(--x);width:2px;margin-left:-1px;background:var(--ink);pointer-events:none}
+.cmp-line i{position:absolute;top:50%;left:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:#fff;border:2px solid var(--ink);box-shadow:2px 2px 0 var(--ink)}
+.cmp-line i::before{content:"‹ ›";position:absolute;inset:0;display:grid;place-items:center;font:700 15px/1 Inter;color:#1e1e1e;letter-spacing:2px}
+.cmp-t{position:absolute;bottom:12px;font:700 10px/1 Inter;letter-spacing:.08em;text-transform:uppercase;padding:6px 8px;border-radius:6px;pointer-events:none}
+.cmp-t.l{left:10px;background:#1e1e1e;color:#fff}.cmp-t.r{right:10px;background:var(--cocoa);color:#fff}
+.cmp input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.cmp:has(input:focus-visible){outline:3px solid var(--cocoa);outline-offset:3px}
+@media(max-width:720px){.cmps{grid-template-columns:minmax(0,300px)}}
 .pair{display:grid;grid-template-columns:repeat(2,minmax(0,280px));gap:20px 48px;margin:28px 0;align-items:start;justify-content:center;max-width:900px}
 .pair .cap{grid-column:1/-1;text-align:center}
 .vtag{display:inline-block;font:700 11px/1 Inter;letter-spacing:.08em;text-transform:uppercase;background:var(--cocoa);color:#fff;padding:7px 10px;border-radius:var(--r-sm);margin-bottom:8px}
@@ -175,7 +188,7 @@ video{max-width:100%;border-radius:18px}
  <div class="sf-links"><a href="mailto:laismoraesdev@gmail.com">laismoraesdev@gmail.com</a><a href="https://www.linkedin.com/in/laismoraesdev/" target="_blank" rel="noopener">LinkedIn ↗</a><a href="cv.html" data-cv data-t="nCv">Currículo</a></div>
 </div></footer>
 <script src="cases/unify.js?v=20261128c"></script>
-<script src="cases/edu.js?v=20261128c"></script>
+<script src="cases/edu.js?v=20261128e"></script>
 <script src="cases/fixer.js?v=20261128c"></script>
 <script src="cases/venzi.js?v=20261128c"></script>
 <script src="cases/squad.js?v=20261128c"></script>

@@ -74,11 +74,14 @@
  footer{border-top:1px solid var(--line);padding:22px 0;font-size:14px;color:var(--mut)}
  @media(max-width:600px){header.cv .wrap{grid-template-columns:1fr}header.cv img{width:84px;height:84px}.kv{grid-template-columns:1fr;gap:2px}.job{padding-left:16px}}
  @media print{.top,.dl,footer{display:none}header.cv{background:none;color:#000;padding:0}header.cv img{display:none}.role,.contact,.contact a{color:#333}body{background:#fff;color:#000}}
- </style>
+ .brand .lm{width:46px;height:30px;flex:none;background:light-dark(#8E0926,#EDC4C8);-webkit-mask:url(img/logo-lm.svg) center/contain no-repeat;mask:url(img/logo-lm.svg) center/contain no-repeat;transition:transform .3s}
+.brand:hover .lm{transform:scale(1.06)}
+@media(max-width:600px){.brand .lm{width:32px;height:21px}.brand{gap:8px}}
+</style>
  <script>try{var t=localStorage.getItem('lm-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}</script>
  </head>
  <body>
- <div class="top"><div class="wrap"><a class="brand" href="index.html"><img src="img/lais-cara.webp" alt="">Laís Moraes</a><div class="lang" role="group" aria-label="Idioma"><a href="cv.html" data-lang="pt" aria-current="page">PT</a><a href="cv-en.html" data-lang="en">EN</a><a href="cv-es.html" data-lang="es">ES</a></div><a class="back" href="index.html">← Voltar ao portfólio</a></div></div>
+ <div class="top"><div class="wrap"><a class="brand" href="index.html"><span class="lm" aria-hidden="true"></span>Laís Moraes</a><div class="lang" role="group" aria-label="Idioma"><a href="cv.html" data-lang="pt" aria-current="page">PT</a><a href="cv-en.html" data-lang="en">EN</a><a href="cv-es.html" data-lang="es">ES</a></div><a class="back" href="index.html">← Voltar ao portfólio</a></div></div>
  <header class="cv"><div class="wrap">
   <img src="img/lais-cara.webp" alt="">
   <div>

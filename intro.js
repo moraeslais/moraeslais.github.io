@@ -113,14 +113,15 @@
   @keyframes bsk{to{background-position:-200% 0}}`;
   document.head.appendChild(st);
   document.documentElement.style.overflowX='clip';
-  const SPEC=[['#projetos .sec-h','.sec-h>div>p,.jump'],['#projetos .group','.g-label>*:not(h3),.card'],['#processo','.psteps>li'],['#recomendacoes','.qgrid>figure'],['#sobre','.pstack,.about>*:not(.pstack)'],['#trajetoria','.tl-grid>*,.tl>*'],['#arquivos','.fold'],['#contato','.ct-card,.ct-left>*']];
+  const SPEC=[['#projetos .sec-h','.sec-h>div>p,.jump'],['#projetos .group','.g-label>*:not(h3),.card'],['#processo','.psteps>li'],['#recomendacoes','.qgrid>figure'],['#sobre','.pstack,.about>div:not(.pstack)>*'],['#trajetoria','.tl-grid>*,.tl>*'],['#arquivos','.fold'],['#contato','.ct-card,.ct-left>*']];
   const units=[];
   SPEC.forEach(([sel,it])=>document.querySelectorAll(sel).forEach(root=>{
     const head=root.querySelector('.g-label h3,h2,h3');
     let items=it?[...root.querySelectorAll(it)]:[];
     items=items.filter((e,i,a)=>!a.some(o=>o!==e&&o.contains(e)));
     if(root.getBoundingClientRect().bottom<0)return;
-    const els=[head,...items].filter(Boolean);
+    // o título entra só se não estiver dentro de outro item (senão o cursor desenharia algo invisível)
+    const els=[...new Set([head&&!items.some(o=>o!==head&&o.contains(head))?head:null,...items].filter(Boolean))];
     els.forEach(e=>e.classList.add('bld-wait'));
     units.push({root,els,done:false});
   }));
